@@ -1,0 +1,210 @@
+# 검증 — 2026-09-23 23:57 · script=submissions/20260924_edit_model_no_smegate/script.py (sha256 e764ec1419be4607…)
+# 기준 A = 20260924_int8_quote_port · 비교 B = 20260924_edit_model_combo · 이 후보 C = B − ②(v16·v18 meta 게이트) + ③ 정규식 구멍 수정
+
+## 0. 코드 차이
+### C vs B (② 되돌림 + ③ 수정만)
+1651,1652c1651,1655
+< BRIEF_RESTRICT_RE = re.compile(r"설명회[^\n]{0,80}(참[석가][^\n]{0,30}(한하|한해|만|자격|허용되지|제외|접수하지|불가|없|무효|필수)"
+<                                r"|미참석|불참|참석하지\s*(아니한|않은)|참석한\s*(자|업체))")
+---
+> # 09-24 검토: '입찰참가자격'의 '참가'는 설명회 참석 표지가 아니다(목차·공동수급 줄이 켜졌다). 부정은 조사가 붙어도
+> # 읽고("필수사항은 아니나", "필수가 아닙니다"), 참석 여부 회신 요청("참석여부 및 인원 확인 필수")은 운영 안내로 본다.
+> # "설명회 참석 업체로 제한"은 제한 표지로 읽는다.
+> BRIEF_RESTRICT_RE = re.compile(r"설명회[^\n]{0,80}((?<!입찰)(?<!입찰\s)참[석가][^\n]{0,30}(한하|한해|만|자격|허용되지|제외|접수하지|불가|없|무효|필수)"
+>                                r"|미참석|불참|참석하지\s*(아니한|않은)|참석한\s*(자|업체)|참[석가]한?\s*(업체|자|사업자)\s*(로|으로)\s*제한)")
+1659c1662
+<     r"|설명회에\s*참석할\s*수\s*없"
+---
+>     r"|설명회에\s*참석할\s*수\s*없|참[석가]\s*여부[^\n]{0,20}(확인|회신|통보|알려)"
+1661c1664
+<     r"|필수\s*(조건|사항)이?\s*아니|의무\s*(사항)?\s*(은|이)?\s*아니|불이익|무관|상관\s*없|관계\s*없|관련\s*(이\s*)?없"
+---
+>     r"|필수\s*(조건|사항)?\s*(은|는|이|가)?\s*아[니닙님]|의무\s*(사항)?\s*(은|는|이|가)?\s*아[니닙님]|불이익|무관|상관\s*없|관계\s*없|관련\s*(이\s*)?없"
+1918,1921d1920
+<     # v16·v18(기업규모 제한 부재)은 나라장터 조항호내용에 기업규모 제한 공고로 등록해 놓고 공고문에서 자격을 뺀 경우만 본다.
+<     # dev 양성 13건 중 12건이 이 형태이고, 5월 공고 묶음의 v16·v18 오탐 2건(DEV-149·151)은 조항호내용이 지역제한 근거다.
+<     # 무라벨 20,000에서 v16 −229 · v18 −447(study log 09-23 ⑤). DEV-20(v16, 조항호 '본점소재지')은 잃는다.
+<     meta_sme = bool(re.search(r"소기업|중기업|중소기업", str(meta(rec, "조항호내용") or "")))
+1956c1955
+<         v["v16"] = int(ONE_HUNDRED_MILLION <= p < NOTICE_AMOUNT and level == "없음" and not absence_exception and meta_sme)
+---
+>         v["v16"] = int(ONE_HUNDRED_MILLION <= p < NOTICE_AMOUNT and level == "없음" and not absence_exception)
+1958c1957
+<         v["v18"] = int(p < ONE_HUNDRED_MILLION and level == "없음" and not absence_exception and meta_sme)
+---
+>         v["v18"] = int(p < ONE_HUNDRED_MILLION and level == "없음" and not absence_exception)
+### C vs A (줄 수)
+30
+
+## 1. A 대비 판정·근거 전수 차이 (runs/int8_port_20260923/fulldiff.py)
+== dev·4bit: 판정 변경 3건 {(-1, '1'): 3} · 근거 문구 변경 0건 · 근거 요건 위반 0건 · 시간 0.8s→0.8s
+    -v9   PPS-DEV-052    label=1  'Agilent ICP-OES 5900'
+    -v9   PPS-DEV-09     label=1  'Chipset: GB10 Grace Blackwell Superchip'
+    -v9   PPS-DEV-23     label=1  '기체 본체 1개, DJI RC PLUS 2(조종기) 1개, microSD*64GB*1개,'
+== dev·int8①: 판정 변경 7건 {(-1, '1'): 1, (-1, '0'): 6} · 근거 문구 변경 0건 · 근거 요건 위반 0건 · 시간 0.8s→0.8s
+    -v9   PPS-DEV-088    label=0  '베터리(BDC70) : 충전식, Ni-ion'
+    -v9   PPS-DEV-09     label=1  'Chipset: GB10 Grace Blackwell Superchip'
+    -v9   PPS-DEV-110    label=0  '형식명 : PKBXL03.8C5D(V3800-CR-TI-DW29)'
+    -v9   PPS-DEV-128    label=0  '（가） 기종명 : 농용트택터 （나） 형식명 : D851'
+    -v9   PPS-DEV-148    label=0  '3) GPU: NVIDIA RTX Pro 4000 Blackwell 24GB GDDR7'
+    -v9   PPS-DEV-176    label=0  '(모델 WKA-167 )'
+    -v9   PPS-DEV-180    label=0  '1. RAD8 전자 라돈 검출기 1 개'
+== dev·int8②: 판정 변경 7건 {(-1, '1'): 1, (-1, '0'): 6} · 근거 문구 변경 0건 · 근거 요건 위반 0건 · 시간 0.8s→0.8s
+    -v9   PPS-DEV-088    label=0  '베터리(BDC70) : 충전식, Ni-ion'
+    -v9   PPS-DEV-09     label=1  'Chipset: GB10 Grace Blackwell Superchip'
+    -v9   PPS-DEV-110    label=0  '형식명 : PKBXL03.8C5D(V3800-CR-TI-DW29)'
+    -v9   PPS-DEV-128    label=0  '（가） 기종명 : 농용트택터 （나） 형식명 : D851'
+    -v9   PPS-DEV-148    label=0  '3) GPU: NVIDIA RTX Pro 4000 Blackwell 24GB GDDR7'
+    -v9   PPS-DEV-176    label=0  '(모델 WKA-167 )'
+    -v9   PPS-DEV-180    label=0  '1. RAD8 전자 라돈 검출기 1 개'
+== 750·4bit: 판정 변경 9건 {(-1, '1'): 8, (-1, '0'): 1} · 근거 문구 변경 0건 · 근거 요건 위반 0건 · 시간 2.8s→2.8s
+    -v9   PPS-D-001079   label=1  '의자(둥근)(TZH0900) 개 21'
+    -v9   PPS-D-002023   label=1  'Advantech HPC-7485 4U'
+    -v9   PPS-D-003317   label=1  '-Meta Quest 35 16ea'
+    -v9   PPS-D-014153   label=1  '1 9027 41106702 광합성측정장치, Li-cor, (US)LI-6800 Set 1'
+    -v9   PPS-D-015386   label=1  '샤프, PG-D4010X, 램프(베어정품), 330W'
+    -v9   PPS-D-017562   label=1  '국문 : 실험실용보관장 실험기구진열장, 이에이치엠, HK-RCW-NA900, 대 1'
+    -v9   PPS-D-018087   label=1  '| - LED 전광판 | i-Vision COB-P150 | 1 |'
+    -v9   PPS-D-020298   label=1  '1) 품명 : L12-4s'
+    -v9   PPS-D-021506   label=0  '파. 기 설치된 DVR장치인 CRX-3108과 호환되어야 한다.'
+== 750·int8: 판정 변경 19건 {(-1, '1'): 9, (-1, '-'): 9, (-1, '0'): 1} · 근거 문구 변경 0건 · 근거 요건 위반 0건 · 시간 2.7s→2.7s
+    -v9   PPS-D-000184   label=-  'PBL-11H'
+    -v9   PPS-D-000314   label=-  '18) FemtoJet 4i는 주입(Injection), 보정(Compensation) 압력을 각각 독립적으로 조절하여 사용할 수'
+    -v9   PPS-D-001079   label=1  '의자(둥근)(TZH0900) 개 21'
+    -v9   PPS-D-002023   label=1  'Advantech HPC-7485 4U'
+    -v9   PPS-D-002421   label=-  '(6) Electrodes : Snap type, Neuroline 72000-S, NeuroPlus Electrode A10040,'
+    -v9   PPS-D-002467   label=-  '6. ECochG Hardware Kit (includes: ER3-60, ER3-26A, ER3-26B, S360-1) (소모품) EA 1'
+    -v9   PPS-D-003053   label=-  '○ 현재 영업장에서 사용 중인 카드발급기(IDP SOLID-510S)에서 제작된'
+    -v9   PPS-D-003317   label=1  '-Meta Quest 35 16ea'
+    -v9   PPS-D-009952   label=-  'NIC : Mellanox CX4121A ConnectX-4 25G 2ea, 10G NIC 1ea'
+    -v9   PPS-D-013890   label=-  '17) Rtx-624 Cap. Column, 30m, 0.32mm ID, 1.80um 1개'
+    -v9   PPS-D-014153   label=1  '1 9027 41106702 광합성측정장치, Li-cor, (US)LI-6800 Set 1'
+    -v9   PPS-D-015386   label=1  '샤프, PG-D4010X, 램프(베어정품), 330W'
+    -v9   PPS-D-017562   label=1  '국문 : 실험실용보관장 실험기구진열장, 이에이치엠, HK-RCW-NA900, 대 1'
+    -v9   PPS-D-017887   label=1  '- GPU: NVIDIA H200 NVL 141GB × 2EA'
+    -v9   PPS-D-018087   label=1  '| - LED 전광판 | i-Vision COB-P150 | 1 |'
+    -v9   PPS-D-018136   label=-  '3. 주요 구성품 기능 및 주요사항 3.1 붐(BOOM) 6각 단면의 5단 붐으로, 크레인 하중능력 내의 어떠한 작업에도 강도를 보장할 수 있도록 고장력 강판(P'
+    -v9   PPS-D-018350   label=-  'M-203 슬러지 수집기 (관급)'
+    -v9   PPS-D-020298   label=1  '1) 품명 : L12-4s'
+    -v9   PPS-D-021506   label=0  '파. 기 설치된 DVR장치인 CRX-3108과 호환되어야 한다.'
+
+## 2. dev 200 재채점 (scripts/mlx_eval_extract.py --score-only --cv, runs/review_20260924/devscore.sh)
+== int8_quote_port
+4bit    : macro 0.8706 · 교차 0.8397
+int8단독: macro 0.8583 · 교차 0.8327
+int8묶음: macro 0.8525 · 교차 0.8277
+== edit_model_combo
+4bit    : macro 0.8562 · 교차 0.8086
+int8단독: macro 0.8633 · 교차 0.8398
+int8묶음: macro 0.8575 · 교차 0.8349
+== edit_model_no_smegate
+4bit    : macro 0.8552 · 교차 0.8074
+int8단독: macro 0.8623 · 교차 0.8386
+int8묶음: macro 0.8565 · 교차 0.8336
+
+## 3. dev 묶음별 항목 TP·FN·FP (클라우드 int8 단독 출력, runs/review_20260924/pool_items.py)
+submissions/20260924_int8_quote_port/script.py
+  item  TP FN FPv FPm
+    v1   4  3   0   2
+    v2   7  0   0   1
+    v3   8  0   0   0
+    v4   5  1   0   1
+    v5   7  0   0   0
+    v6   6  0   0   0
+    v7   7  0   0   1
+    v8   5  1   0   0
+    v9   5  1   1   9
+   v10   5  2   1   1
+   v11   5  1   0   1
+   v12   6  0   0   2
+   v13   6  0   1   1
+   v14   8  0   1   1
+   v15   6  0   0   1
+   v16   5  1   1   1
+   v17   5  1   1   2
+   v18   6  1   0   1
+   v19   5  1   0   0
+   v20   5  0   0   0
+   v21   6  0   0   0
+   v22   5  0   0   0
+   v23   5  0   0   1
+   v24   5  3   2   0
+  total [137, 16, 8, 26]
+submissions/20260924_edit_model_no_smegate/script.py
+  item  TP FN FPv FPm
+    v1   4  3   0   2
+    v2   7  0   0   1
+    v3   8  0   0   0
+    v4   5  1   0   1
+    v5   7  0   0   0
+    v6   6  0   0   0
+    v7   7  0   0   1
+    v8   5  1   0   0
+    v9   4  2   1   3
+   v10   5  2   1   1
+   v11   5  1   0   1
+   v12   6  0   0   2
+   v13   6  0   1   1
+   v14   8  0   1   1
+   v15   6  0   0   1
+   v16   5  1   1   1
+   v17   5  1   1   2
+   v18   6  1   0   1
+   v19   5  1   0   0
+   v20   5  0   0   0
+   v21   6  0   0   0
+   v22   5  0   0   0
+   v23   5  0   0   1
+   v24   5  3   2   0
+  total [136, 17, 8, 20]
+
+## 4. 무라벨 20,000 정규식 재생 (scripts/replay_unlabeled.py)
+기준 submissions/20260924_int8_quote_port/script.py · 양성 4,857 · 예외 0
+  v1:0 v2:469 v3:60 v4:149 v5:46 v6:174 v7:480 v8:89 v9:0 v10:335 v11:232 v12:209 v13:379 v14:255 v15:217 v16:364 v17:288 v18:713 v19:0 v20:319 v21:12 v22:35 v23:6 v24:26
+submissions/20260924_edit_model_combo/script.py: Δ-642 · 변경 706공고 · 예외 0 · v16-229 v18-447 v22+34
+submissions/20260924_edit_model_no_smegate/script.py: Δ+31 · 변경 31공고 · 예외 0 · v22+31
+
+## 5. v22 정규식 단위 점검 (B → C, runs/review_20260924/v22_unit.py)
+[fire] old=1 new=1 | 발주기관이 개최하는 사업설명회에 참석한 자(설명회 일정은 추후 안내)
+[fire] old=1 new=1 | 나. 사업설명회 : 개최함(일시·장소는 나라장터 공고 게시판에 공지). 사업설명회에 참석하지 아니한 업체의 입찰 참가는 허용되지 않습니다.
+[fire] old=1 new=1 | 사. 본 용역의 원활한 수행을 위하여 현장설명회를 개최하며(일시·장소는 개별 통보), 현장설명회 참석업체에 한하여 제안서 제출 자격을 부여합니다.
+[fire] old=1 new=1 | o 사업설명회 : 별도 개최(세부 일정·장소는 나라장터에 추후 공지). 설명회 미참석 업체의 제안서는 접수하지 않음
+[fire] old=1 new=1 | 과업 이해를 돕기 위한 사업설명회를 개최할 예정이며(일정·장소는 개별 안내), 설명회 불참 업체는 입찰 참가 대상에서 제외함
+[fire] old=1 new=1 | 사업설명회 참석은 필수이며, 미참석 업체는 입찰에 참여할 수 없습니다.
+[fire] old=1 new=1 | 나. 본 사업의 현장설명회에 참석한 업체에 한하여 입찰참가자격을 부여합니다.
+[fire] old=1 new=1 | ○ 제안요청설명회 참석 업체만 제안서를 제출할 수 있음(설명회 일시·장소는 별도 안내)
+[fire] old=1 new=1 | 현장설명회 불참 시 입찰 참가가 제한됩니다.
+[fire] old=1 new=1 | 라. 사업설명회에 참석하여 참석확인서를 발급받은 업체만 입찰에 참가할 수 있습니다.
+[fire] old=1 new=1 | ※ 설명회 미참석 업체는 입찰참가 자격이 없음
+[fire] old=1 new=1 | 현장설명회에 반드시 참석하여야 하며, 불참한 업체의 입찰은 무효로 합니다.
+[fire] old=1 new=1 | - 사전 설명회 참가 업체에 한해 제안서 접수 가능
+[fire] old=1 new=1 | 과업 설명회에 참석하지 아니한 자는 본 입찰에 참가할 수 없다.
+[fire] old=1 new=1 | 마. 입찰참가자격: 발주기관이 주관하는 사업설명회(일정 추후 공지)에 참석한 업체
+[fire] old=1 new=1 | 사업설명회 참석업체에 한하여 입찰에 참여할 수 있으며, 참석하지 않은 업체의 입찰서는 접수하지 않습니다.
+[fire] old=0 new=1 | 제안서 제출은 현장설명회 참석 업체로 제한합니다(현장설명회 일시·장소는 나라장터에 게시).
+[fire] old=1 new=1 | 사업설명회 미참석 업체는 제안서 평가 대상에서 제외합니다.
+[fire] old=1 new=1 | 현장설명회(일시·장소 별도 안내)에 참석한 업체만 입찰에 참가할 수 있습니다.
+[fire] old=1 new=1 | 사업설명회 참석 신청 후 참석한 업체에 한하여 입찰 참가 가능
+[fire] old=1 new=1 | 과업설명회 불참 업체의 입찰은 무효 처리함(세부 일정은 별도 제공)
+[fire] old=1 new=1 | 제안요청 설명회에 참석하지 않은 업체는 제안서를 제출할 수 없으며, 설명회 일정은 추후 공지합니다.
+[fire] old=1 new=1 | ※ 사업설명회 참석은 입찰참가자격 요건이며, 미참석 시 평가에서 제외됩니다.
+[quiet] old=1 new=0 | 현장설명회 참석은 필수사항은 아니나, 현장설명회를 참여하지 않아 발생되는 모든 문제의 귀책은 입찰참가자에게 있으며, 연구원은 일체의 책임을 부담하지 않음
+[quiet] old=1 new=0 | ※ ’26.6.30(화) 17시까지 사업설명회 참석여부 및 인원 확인 필수([이메일])
+[quiet] old=1 new=0 | 5. 기타사항(직원 설명회, 의견수렴 등 지원) Ⅲ. 제안 안내 6 1. 입찰참가자격 2. 제안참가 안내 3. 제안서의 효력 4. 기타사항
+[quiet] old=1 new=0 | 가. 과업설명회 가. 대표사를 포함하여 입찰참가자격을 충족한 3개사 이내로 구성하여야 하며, 중복
+[quiet] old=1 new=0 | 사업설명회 참석은 필수가 아닙니다.
+[quiet] old=0 new=0 | 설명회 참석은 의무사항은 아니며 미참석에 따른 불이익은 없음
+
+should-fire 23/23 (old 22) · should-not fired 0/6 (old 5) · wrong 0
+
+## 6. v22 편집형 합성 문장 주입 재현율 (runs/edit_model_20260923/inject_v22.py, 18종 × 공고 8건)
+== int8_quote_port
+total 80 / 144
+== edit_model_combo
+total 136 / 144
+== edit_model_no_smegate
+total 144 / 144
+
+## 7. 근거 문구 검사 (scripts/evidence_audit.py)
+dev {'양성': 127, '음성_근거있음': 0, '부재탐지_근거있음': 0} []
+무라벨750 {'음성_근거있음': 0, '부재탐지_근거있음': 0, '양성': 111, '공란': 3} [('PPS-D-017996', 'v7', '공란'), ('PPS-D-019612', 'v7', '공란'), ('PPS-D-000850', 'v6', '공란')]
