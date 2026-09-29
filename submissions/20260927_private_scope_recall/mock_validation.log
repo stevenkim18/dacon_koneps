@@ -1,0 +1,5 @@
+# mock — 2026-09-25 10:16 · PPS_DATA_DIR=open/data PPS_OUTPUT_DIR=<임시> python submissions/20260927_private_scope_recall/script.py --mock
+[rule_extract]   ! 물품 품목 전용 호출 생략(예산 6000s)
+[rule_extract] {"건수": 10, "모델로드_s": 0.0, "추론_s": 0.1, "전체_s": 0.2, "유효JSON": 0, "전용호출_유효": {"기업규모": 0, "실적": 0, "지역": 0, "물품품목": 0}, "단계별_s": {"단계0 정규식 기준선": 0.0, "모델 로드": 0.0, "프롬프트 구성": 0.0, "단계1 본 호출": 0.0, "단계2 품목 호출": 0.0, "단계3 모델명 호출": 0.0, "단계4 기업규모 호출": 0.0, "단계 지역 호출": 0.0}, "항목별_양성": {"v1": 0, "v2": 0, "v3": 0, "v4": 0, "v5": 0, "v6": 0, "v7": 1, "v8": 0, "v9": 0, "v10": 1, "v11": 0, "v12": 0, "v13": 0, "v14": 1, "v15": 0, "v16": 0, "v17": 0, "v18": 1, "v19": 0, "v20": 0, "v21": 0, "v22": 0, "v23": 0, "v24": 0}, "출력": "/private/tmp/claude-501/-Users-seungwookim-Code-edu-SeSac-contest-DACON-KONEPS/056940d9-1791-48a2-a653-2f9e1f9fcd08/scratchpad/mock4/submission.csv", "자가검증": "PASS"}
+종료코드 0
+행 10 · 열 [49] · 헤더=sample_submission True · v값 ['0', '1'] · BOM False · ID 중복 False
