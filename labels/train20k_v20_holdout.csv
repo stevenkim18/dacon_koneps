@@ -1,0 +1,21 @@
+id,라벨(1=SW사업/0=아님/?=불명),근거,생성자
+PPS-D-019349,?,익명 — 판단 불가,claude-opus-5
+PPS-D-015629,?,"물품, 내역 줄 없음",claude-opus-5
+PPS-D-015155,1,스마트교육 지원체제 고도화 VOD CDN 서비스 — IT 서비스,claude-opus-5
+PPS-D-000176,1,통합홈페이지 시스템 고도화,claude-opus-5
+PPS-D-012166,1,중요 기록물 정비 — 용역내용이 '중요기록물 전산화(DB구축)',claude-opus-5
+PPS-D-006561,1,수강신청 대량접속제어 솔루션 안정화,claude-opus-5
+PPS-D-015041,?,"물품, 익명",claude-opus-5
+PPS-D-003664,1,공공 전산자원 통합 유지보수,claude-opus-5
+PPS-D-017249,0,소장형 전자자료(전자책·오디오북) 구입 — 저작물 구매,claude-opus-5
+PPS-D-016122,?,익명,claude-opus-5
+PPS-D-018621,1,부산일자리정보망 AI취업준비 서비스 도입 및 운영,claude-opus-5
+PPS-D-008056,0,마약류 예방 교육콘텐츠 최신화 및 제작 — 교육콘텐츠,claude-opus-5
+PPS-D-009738,?,IP전화기 및 라이선스 구매 — 하드웨어+SW 라이선스 혼재,claude-opus-5
+PPS-D-020942,?,"산학, 익명",claude-opus-5
+PPS-D-018282,?,"조달물자(용역), 익명",claude-opus-5
+PPS-D-021709,0,의정전시관 콘텐츠 정비 — 전시 콘텐츠,claude-opus-5
+PPS-D-005451,?,익명,claude-opus-5
+PPS-D-021972,1,배수관로 복선화 공사 GIS DB 구축 — 지하시설물 GIS DB,claude-opus-5
+PPS-D-006572,1,수강신청 시스템 안정화,claude-opus-5
+PPS-D-019110,1,SCOUT 통합 플랫폼 유지보수 및 운영,claude-opus-5

@@ -1,0 +1,961 @@
+ID: PPS-DEV-123
+TITLE: [부서]·외국인청 신축청사 건축물 미술작품 제작(구매)·설치 용역 대행업체 선정 공고 용역 입찰 설명서
+
+META:
+{
+  "적용계약법": "국가계약법",
+  "업무구분": "일반용역",
+  "계약방법": "일반경쟁",
+  "낙찰방법": "협상에의한계약",
+  "낙찰하한율": null,
+  "배정예산금액": 285133000,
+  "입찰추정가격": 259211818,
+  "소관구분": "국가기관",
+  "공동도급구성방식": null,
+  "정보화사업여부": "미입력",
+  "세부품명번호목록": null,
+  "제한지역코드목록": null,
+  "지역제한여부": "N",
+  "면허업종제한목록": null,
+  "업종제한여부": "N",
+  "조항호내용": "협상에 의한 계약",
+  "공고게시일자": "20260526",
+  "개찰예정일자": "20260608",
+  "긴급공고여부": "Y",
+  "입찰방법": "직찰",
+  "조달방식": "자체조달"
+}
+
+DROPPED_DOC_COUNTS:
+{}
+
+INPUT_COMPLETENESS:
+{
+  "공고문_실재": true,
+  "추출_성공": true,
+  "무탈락": true,
+  "완전관측": true
+}
+
+================================================================================
+DOC D0 | 공고문
+================================================================================
+용역 입찰 설명서
+
+◩ 용역명: [부서]·외국인청 신축청사 건축물 미술작품 제작(구매)·설치 용역 대행업체 선정 공고
+
+[부서]·외국인청
+
+이 입찰에 참가하는 자는 아래의 입찰 설명서를 구성하는 공고서, 규격서(제안요청서 포함) 및 각종 규정 등을 반드시 열람하고 숙지하여야 하며, 숙지하지 못함에 따라 발생하는 모든 책임은 입찰자에게 있음을 알려드립니다.
+
+1. 조달물자(용역) 구매입찰 공고서
+
+2. 국가종합전자조달시스템 전자입찰특별유의서 (조달청 고시)
+
+3. 국가종합전자조달시스템 입찰참가자격등록규정 (조달청 고시)
+
+4. (기재부 계약예규) 정부 입찰ㆍ계약 집행기준
+
+6. (기재부 계약예규) 용역입찰유의서
+
+7. (기재부 계약예규) 용역계약 일반조건
+
+8. (기재부 계약예규) 협상에 의한 계약체결 기준
+
+9. 협상에 의한 계약 제안서 평가 세부기준(조달청 지침)
+
+10. 일반용역계약특수조건(조달청 지침)
+
+위 규정 등은 개정 시 최신 규정 반영
+
+<자료 검색>
+
+(법령·계약예규 등) 국가법령정보센터(http://www.law.go.kr)에서 검색
+
+(조달청 고시 등) 조달청 홈페이지(http://pps.go.kr) 정보제공/업무별 자료/시설공사에서 검색
+
+※ 정확한 자료 검색이 되지 않을 경우 입찰공고 담당자에게 확인
+
+[유의사항]
+
+▸본 입찰집행과 관련하여 규격서(제안요청서 등 입찰 첨부서류 일체)와 입찰공고문에 정한 내용이 서로 다른 경우에는 입찰공고문이 우선 적용 됩니다.
+
+▸입찰공고문에 정한 각종 규정은 개정될 수 있으며, 개정될 경우 개정규정 부칙의 시행일(또는 적용례)에 따라 개정 규정의 적용 여부가 결정될 수 있습니다.
+
+용역 입찰 공고서
+
+[부서]·외국인청 공고 [공고번호]
+
+다음과 같이 입찰에 부치고자 공고합니다.
+
+2026. 5.
+
+[부서]·외국인청 재무관
+
+1. 입찰에 부치는 사항
+
+가. 사업명 : [부서]·외국인청 신축청사 건축물 미술작품 제작(구매) 및 설치 용역 대행업체 선정 공고
+
+나. 예정가격 : 285,133,000원
+
+※ 부가가치세 및 법률상 납입의무가 있는 세액, 제작 및 설치비용, 심의비용 및 기타 부대비용 등 설치완료에 소요되는 일체의 비용이 포함된 금액임
+
+다. 사업내용 : 미술작품(조형물 1점 이상, 회화 5점 이내) 제안, 제작, 설치 및 심의 대행 일체(제안요청서 참조)
+
+라. 사업기간 : 계약일로부터 2026. 12. 10.까지
+
+마. 설치위치 : 서울특별시 [지역:r1|단위=기초|광역=서울특별시] [지역:r3|단위=읍면동|광역=서울특별시] [지역:r5|단위=지번|광역=서울특별시] 소재 신축청사 내･외부
+
+2. 입찰방법
+
+가. 본 입찰은 일반경쟁 입찰이며, 직접 입찰 방식으로 진행함
+
+나. 계약체결 방식은 「협상에 의한 계약」을 적용함 (국가계약법 시행령 제43조)
+
+3. 입찰참가자격
+
+가. 입찰 공고일 현재「국가를 당사자로 하는 계약에 관한 법률 시행령」 제12조 및 동법 시행규칙 제14조에 의한 유자격자로서 입찰공고문, 제안요청서, 계약특수조건 및 일반조건 등의 내용을 수락한 자
+
+나. 국가종합전자조달시스템 입찰참가자격등록규정에 의하여 조달청에 입찰참가자격 등록을 필한 자
+
+※ 미등록업체는 입찰서 제출 마감일 전일까지 국가종합전자조달시스템 입찰참가자등록 규정에 따라 입찰참가자격 등록하여야 함
+
+다. 「국가를 당사자로 하는 계약에 관한 법률 시행령」 제27조 및 동법 시행령 제76조의 규정에 의하여 입찰참가 자격제한을 받지 않는 자
+
+라. 「문화예술진흥법」에 따른 미술작품 설치 및 대행 업무 수행에 결격사유가 없는 업체로서 [부서]･외국인청의 선정방식에 이의가 없음을 서약한 업체
+
+마. 입찰일 현재 국세 및 지방세를 완납한 업체
+
+바. 상기 조건을 모두 충족하는 업체에 한에 입찰참가 가능
+
+4. 입찰참가신청･제안서･가격입찰서 제출
+
+가. 공고기간 : 2026. 5. 26. ~ 2026. 6. 7.(조달청 나라장터 게시)
+
+※ 긴급공고 사유 : 본 용역은 「문화예술진흥법」 제9조에 따른 의무사항으로, 해당 건축물의 준공 예정일(2026. 8. 1.) 이내에 작품 설치 및 지방자치단체의 심의가 완료되어야 함. 일반 공고기간(40일) 적용시 사용승인 차질이 우려됨에 따라 긴급 입찰을 실시함.
+
+나. 제출일시 : 2026. 6. 8. (월) 10:00부터 ∼ 2026. 6. 8. (월) 16:00
+
+다. 제출장소 : 서울 [지역:r2|단위=기초|광역=서울특별시] [지역:r4|단위=읍면동|광역=서울특별시][상세주소], [부서]･외국인청 7층 [부서](담당: [담당자], ☎ [전화번호])
+
+라. 제출방법 : 방문접수(인터넷 및 우편접수 불가)
+
+※ 입찰자 또는 대리인이 직접 접수(신분증 및 재직증명서, 위임장 지참)
+
+마. 제출 서류: 제안요청서 참조
+
+※ 가격입찰금액은 부가가치세 등을 포함한 총액으로 투찰
+
+5. 제안서 평가(선정위원회)
+
+가. 일시 : 2026. 6. 12. (금) 14:00 (예정)
+
+나. 장소 : [부서]･외국인청 7층 소회의실
+
+다. 대상 : 입찰등록 및 해당서류를 제출한 자
+
+※ 평가 일시 등은 기관 사정에 따라 변동 가능
+
+6. 낙찰자 결정
+
+가. 기술능력평가 100점 배점
+
+나. 기술능력 평가결과 기술능력평가 점수가 기술평가분야 배점한도(100점)의 85%(85점) 이상인 업체를 협상적격자로 선정함
+
+다. 협상순서는 협상적격자의 기술능력평가 점수의 고득점순에 따라 결정한다. 다만, 기술능력 평가점수가 동일한 제안자가 2인 이상일 경우에는 기술능력의 세부평가항목 중 배점이 큰 항목에서 높은 점수를 얻은 자를 우선순위자로 결정(예술성, 조화성, 작품기획, 친근성 및 구현성, 안전성 및 유지관리, 가격 순으로 결정
+
+라. 협상순위에 따라 결정된 협상대상자는 협상대상자에게 통보된 날로부터 15일 이내에 협상을 실시하며, 협상이 성립된 때에는 다른 협상적격자와 협상을 실시하지 아니함
+
+마. 기타 명시되지 않은 사항은 기획재정부계약예규 「협상에 의한 계약체결기준」 준용
+
+바. 제안요청서 참조
+
+7. 협상대상자 통보
+
+가. 협상대상자 통보 : 2026. 6. 15., 개별통지
+
+※ 제안서 평가 일정에 따라 연기될 수 있으며, 일정의 변경이 있는 경우 별도 통지
+
+8. 계약 체결 : 협상성립 후 10일 이내
+
+9. 입찰보증금
+
+입찰보증금의 납부는 모든 업체에 대하여 면제하고, 입찰금액(사업비)의 100분의 5이상에 해당하는 입찰보증금의 납부확약내용이 명시된 입찰접수신청서로 갈음함
+
+10. 입찰보증금의 귀속 등
+
+「국가를당사자로하는 계약에 관한 법률 시행령」제 38조의 규정에 의거 입찰보증금에 대한 국고귀속 사유가 발생한 경우에는 지체없이 입찰금액의 100분의 5에 해당하는 입찰보증금을 [부서]･외국인청에 현금으로 납부하여야 함
+
+11. 입찰 무효
+
+가. 입찰의 무효는 「국가를당사자로하는 계약에 관한 법률 시행령」제39조제4항에 의함
+
+나. 본 입찰에 제출한 입찰서는 취소하거나 정정할 수 없음
+
+단, 입찰서의 입찰금액 등 중요부분의 기재오류로 입찰의 취소를 신청할 경우는 당해 입찰서를 무효처리할 수 있으며, 동 입찰자는 당해 입찰에 참여할 수 없음
+
+다. 취소신청은 낙찰자 선정 이전에 서면으로 [부서]･외국인청에 직접 제출하여야 함
+
+12. 청렴계약 준수
+
+본 입찰 공고 건에 참가하는 모든 업체는 청렴계약이행을 위한 청렴계약이행서약서를 제출한 것으로 간주하며, 최종 낙찰자로 선정된 업체는 대표자가 청렴계약이행 서약서를 날인하여 계약체결 시 제출하여야 함
+
+13. 기타사항
+
+가. 입찰참가자는 반드시 제안요청서를 참조
+
+나. 입찰에 참가하고자 하는 자는 반드시 국가를 당사자로 하는 계약에 관한 법률, 동법 시행령, 동법 시행규칙, 계약 예규(기획재정부), 국가종합전자조달시스템 전자입찰특별유의서 및 조달업체이용약관, 입찰공고문, 입찰유의서, 제안요청서 등 기타 입찰에 필요한 모든 사항을 입찰 전에 숙지하여야 하며, 이를 숙지하지 못한 책임은 입찰자에게 있음
+
+다. 계약상대자가 계약 대가를 지급받고자 하는 경우 ‘국민연금법 제95조2(연금보험료 등의 납부증명) 및 국민건강보험법 제81조의3(보험료의 납부증명)’에 따라 반드시 국민건강공단에서 발급하는 국민연금 및 국민건강보험료 납부(완납)증명서를 제출하여야 함
+
+라. 본 공고사항은 사정에 의하여 공고내용이 변경될 수도 있으니 입찰서 제출 전에 반드시 공고사항을 재확인하기 바라며, 기타 입찰과 계약사항은 [부서]･외국인청 [부서]([전화번호])에 연락하시기 바랍니다.
+
+위와 같이 공고 합니다.
+
+2026. 5. 26.
+
+[부서]·외국인청 재무관
+
+================================================================================
+DOC D1 | 제안요청서
+================================================================================
+unauthorized translation: check Korean version for accuracyRequest for Proposal (RFP)
+Selection of an Agency for the Production (Purchase) and Installation of Artworks for the New Building of the [기관(국가기관)]
+I. Project Overview
+1. Purpose
+The purpose is to select an agency to propose, produce (purchase), install, and handle deliberation tasks for artworks (at least 1 outdoor sculpture, up to 5 paintings) to be installed at the "New Building of the [기관(국가기관)]".
+The artworks should symbolize the vision and image of the [기관(국가기관)], harmonize with the building's design direction, and resonate with local sentiments.
+2. Basis for Installation
+Article 9 of the Culture and Arts Promotion Act (Art Decorations on Buildings).
+Article 12 of the Enforcement Decree of the Culture and Arts Promotion Act.
+Seoul Metropolitan Government Ordinance on the Installation and Management of Public Art.
+3. [기관(국가기관)] Name: Artwork Production (Purchase) and [기관(국가기관)] for the New Building of the [기관(국가기관)].
+Bidding Method: General competition and direct bidding.
+Contract Method: Contract by negotiation.
+Service Period: From the contract date until December 10, 2026 (until the Seoul [기관(국가기관)] approval and final inspection).
+Artwork Details
+Category | Details
+Type of Artwork | Proposal of at least 1 outdoor sculpture and up to 5 paintings
+Service Amount | 285,133,000 KRW
+Installation Location | New Building of the [기관(국가기관)]
+Completion Date | December 10, 2026
+Notes on Production:
+Sculptures must use sturdy and durable materials such as bronze, stainless steel, or stone, rather than wood.
+Artworks must be pure original creations (imitations or identical works to existing ones will be disqualified).
+The budget includes the artwork price, installation/production costs, taxes, pedestal costs, lighting installation, deliberation fees, VAT, and any structural reinforcement costs if needed.
+Joint Venture: Not allowed.
+Production Direction and Guidelines
+Category | Details
+Common | Choose a theme that highlights originality and artistic value while fitting the characteristics of each installation location. Practicality, sociality, and publicness must be considered together, and the artwork must harmonize with the surrounding environment of the installation site. Indicate the contents of the proposal and the basic plan on the design drawings (include tasks incidental to the design documents and the ordering party's requirements). The successful bidder must respect the revision and supplementary opinions of the evaluation committee and local government deliberation, reflecting them in the artwork production.
+Production Direction | Propose artworks that can harmoniously fill various spaces. Propose artworks that can build the dignity and trust of the [기관(국가기관)]. Propose artworks that give a comfortable feeling to visitors of the government building.
+Sculptures | Realize an artwork that can maximize the symbolism of the [기관(국가기관)]. Arrange landscape lighting and organize the surrounding environment to suit the sculpture. Secure the durability and safety of the artwork so that it can endure for a long time in an outdoor environment; if problems are expected, they must be corrected and supplemented. The construction scope of the sculpture includes the entirety of the artwork's main body, pedestal, foundation, and lighting. If necessary, submit a structural safety review report by an expert regarding structural stability.
+Paintings, etc. | Select artworks that can harmonize with the installation location. Propose an appropriate number of artworks to decorate the new building. When planning artworks for wall installation, lightweight pieces must be conceived considering the acceptable load, and the total weight of the artwork must be indicated in the proposal.
+Special Notes | The successful bidder shall bear the cost of various equipment required for installing the artwork. The successful bidder shall bear any incidental costs related to the artwork arising from the demands of the local government deliberation council. Produce and install a nameplate for the artwork to help the general public understand the piece.
+Defect Liability Period: 2 years after the completion of installation
+※ Subject to change through mutual agreement during negotiation
+II. Contract Promotion Method and Procedure
+1. Contract Promotion Schedule
+Category | Schedule | Remarks
+Bidding Notice | May 26, 2026 ~ Jun 7, 2026 | Posted on KONEPS (G2B)
+Application & Proposal Submission | Jun 8, 2026 (10:00) ~ Jun 8, 2026 (16:00) | In-person only ([기관(국가기관)] 7F, General Affairs Division)
+Proposal Evaluation | Jun 12, 2026 | Evaluated by the [기관(국가기관)]
+Notification of Eligible Negotiators | Jun 15, 2026 | Individual notification to selected candidates
+2. Bidding Participation Application
+Submission Method: Direct in-person submission (mail or email not accepted).
+Required Documents: Bidding participation application form, KONEPS registration certificate, business registration certificate, corporate registry, seal certificates, tax payment certificates, credit rating certificate, integrity pledge, etc.
+3. Proposal Submission
+Qualified persons who meet the bidding participation qualifications under Article 12 of the Enforcement Decree of the Act on Contracts to Which the State is a Party and Article 14 of its Enforcement Rules as of the bidding announcement date, and who have accepted the contents of the bidding announcement, request for proposal (RFP), special and general contract conditions.
+Companies that have mandatorily registered their bidding participation qualifications with the National Comprehensive Electronic Procurement System (KONEPS) by the day before the deadline for submitting electronic bids, in accordance with the National Comprehensive Electronic Procurement System bidding participation qualification registration regulations.
+Unregistered companies must register their bidding participation qualifications in accordance with the National Comprehensive Electronic Procurement System bidding participation qualification registration regulations by the day before the deadline for submitting bids, based on the Special Instructions for Electronic Bidding of the National Comprehensive Electronic Procurement System.
+Those who are not restricted from participating in bidding under Article 27 of the Act on Contracts to Which the State is a Party and Article 76 of its Enforcement Decree.
+Companies that have pledged to have no objections to the selection method of the [기관(국가기관)] upon applying for bidding participation.
+Only companies that meet all the above conditions are eligible to participate in the bid.
+4. Site Briefing
+Omitted (Replaced by this Request for Proposal)
+5. Proposal Submission
+Submission Period: June 8, 2026 (Mon) 10:00 ~ June 8, 2026 (Mon) 16:00
+Submission Method: Direct in-person submission (Mail and email submissions are not accepted)
+Submission Location: [기관(국가기관)] 7th Floor General Affairs Division, 151 Mokdongdong-ro, Yangcheon-gu, Seoul
+Required Documents
+Category | Copies | Remarks
+Proposal Submission Form | 1 copy | - (Form 6) Proposal Submission Form
+Proposal | 5 copies | - Size=A4, within 120 pages per copy
+| 1 EA | - USB containing the proposal file (artwork images saved separately)
+Price Proposal | 1 copy | - (Form 7) Price Proposal
+Performance Certificate | 1 copy each | - (Form 8) Performance Certificate - (Form 11) Business Performance Record for the Last 5 Years - Documents proving each performance record
+Artist Career Certificate | 1 copy each | - (Form 9) Artist Career Certificate - Documents proving award records, etc.
+※ If the submitted documents are copies, they must be stamped with "Original Copy Verified" (원본대조필).
+Proposal Production Guidelines
+The proposal must be formatted horizontally (landscape) so the long edge is horizontal, and it must be bound on the left side without borders.
+The size is A4, and the total number of pages must be within 120 pages printed single-sided (including front and back covers).
+Include the cover, table of contents, bird's-eye view, artwork overview (specifications, materials, colors, etc.), artwork description, layout plan (floor plan), spatial plan, structural plan, material plan, and other special notes as necessary.
+The artwork description must specify the conceptual intention, creativity, symbolism, artistry, rationality, and structural safety of the artwork, detailing the production intention.
+The artwork must be realistically rendered in proportion to the building size, and the artwork and background must match.
+All drawing notations must use Korean and Arabic numerals, the metric system for units, and foreign words must be specified in parentheses.
+For sculptures, layout plans, front views, rear views, left side views, right side views, and perspective or bird's-eye views must be produced in color.
+All expenses necessary for preparing the proposal (printouts, etc.) shall be borne by the bidder.
+Submit the price proposal with the price per artwork and the total price indicated.
+Utilize the detailed calculation statement.
+Prepare the detailed calculation statement as follows:
+Prepare it so that each artwork can be clearly distinguished.
+If supplementary materials such as an appraisal of the artwork price are requested, the successful bidder must comply.
+Proposal Submission Instructions
+Organize and submit all artworks to be installed as a single proposal.
+※ Among the documentary evidence in the submitted books, copies require the "Original Copy Verified" (원본대조필) stamp.
+III. Selection of Eligible Negotiators and Contract
+1. Proposal Evaluation Overview
+Evaluation Date & Time: June 12, 2026 (Fri) 14:00 (Tentative)
+Evaluation Location: Small Conference Room, Main Building, [기관(국가기관)]
+Time Required per [기관(국가기관)]: 20 minutes (15 minutes for proposal presentation, 10 minutes for Q&A)
+Evaluation Method: In accordance with the [기관(국가기관)] and Finance's contract precedent, "Standards for Contract Execution by Negotiation"
+Proposals will be evaluated by the [기관(국가기관)] organized by the [기관(국가기관)] according to the evaluation criteria, and the company with the highest score will be selected as the preferred negotiator.
+※ Participants may not raise any objections to the evaluation criteria and results, and if the number of proposals is small or there is a lack of qualified candidates, a winning work may not be selected.
+Those who score 85% or higher of the maximum points in the proposal (technical capability) evaluation results will be selected as eligible for negotiation.
+The business execution capability evaluation is based on quantitative indicators; the evaluation score is calculated based on the submitted materials according to the criteria set by the [기관(국가기관)], while the evaluation committee conducts the qualitative evaluation.
+The qualitative evaluation of the proposal is conducted for each evaluation item according to the detailed point criteria for qualitative evaluation items using the evaluation grades below:
+category | rate
+A(100%) | B(90%) | C(80%) | D(70%)
+※ For the scoring criteria by item, refer to the contents on page 7.
+The qualitative evaluation score will be the arithmetic average of the combined evaluation scores from all committee members, excluding the members who gave the highest and lowest total qualitative scores[cite: 64]. However, in this case, if there are two or more highest or lowest scores, only one score shall be excluded, and if there are decimal numbers in the calculated average score, it shall be rounded to the second decimal place[cite: 65].
+Participants cannot raise any objections to the evaluation criteria and results, and the evaluation results will be notified individually to the proposing company selected for negotiation.
+[기관(국가기관)]
+The evaluation committee members will be appointed and composed of internal and external members by the [기관(국가기관)], and the list of evaluation committee members will not be disclosed.
+The evaluation committee will review and evaluate the submitted proposals.
+2. Evaluation Criteria and Scoring
+Evaluation category and points
+Category | Sub-category | Evaluation Item | Points
+Quantitative (15 pts) | Business Department Evaluation | Performance Record | 10
+Credit Rating | 5
+Qualitative (85 pts) | Committee Evaluation | Work Planning | 10
+Artistry | 25
+Harmony | 25
+Approachability & Realizability | 10
+Safety & Maintenance | 5
+Price Appropriateness | 10
+Total | | | 100
+Quantitative Evaluation (15 points): Evaluated by the Business Department
+Performance Record Evaluation Criteria (10 points)
+Evaluation Grade (Performance / Project Cost Ratio) | Score
+Exceeding 200% | 100% of allocated points
+Exceeding 150% ~ Less than 200% | 90% of allocated points
+Exceeding 100% ~ 150% or less | 80% of allocated points
+100% | 70% of allocated points
+The sum of performance records for delivering, producing, and installing artworks worth 100 million KRW or more per artwork to the state, local governments, or public institutions (public institutions designated and notified under Articles 4 to 6 of the Act on the Management of Public Institutions) within the last 5 years (June 1, 2021 ~ present).
+In the case of a joint venture, the performance records of the participants are aggregated, and only records related to the submitted artworks are recognized.
+※ If the score per grade has decimal numbers, it is rounded to the second decimal place.*
+Notes
+1. Performance record certificates issued by national agencies, local governments, public institutions designated by the [기관(국가기관)] and Finance, and institutions subject to the Local Public Enterprises Act (Article 2 of the Local Public Enterprises Act). [cite: 72]
+2. In the case of orders placed by institutions other than those specified in '①' above or by the private sector, a performance record certificate issued by the ordering institution, the ordering party's certificate of registered seal (including a certificate of used seal if necessary), contract, and tax invoice (including a transaction statement if necessary) must be attached, and the performance record certificate must be stamped with the corresponding seal (used seal if necessary). [cite: 72]
+3. In the case of orders placed by overseas public institutions, private companies, etc., '①' and '②' apply mutatis mutandis, but for delivery records other than those from public institutions, if they are notarized or confirmed by the chamber of commerce of the relevant country or the diplomatic mission of the Republic of Korea stationed in the relevant country, the attachment of documentary evidence such as tax invoices may be omitted. [cite: 72]
+4. The responsibility of proving the execution record lies with the participating bidding company, and if it is difficult to verify the record due to a failure to fulfill this obligation, the record will not be recognized.
+5. The performance in this performance record certificate must be a completed performance (including recognized completed portions of ongoing projects), excluding ongoing performances.
+Management Status Evaluation Criteria based on Credit Rating (5 points)
+Corporate Bond | Commercial Paper | Corporate Credit Rating | Score
+AAA, AA+, AA0, AA- A+, A0, A-, BBB+, BBB0 | A1, A2+, A20, A2-, A3+, A30 | AAA, AA+, AA0, AA-, A+, A0, A-, BBB+, BBB0 | 100% of allocated points
+BBB-, BB+, BB0, BB- | A3-, B+, B0 | BBB-, BB+, BB0, BB- | 95% of allocated points
+B+, B0, B- | B- | B+, B0, B- | 90% of allocated points
+CCC+ or lower | C or lower | CCC+ or lower | 70% of allocated points
+Notes
+1. The evaluation shall be based on the credit rating queried in the National Comprehensive Electronic Procurement System, which is the corporate bond, commercial paper, or corporate credit rating evaluated before the bidding announcement date and within the validity period by a credit inquiry company or credit rating agency conducting business in accordance with Article 4, Paragraph 1, Subparagraph 1 of the "Credit Information Use and Protection Act" or Article 335-3 of the "Financial Investment Services and Capital Markets Act". It shall be evaluated with the most recent credit rating. However, if there are multiple recent credit ratings but the results are different, the lowest rating will be used for evaluation. [cite: 75]
+2. If the "Credit Rating Confirmation" is not verified on the National Comprehensive Electronic Procurement System, it will be evaluated at the lowest grade, and it will be considered valid even if the expiration date of the validity period is the bidding announcement date. [cite: 76]
+3. For merged companies, they must be evaluated with a new credit rating after the
+Qualitative Evaluation (75 points): Evaluated by the [기관(국가기관)]
+Detailed Scoring Criteria for Qualitative Evaluation
+Evaluation Item | Evaluation Factors | Points | A | B | C | D
+Work Planning | - Understanding of the target project - Alignment with project purpose and proposal | 10 | 10 | 9 | 8 | 7
+Artistry | - Specific expression according to production intent - Harmony with cultural characteristics of the local community - Appropriateness and originality of design concept - Artistic quality faithful to basic aesthetic principles (formative beauty, formal beauty, content beauty) | 25 | 25 | 22.5 | 20 | 17.5
+Harmony | - Harmony with installation conditions and building - Environmental friendliness of the artwork - Suitability of materials used | 25 | 25 | 22.5 | 20 | 17.5
+Approachability & Realizability | - Functionality of public art, such as approachability to the general public - Constructability of the sculpture | 10 | 10 | 9 | 8 | 7
+Safety & Maintenance | - Structural stability and sustainability - Durability against external physical environmental conditions - Appropriateness of post-maintenance and preservation - Security management plan during service execution | 5 | 5 | 4.5 | 4 | 3.5
+* **Notes (Disqualification Criteria)** [cite: 80]
+1. If it is discovered that the proposing company submitted a proposal while concealing facts such as registration cancellation, business suspension, closure, or business suspension. [cite: 80]
+2. If false information is entered in the Request for Proposal and other submitted documents. [cite: 80]
+3. If an objection is raised without justifiable reasons during the evaluation process, etc. [cite: 80]
+4. In other cases where the evaluation committee resolves that the proposal content is disqualified. [cite: 80]
+5. If unfair practices were committed to influence the evaluation, or if art copyrights were violated. [cite: 80]
+6. If execution design documents, etc. are not submitted by the contract date without justifiable reasons. [cite: 80]
+7. If the participant's qualification experience is proven to be false.
+3. Negotiation Procedure
+Selection of Eligible Negotiators and Negotiation Ranking
+Selection of Eligible Negotiators: Those whose technical capability evaluation score is 85% or higher of the maximum points allocated for the technical capability evaluation field based on the proposal evaluation results will be selected as eligible negotiators.
+Determination of Negotiation Ranking: The negotiation ranking will be determined in descending order of the technical capability evaluation scores of the eligible negotiators. However, if there are two or more proposers with the same technical capability evaluation score, the proposer who obtained a higher score in the detailed evaluation item with a larger point allocation shall be the prioritized person. (The order of priority shall be Artistry, Harmony, Work Planning, Approachability & Realizability, Safety & Maintenance, and Price.)
+※ If the scores for the evaluation items are also tied, the final decision will be made by drawing lots.
+Notification of Eligible Negotiators and Negotiation Procedures
+When the eligible negotiators and negotiation ranking are determined, the negotiation ranking and schedule will be notified to the eligible negotiators, and notification to unselected proposers will be omitted.
+Negotiations will be conducted with the negotiation target according to the determined negotiation ranking. Once a negotiation is successful, negotiations will not be conducted with other eligible negotiators.
+If negotiation with the current negotiation target is not successful, negotiations will be sequentially conducted with the next-ranked eligible negotiator in accordance with the same criteria and procedures.
+If negotiations with all eligible negotiators fail, the project may be subjected to a re-announcement bid or a new bid.
+Conducting Negotiations
+Proposal Negotiation
+Negotiations will be conducted on the contents of the proposal, such as the project contents, execution methods, and execution schedule proposed by the negotiation target.
+Parts of the proposal contents may be adjusted through negotiations with the negotiation target.
+Content of Negotiation
+The task contents, execution schedule, and proposal price submitted by the negotiation target, matters recommended by the evaluation committee, and other insufficient or unclear parts, or parts that are unrealistic or excessively applied, may be partially adjusted through negotiation.
+The construction cost shall be negotiated based on a statement calculated by a cost calculation service agency registered with the [기관(국가기관)], Industry and Energy (corporation establishment permit) or the [기관(국가기관)]. (However, the cost calculation service fee shall be included in the project cost, and if a contract is not concluded, the negotiation target shall bear the fee.)
+Other matters requested by the [기관(국가기관)].
+Negotiation Period
+Within 15 days from the date of notification of the commencement of negotiation.
+The negotiation period may be adjusted within a range of 5 days through consultation with the negotiation target, depending on the scale, specificity, and difficulty of the relevant project.
+Notification of Negotiation Results (협상결과 통보)
+Once a negotiation is successful, the results will be notified to the relevant negotiation target either by phone or in writing.
+4. Contract Execution
+Contract Method: Conclusion of a contract by negotiation
+Contract Execution and Fulfillment: Execute the contract within 10 days after the negotiation is successful
+※ However, the deadline for contract execution may be adjusted depending on the contents of the negotiation.
+Conclude a contract with the person (company) selected as the preferred negotiation target by the [기관(국가기관)] [기관(국가기관)].
+Upon concluding the contract, the contractor must pay a contract bond equivalent to 10% or more of the contract amount in cash or with a guarantee letter (substituted by submitting a guarantee insurance policy) in accordance with Article 37, Paragraph 2 of the Enforcement Decree of the Act on Contracts to Which the State is a Party, applying mutatis mutandis Article 12 of the same Act and Article 50 of its Enforcement Decree.
+If the successful bidder abandons the contract or falls under the reasons for disqualification stipulated in the guidelines, the contract bond shall revert to the [기관(국가기관)], and no claims of any rights, including ownership of the winning artwork, can be made.
+During the contract execution process, the contents, execution method, execution schedule, etc., related to the delivery, production, and installation of the artwork may be negotiated, and at this time, the contents of the artwork may be partially adjusted.
+Prepare necessary documents related to the contract, such as a security pledge, confidentiality agreement, and integrity contract fulfillment pledge.
+※ Important information acquired during the project execution must be used only for the original purpose specified in the contract, and in case of violation, a penalty of 0.1% to 1% of the contract amount will be imposed according to the confidentiality agreement.
+Rights and Obligations of the Successful Bidder
+Rights of the Successful Bidder
+The successful bidder has the authority to deliver, produce, and install the artwork.
+If a reason for disqualification of the successful bidder occurs or if they waive the right to deliver, produce, and install, the right to deliver, produce, and install shall be granted to the next-ranked preferred negotiation target.
+Obligations of the Successful Bidder
+Must respect the opinions of the [기관(국가기관)] and reflect them in the artwork production.
+All property rights, including the right to create secondary derivative works of the winning artwork, shall revert to the [기관(국가기관)], and the successful bidder shall receive compensation in accordance with the fulfillment of the contract.
+Must apply for deliberation in accordance with the "Culture and Arts Promotion Act" and its Enforcement Rules.
+The application process must be carried out in prior consultation with the [기관(국가기관)], but the successful bidder must bear all costs for preparing all attached documents (drawings, etc.) related to the artwork other than the deliberation application form.
+Books and documents required for the deliberation application must follow the guidelines and requirements of Gyeonggi-do as a priority, but if there are no separate guidelines, they shall be prepared in consultation with the [기관(국가기관)].
+The deliberation results and opinions must be reflected in the artwork design, and if deliberation approval is not obtained by the specified deadline, the contract may be canceled.
+Regardless of the deliberation results, various expenses incurred in preparing deliberation documents, etc., will not be paid.
+The costs of producing and installing the artwork incurred according to the deliberation results must be processed within the contest (contract) amount.
+After installing the artwork, a nameplate (artwork title, artist name, artwork description) must be produced and installed to help the general public understand the artwork.
+Regarding the structural stability of the artwork, an expert's structural review report must be submitted, and if problems are expected due to a lack of durability, stability, etc. of the artwork, they must be corrected and supplemented.
+If necessary, the artwork must be produced and installed by contracting with a general construction company or a specialized construction company in accordance with the Framework Act on the Construction Industry, etc.
+Must respond to and provide support in the event of lawsuits related to the artwork even after the service ends.
+※ If the artwork fails to pass the deliberation of the Seoul [기관(국가기관)] three or more times, or if it is judged that it is difficult to install the artwork within the completion deadline due to the successful bidder's failure to faithfully fulfill their obligations, the contract may be canceled, and the artwork may be selected by the next-ranked person or through re-announcement, and in this case, all expenses incurred in the meantime will not be paid.
+IV. Other Matters
+1. Reasons for Disqualification
+In the following cases, all qualifications and authorities of the participant or the successful bidder shall be canceled:
+When committing unfair acts to influence the evaluation.
+When it is confirmed that the identical artwork by the person has already been installed in another institution, or when an artwork redundantly proposed to another institution is selected by that institution before the successful bidder is determined through the artwork evaluation at this headquarters (in cases violating art copyright).
+When failing to fulfill related procedures, such as concluding this contract, without justifiable reasons.
+Impossibility of fulfilling supplementary matters during evaluation and deliberation, impossibility of on-site installation, waiver by the winning artist, etc.
+When violating various qualifications and regulations under these guidelines or entering false information.
+2. Payment of Bid Bond and Reversion to the National Treasury
+Bid Bond: 5% of the bid amount (project cost).
+Payment Method of Bid Bond: Substituted by the bidding application form.
+Submission Deadline: Submitted simultaneously with the proposal.
+(Reversion of Bid Bond to the National Treasury): If the successful bidder fails to conclude the contract within the specified period, the bid bond shall be handled in accordance with Article 38 of the Enforcement Decree of the Act on Contracts to Which the State is a Party, and the bidder will be subject to sanctions as an improper business entity.
+3. Other Notes
+The property rights for the contracted artwork shall revert to the [기관(국가기관)].
+If reasons for disqualification, such as imitation or plagiarism, are found in the artwork, the artist may be excluded from the preferred negotiation targets, and the artist shall bear the responsibility for damages, such as compensation, accordingly.
+If there is a difference in interpretation regarding this announcement, the interpretation of the [기관(국가기관)] shall prevail.
+Even for matters not explicitly included in this announcement, the requirements of the [기관(국가기관)] and the local government must be faithfully executed.
+Design documents related to the artwork installation are available for viewing.
+Confidentiality and Security Maintenance:
+Proposing companies must treat all documents, including this Request for Proposal and the proposal itself, as confidential, and must not disclose them to third parties other than those affiliated with the proposing company.
+The entirety or any part of this Request for Proposal and the proposal must not be used for any purpose other than submitting the proposal.
+Various information acquired during the service proposal participation process and during the execution of the contract must not be leaked without the prior approval of the ordering party.
+As a rule, all submitted proposals shall be kept private from third parties, other than proposal evaluation committee members and working-level personnel in charge, in order to protect the rights and interests of the relevant company.
+For matters not mentioned in this Request for Proposal, relevant laws and regulations, such as the "Act on Contracts to Which the State is a Party," shall apply.
+※ If any problems occur due to a violation of the above matters, the proposing company shall bear full responsibility.
+4. Artwork Installation Location
+The installation location of the artwork shall be proposed by the participant within the indoor and outdoor spaces.
+Ⅴ. Questions
+Regarding unclear matters or questions about the contents of these guidelines, written inquiries can be submitted using the attached designated form.
+Inquiry and reply period: Within the posting period of the bidding announcement on KONEPS.
+As a rule, inquiries are accepted via email, but submission via fax is possible after a phone call with the person in charge.
+Inquiries regarding contract and project details: [전화번호] ([이메일])
+
+================================================================================
+DOC D2 | 제안요청서
+================================================================================
+[부서]･외국인청 신축청사 건축물 미술작품 제작(구매)･설치 용역 대행업체 선정 제안요청서
+
+2026. 5.
+[그림] | [부서]･외국인청
+목 차
+Ⅰ. 사업개요1
+1. 목적 1
+2. 설치근거 1
+3. 용역개요 1
+Ⅱ. 계약추진방법 및 절차3
+1. 계약추진 일정 3
+2. 입찰참가신청 3
+3. 입찰참가자격 4
+4. 현장설명 4
+5. 제안서 제출 4
+Ⅲ. 협상적격자 선정 및 계약6
+1. 제안서 평가 개요 6
+2. 제안서 평가항목 및 기준 7
+3. 협상적격자와 협상 절차 11
+4. 계약 12
+Ⅳ. 기타사항14
+1. 결격사유 14
+2. 입찰보증금 납부 및 국고귀속 14
+3. 기타 유의사항 15
+4. 미술작품 설치위치 15
+5. 질의회신 20
+※ 참고 서식21
+Ⅰ | | 사업개요
+1. 목적
+❍ 『[부서]･외국인청 신축청사』에 문화예술진흥법 제9조 및 동법 시행령 제12조에 따라 설치할 미술작품(옥외 조형물 1점 이상, 회화 5점 이내)의 제안, 제작(구매), 설치와 이에 부대되는 심의업무 등을 대행할 업체를 선정 하고자 함
+❍ [부서]･외국인청의 비전과 이미지를 상징하며, 건물의 디자인 방향과 조화되고 지역정서와 부합될 수 있는 작품 필요
+2. 설치근거
+❍ 「문화예술진흥법」제9조(건축물에 대한 미술장식)
+❍ 「문화예술진흥법시행령」제12조(건축물에 대한 미술장식)
+❍ 「서울특별시 공공미술의 설치 및 관리에 관한 조례」
+3. 용역개요
+❍ 용역명: 「[부서]･외국인청 신축청사」 미술작품 제작(구매)･설치 용역
+❍ 입찰방법 : 일반경쟁 및 직접입찰
+❍ 계약방법 : 협상에 의한 계약
+❍ 용역기간 : 계약일로부터 2026. 12. 10.까지
+※ 서울특별시 건축물 미술작품 심의위원회(이하 : “서울시 심의위원회“라 한다) 통과 및 설치 후 검수확인 시까지
+❍ 용역범위
+- [부서]･외국인청에 설치할 미술작품 제안, 제작(구매) 및 설치
+- 선정된 미술작품의 서울시 심의위원회 심의 통과업무 일체
+- 건축물의 준공을 위한 미술작품 관련 서류작업 일체
+- 미술작품 하자보수
+❍ 미술작품의 종류와 설치내용
+구 분 | 납품·제작·설치대상 미술작품
+종 류 | 제안 수량 : 외부 조형물 1점 이상, 회화 5점 이내
+용역금액 | 285,133,000원
+설치위치 | [부서]･외국인청 신축청사
+설치완료일 | 2026. 12. 10.
+※ 미술작품의 설치위치는 청사 내․외부에서 참가자가 제안
+※ 조형물의 경우, 재질이 목조가 아니라 청동, 스테인리스, 석조 등 견고하고 내구성 있는 재질을 사용할 것
+※ 순수 창작물일 것 (모작, 기존작품과 동일 작품은 결격사유에 해당됨)
+※ 사업비는 작품금액, 설치제작비, 제세공과금, 좌대비용, 조명 설치비용, 부대비 등 설치완료시까지 소요되는 일체의 비용과 관련법에 따른 심의 및 검수에 소요되는 일체의 비용과 부가가치세를 포함한 금액(작품설치를 위한 구조보강 시설 등이 필요할 경우 그 설치비용 포함)
+❍ 설치장소 : 서울특별시 [지역:r1|단위=기초|광역=서울특별시] [지역:r3|단위=읍면동|광역=서울특별시] [지역:r5|단위=지번|광역=서울특별시] [부서]･외국인청 신축청사
+❍ 공동도급 : 불가
+❍ 제작방향 및 지침
+구 분 | 내 용
+공 통 | ･ 독창적이고 예술적 가치가 돋보이도록 하며 설치위치별 특성에 부합되는 주제를 선택 ･ 실용성, 사회성, 공공성이 함께 고려되어야 하고 설치장소의 주변 환경과 조화를 이루어야 함 ･ 제안서 및 기본계획 내용을 설계도면에 표시(설계서에 부수되는 업무와 발주처의 요구사항을 작성) ･ 낙찰자는 심사위원회 및 지자체심의 수정·보완 의견 등을 존중하여 작품제작 등에 반영
+제작방향 | ･ 공간 곳곳을 조화롭게 채울 수 있는 작품 제안 ･ [부서]･외국인청의 품격과 신뢰감을 조성할 수 있는 작품 제안 ･ 청사 방문인에게 편안한 느낌을 줄 수 있는 작품 제안
+조형물 | ･ [부서]･외국인청의 상징성을 극대화 할 수 있는 작품구현 ･ 조형물과 어울리는 경관조명 및 주변 환경 정비 ･ 옥외환경에서 장기간 견딜 수 있도록 작품의 내구성, 안전성 등을 확보하고, 문제점이 예상될 경우 이를 시정 보완하여야 함 ･ 조형물의 시공범위는 작품의 본체와 좌대 및 기초, 조명 등 일체를 포함 ･ 필요한 경우 구조적 안정성 등에 대한 전문가의 구조안전 검토서 제출
+회화 등 | ･ 설치 장소와 조화를 이룰 수 있는 작품 선정 ･ 신축청사를 꾸밀 수 있는 적정 수량의 작품 제안 ･ 미술작품의 벽면 설치시 수용 가능한 하중을 고려하여 경량의 작품을 구상하여야 하며, 제안서에 작품의 총중량 표기
+특기사항 | ･ 작품설치시 소요되는 각종 장비 등의 비용은 낙찰자가 부담 ･ 지자체 심의회의 요구로 인한 미술작품 관련 부대비용은 낙찰자 부담 ･ 일반인에게 작품의 이해를 돕기 위하여 작품에 대한 명패 제작·설치
+❍ 하자이행기간 : 설치 완료 후 2년
+※ 협상 시 협의하여 변경 가능
+Ⅱ | | 계약추진 방법 및 절차
+1. 계약추진 일정
+구 분 | 추진일정 | 비 고
+입찰공고 | 2026. 5. 26. ~ 6. 7. | - 나라장터(g2b) 게시
+입찰참가신청 및 제안서 접수 | 2026. 6. 8. 10:00 ~ 6. 8. 16:00 ※ 이후 접수 불가 | - 제출장소 : [부서]･외국인청 7층 [부서] - 제출방법 : 직접방문 제출(우편, 이메일 불가) - 입찰신청자에 한함 - 현장설명 : 생략(제안요청서로 갈음)
+제안서 평가 | 2026. 6. 12. | - 미술작품 선정위원회 평가 진행
+협상적격자 선정 및 통지 | 2026. 6. 15. | - 협상 적격자 선정 후 개별통보 ※ 이후 협상적격자와 협상 및 계약
+2. 입찰참가신청
+❍ 입찰공고 : 입찰공고문 참조
+❍ 제출기간 : 2026. 6. 8. (월) 10:00 ~ 6. 8. (월) 16:00까지
+❍ 제출방법 : 직접방문 제출(우편, 이메일 접수 불가)
+❍ 제출처 : 서울특별시 [지역:r2|단위=기초|광역=서울특별시] [지역:r4|단위=읍면동|광역=서울특별시][상세주소], [부서]･외국인청 7층 [부서]
+❍ 제출서류
+구 분 | 부수 | 비 고
+입찰참가신청서 | 1부 | - (서식1) 입찰참가신청서, 제출확인서 - (서식2) 위임장
+입찰참가 자격 증빙서류 | 1부 | - 나라장터 경쟁입찰참가자격 등록증
+사업자등록증 사본, 법인등기사항증명서, 법인인감증명서, 사용인감계 | 각 1부 | - 법인이 아닐 시 대표자 인감증명서
+국세, 지방세 완납 증명서 | 각 1부 |
+신용평가등급 확인서 | 1부 |
+입찰관련 증빙서류 | 각 1부 | - (서식3) 서약서 - (서식4) 개인정보 수집·이용 동의서 - (서식5) 청렴계약이행서약서
+※ 제출서류가 사본인 경우 「원본대조필」을 요함
+3. 입찰참가자격
+❍ 입찰 공고일 현재「국가를당사자로하는계약에관한법률」시행령 제12조 및 동법 시행규칙 제14조 규정에 따라 입찰 참가자격을 갖추고 입찰공고문, 제안요청서, 계약특수조건 및 일반조건 등의 내용을 수락한 자
+❍ 국가종합전자조달시스템 입찰참가 자격등록 규정에 따라 반드시 전자입찰서 제출 마감일 전일까지 국가종합전자조달시스템(나라장터)에 입찰참가 자격을 등록한 업체
+- 미등록업체는 국가종합전자조달시스템 전자입찰 특별유의서에 의거 입찰서 제출마감일 전일까지 국가종합전자조달시스템 입찰참가자격등록 규정에 따라 입찰참가자격 등록하여야 함
+❍ 「국가를당사자로하는계약에관한법률」제27조 및 동법 시행령 제76조의 규정에 의하여 입찰참가 자격제한을 받지 않은 자
+❍ 입찰참가신청 시 [부서]･외국인청의 선정방식에 이의가 없음을 서약한 업체
+❍ 상기 조건을 모두 충족하는 업체에 한에 입찰참가 가능
+4. 현장설명
+❍ 현장설명 : 생략(본 제안요청서로 갈음)
+5. 제안서 제출
+❍ 제출기간 : 2026. 6. 8. (월) 10:00 ~ 6. 8. (월) 16:00까지
+❍ 제출방법 : 직접방문 제출(우편, 이메일 접수 불가)
+❍ 제출처 : 서울특별시 [지역:r2|단위=기초|광역=서울특별시] [지역:r4|단위=읍면동|광역=서울특별시][상세주소], [부서]･외국인청 7층 [부서]
+❍ 제출서류
+구 분 | 부수 | 비 고
+제안서 제출서 | 1부 | - (서식6) 제안서 제출서
+제안서 | 5부 | - S=A4, 1부 120매 이내
+1개 | - 제안서 파일을 저장한 USB(작품 이미지 별도 저장)
+가격제안서 | 1부 | - (서식7) 가격 제안서
+실적증명서 | 각 1부 | - (서식8) 실적증명서 - (서식11) 최근 5년간 사업수행실적 - 각 실적을 증명 할 수 있는 서류
+작가경력서 | 각 1부 | - (서식9) 작가경력서 - 수상 경력 등을 증명 할 수 있는 서류
+※ 제출서류가 사본인 경우 「원본대조필」을 요함
+❍ 제안서 제작
+- 제안서는 장변이 수평이 되도록 횡으로 작성하고 테두리 없이 좌철 제본하여 제출
+- 규격은 A4 크기로 전체 쪽수는 단면인쇄 120매 이내(앞뒤표지 포함)로 제출
+- 표지, 목차, 조감도, 작품개요(규격, 재료, 색상 등), 작품설명, 배치계획(평면도), 공간계획, 구조계획, 재료계획, 기타 특이사항 등을 필요에 따라 조정하여 기재함
+- 작품설명은 작품의 구상의도, 창작성, 상징성, 예술성, 합리성, 구조적 안전에 관한 사항 등을 명시하여야 하며 제작의도 등을 상세히 기술
+- 작품은 건축물과 작품크기가 비례가 되도록 사실감 있게 작성하고 작품과 배경이 일치되게 표현
+- 모든 도면표기는 한글과 아라비아 숫자를 사용하고 단위는 미터법을 쓰며 외래어 사용은 괄호 안에 명기
+- 조형물은 배치도·정면도·배면도·좌측면도·우측면도 및 투시도 또는 조감도 등을 컬러로 작성
+- 제안서 작성을 위하여 필요한 모든 경비(출력물 등)는 입찰자의 부담으로 함
+❍ 가격제안서에 작품별 가격과 합산 가격을 기재하여 제출
+- 세부산출내역서 활용
+❍ 세부산출내역서는 다음과 같이 작성
+- 미술작품별로 구분할 수 있게 작성
+- 필요한 경우 작품가격에 대한 감정평가 등의 보완자료를 요구하면 낙찰자는 이에 따를 것
+❍ 제안서 접수요령
+- 설치 하고자 하는 미술작품 전체를 하나의 제안으로 구성하여 제출할 것
+※ 제출도서의 증빙서류 중 사본은「원본대조필」을 요함
+Ⅲ | | 협상적격자 선정 및 계약
+1. 제안서 평가 개요
+❍ 평가일시 : 2026. 6. 12. (금) 14:00 (예정)
+❍ 평가장소 : [부서]･외국인청 본관 소회의실
+❍ 참가업체별 소요시간 : 20분(제안발표 15분, 질의답변 10분)
+❍ 평가방법 : 기획재정부 계약예규「협상에 의한 계약체결 기준」에 따름
+- 제안서는 [부서]･외국인청에서 구성한 미술작품 선정위원회에서 평가기준에 따라 평가하여 최고득점을 획득한 업체를 우선협상자로 함
+※ 평가기준과 결과에 대해 참가자는 어떠한 이의도 제기할 수 없으며, 제안서 수가 적거나 적격자가 부족할 경우 당선작을 선정하지 않을 수 있음
+․ 제안서(기술능력) 평가결과 배점의 85% 이상인 자를 협상적격자로 선정함
+․ 사업수행능력 평가는 정량적 지표에 의한 평가로서 [부서]･외국인청에서 정한 기준에 따라 제출된 자료에 대해 평가점수를 산정하고 평가위원회는 정성적 평가를 실시함
+․ 제안서의 정성적 평가는 정성적 평가항목 세부배점기준에 의하여 심사항목별로 아래의 평가등급으로 평가
+구 분 | 등 급
+수(100%) | 우(90%) | 미(80%) | 양(70%)
+※ 항목별 배점기준은 7페이지 내용 참조
+․ 정성적 평가는 정성적 평가 합계점수의 최고점수와 최저점수를 준 위원을 제외하고 나머지 위원의 평가점수를 합산하여 산술평균한 점수로 함. 다만, 이 경우 최고점수･최저점수가 2개 이상인 경우 하나의 점수만 제외하며, 평균점수 산정결과 소수점 이하의 숫자가 있는 경우에는 소수점 둘째자리에서 반올림함
+․ 평가기준과 평가의 결과에 대해 참가자는 어떠한 이의도 제기할 수 없으며 평가결과는 협상대상자로 선정된 제안업체에게 개별 통보
+❍ 평가위원회
+- 평가위원회 위원은 [부서]･외국인청에서 내·외부위원으로 위촉·구성하며, 평가위원 명단은 공개하지 않음
+- 평가위원회는 제출된 제안서를 심사하여 평가함
+2. 제안서 평가항목 및 기준
+❍ 제안서 평가항목 및 배점표
+구 분 | 평 가 항 목 | 배점 한도 | 비 고
+합 계 | | 100 |
+기술 능력 평가 | 정량적 평가 (객관적) | 소 계 | 15 | 사업부서 평가
+사업수행 능력 | - 실적금액 누계 (조형물, 회화 등 납품 및 제작․설치 실적) | 10
+- 신용평가등급 | 5
+정성적 평가 (주관적) | 소 계 | 85 | 평가위원 평가
+작품기획 | - 대상사업의 이해도 - 사업목적 및 제안과 부합 | 10
+예 술 성 | - 제작의도에 따른 구체적 표현 - 해당 지역사회의 문화적 특성과의 조화 - 디자인 컨셉의 적정성 및 독창성 - 미적 기본 구성원리에 충실한 작품성(조형미, 형식미, 내용미) | 25
+조 화 성 | - 설치조건 및 건축물과의 조화 - 미술작품의 환경 친화성 - 사용재료의 적합성 | 25
+친 근 성 및 구 현 성 | - 일반시민과의 친근성 등 공공미술의 기능성 - 조형물, 회화 등의 납품 및 시공가능성 | 10
+안 전 성 및 유지관리 등 | - 구조적 안정성과 지속성 - 외부 물리적 환경조건에 대한 내구성 - 사후 유지관리 및 보전의 적절성 - 사업 수행 중 보안관리계획 | 5
+입찰가격평가 | 가 격 의 적 정 성 | 미술작품 설치 비용은 「문화예술진흥법」 제9조 및 동법 시행령 제12조에 따라 산정한 금액으로 점수 일괄적용 | 10 | 사업부서평가
+❍ 정량적 평가 (15점) : 사업담당부서 평가
+- 수행실적 평가 기준 (10점)
+① 최근 5년(2021.6.1.~현재)이내 국가, 지방자치단체, 공공기관(공공기관운영에관한법률 제4조 내지 제6조에 따라 지정․고시된 공공기관)에 작품 당 1억원 이상의 미술작품을 납품·제작·설치한 실적의 합
+평가등급(실적/사업비 비율) | 평점
+200% 초과 | 배점의 100%
+150% 초과～200% 미만 | 배점의 90%
+100% 초과～150% 이하 | 배점의 80%
+100% | 배점의 70%
+② 공동도급의 경우에는 실적은 참가자의 실적을 합산하며 제출된 작품과 관련된 실적만 인정함
+※ 등급별 평점이 소수점 이하의 숫자가 있는 경우 소수점 둘째자리에서 반올림함
+․ 유의사항
+➀ 국가기관, 지방자치단체, 기획재정부가 지정하는 공공기관, 지방공기업법령을 적용받는 기관(지방공기업법 제2조)이 발급한 수행실적증명원
+➁ 위 ‘➀’에서 정한 이외의 기관 또는 민간이 발주한 경우 발주기관이 발급한 수행실적증명원, 발주자의 인감증명서(필요시 사용인감계 포함), 계약서, 세금계산서(필요시 거래명세표 포함)를 첨부하여야 하며, 수행실적증명원은 해당 인감(필요시 사용인감)으로 날인하여야 함
+➂ 국외의 공공기관, 민간기업 등이 발주한 경우 ‘➀’, ‘➁’를 준용하되, 공공기관 이외의 납품실적은 이를 공증하거나 해당국가의 상공회의소 또는 해당국가에 주재하는 대한민국 공관의 확인을 받은 경우에는 세금계산서 등 증빙자료 첨부를 생략할 수 있음
+➃ 이행실적에 대한 입증책임은 입찰참가업체가 부담하며 의무를 다하지 아니하여 실적확인이 어려운 경우에는 실적을 인정하지 아니함
+➄ 본 수행실적증명서의 실적은 수행이 완료(기성 포함)된 실적이어야 하며, 수행 중인 실적은 제외
+- 신용등급에 의한 경영상태 평가기준 (5점)
+신용평가등급 | 평점
+회사채 | 기업어음 | 기업신용평가등급
+AAA, AA+, AA0, AA- A+, A0, A-, BBB+, BBB0 | A1, A2+, A20, A2-, A3+,A30 | AAA, AA+, AA0, AA-, A+, A0, A-, BBB+, BBB0 | 배점의 100%
+BBB-, BB+, BB0, BB- | A3-, B+, B0 | BBB-, BB+, BB0, BB- | 배점의 95%
+B+, B0, B- | B- | B+, B0, B- | 배점의 90%
+CCC+ 이하 | C 이하 | CCC+ 이하 | 배점의 70%
+․ 유의사항
+➀ 「신용정보의 이용 및 보호에 관한 법률」제4조 제1항 제1호 또는 「자본시장과 금융투자업에 관한 법률」 제335조의3에 따라 업무를 영위하는 신용조회사 또는 신용평가사가 입찰공고일 이전에 평가하고 유효기간 내에 있는 회사채, 기업어음, 기업신용평가등급으로 국가종합전자조달시스템에 조회된 신용평가등급으로 평가하되, 가장 최근의 신용평가등급으로 평가한다. 다만, 가장 최근의 신용평가등급이 다수가 있으나, 그 결과가 서로 다른 경우에는 가장 낮은 등급으로 평가
+➁ 국가종합전자조달시스템에서 ‘신용평가등급 확인서’가 확인되지 않은 경우에는 최저등급으로 평가하며, 유효기간 만료일이 입찰공고일인 경우에도 유효한 것으로 평가
+➂ 합병한 업체에 대하여는 합병후 새로운 신용평가등급으로 심사하여야 하며 합병후의 새로운 신용평가등급이 없는 경우에는 합병대상업체 중 가장 낮은 신용평가등급을 받은 업체의 신용평가등급으로 심사
+❍ 정성적 평가 (75점) : 평가위원 평가
+- 정성적 평가 세부 배점 기준
+심사항목 | 심사요소 | 배점 한도 | 등급산정기준 | 점수
+수 | 우 | 미 | 양
+작품기획 | -대상사업의 이해도 -사업목적 및 제안과 부합 | 10 | 10 | 9 | 8 | 7 |
+예 술 성 | -제작의도에 따른 구체적 표현 -해당 지역사회의 문화적 특성과의 조화 -디자인 컨셉의 적정성 및 독창성 -미적 기본 구성원리에 충실한 작품성(조형미, 형식미, 내용미) | 25 | 25 | 22.5 | 20 | 17.5 |
+조 화 성 | -설치조건 및 건축물과의 조화 -미술작품의 환경 친화성 -사용재료의 적합성 | 25 | 25 | 22.5 | 20 | 17.5 |
+친 근 성 및 구 현 성 | -일반시민과의 친근성 등 공공미술의 기능성 -조형물의 시공 가능성 | 10 | 10 | 9 | 8 | 7 |
+안 전 성 및 유지관리 | -구조적 안정성과 지속성 -외부 물리적 환경조건에 대한 내구성 -사후 유지관리 및 보전의 적절성 -용역 수행 중 보안관리계획 | 5 | 5 | 4.5 | 4 | 3.5 |
+․ 유의사항(실격처리 기준)
+➀ 제안 업체가 등록 취소, 휴업, 폐업, 업무정지 등의 사실을 숨기고 제안요청한 사실이 발견되었을 경우
+➁ 제안요청서 및 기타 제출된 제반서류에 허위사실을 기재한 경우
+➂ 심사 과정 등에 정당한 사유 없이 이의를 제기하는 경우
+➃ 그 밖에 평가위원회에서 제안내용이 실격이라고 의결한 경우
+➄ 심사에 영향을 주기 위해 불공정한 행위를 했거나, 미술저작권을 위배한 경우
+➅ 계약일까지 정당한 사유 없이 실시설계도서 등을 제출하지 않은 경우
+➆ 참가자격 경력이 허위로 판명될 경우
+3. 협상적격자와 협상 절차
+❍ 협상적격자 및 협상순위 선정
+- 제안서 평가결과 기술능력평가 점수가 기술능력평가분야 배점한도의 85% 이상인 자를 협상적격자로 선정
+- 협상순서는 협상적격자의 기술능력평가 점수의 고득점순에 따라 결정한다. 다만, 기술능력 평가점수가 동일한 제안자가 2인 이상일 경우에는 기술능력의 세부평가항목 중 배점이 큰 항목에서 높은 점수를 얻은 자를 우선순위자로 한다.(예술성, 조화성, 작품기획, 친근성 및 구현성, 안전성 및 유지관리, 가격 순으로 한다.)
+※ 평가항목도 동점일 경우에는 추첨으로 최종 결정함
+❍ 협상적격자 통지 및 협상절차
+- 협상적격자와 협상순위가 결정된 때에는 협상적격자에게 협상순위와 협상일정을 통보하고 미 선정된 제안자에 대한 통보는 생략함
+- 결정된 협상순위에 따라 협상대상자와 협상하며, 협상이 성립된 때에는 다른 협상적격자와 협상을 실시하지 아니함
+- 협상대상자와의 협상이 성립되지 않으면 동일한 기준과 절차에 따라 순차적으로 차순위 협상적격자와 협상을 실시함
+- 모든 협상적격자와의 협상이 결렬될 경우에는 재공고입찰이나 새로운 입찰에 부칠 수 있음
+❍ 협상진행
+- 제안서 협상
+․ 협상대상자가 제안한 사업내용, 이행방법, 이행일정 등 제안서 내용을 대상으로 협상 실시
+․ 협상대상자와 협상을 통해 제안서 내용 일부를 조정할 수 있음
+- 협상내용
+․ 협상대상자가 제안한 과업내용, 이행일정, 제안가격 및 평가위원회에서 권유한 사항, 기타 미진한 부분이나 불명확한 부분, 현실성이 없거나 과다 적용된 부분 등은 협상을 통해 일부를 조정할 수 있음
+․ 공사비는 산업통상자원부(법인설립허가), [기관(협회)]에 등록된 원가계산용역기관에서 산정한 내역서로 협상(단, 원가계산 용역비는 사업비에 포함시키고, 계약을 체결하지 않는 경우 협상대상자가 부담)
+․ 기타 [부서]･외국인청이 요구하는 사항
+- 협상기간
+․ 협상개시를 통보한 날부터 15일 이내
+․ 당해 사업의 규모, 특수성, 난이도 등에 따라 협상대상자와의 협의에 의하여 5일의 범위 내에서 협상기간을 조정할 수 있음
+- 협상결과 통보
+․ 협상이 성립되면 그 결과는 해당 협상대상자에게 유선 또는 서면 통보함
+4. 계약
+❍ 계약방법 : 협상에 의한 계약 체결
+❍ 계약체결 및 이행 : 협상이 성립된 후 10일 이내 계약 체결
+※ 단, 협상내용에 따라 계약체결 시한을 조정할 수 있음
+- [부서]･외국인청 미술작품 제안서 평가위원회에서 우선협상대상자로 선정된 자(업체)와 계약을 체결
+- 계약 체결 시「국가를 당사자로 하는 계약에 관한 법률」 제12조 및 동법 시행령 제50조 규정을 준용하여 계약 금액의 10%이상을 현금 또는 동법 시행령 제37조 제2항에 규정에 의한 보증서(보증증권 제출 시 갈음) 등으로 계약보증금을 납부하여야 함
+- 낙찰자가 계약을 포기하거나 지침에 규정된 결격 사유에 해당할 경우에는 계약보증금은 [부서]･외국인청에 귀속하며, 당선작품에 대한 소유권 등 일체의 권리 주장을 할 수 없음
+- 계약 체결과정에서 미술품 납품·제작·설치와 관련하여 내용, 이행방법, 이행일정 등을 협의할 수 있으며, 이때 미술품의 내용을 일부 조정할 수 있음
+- 보안서약서, 비밀유지계약서, 청렴계약 이행서약서 등 계약과 관련하여 필요한 서류 작성
+※ 사업수행 중 취득한 중요정보는 계약서에 명시된 본래의 목적에만 사용하여야 하며, 위반 시 비밀유지계약서에 따라 계약금액의 0.1% ∼ 1%의 위약금 부과
+❍ 낙찰자의 권한 및 의무
+- 낙찰자의 권한
+․ 낙찰자에게는 작품의 납품·제작 및 설치에 대한 권한이 있음
+․ 낙찰자의 결격사유가 발생하거나 납품·제작·설치권을 포기할 경우 우선협상대상 차순위자에게 납품·제작·설치권을 부여함
+- 낙찰자의 의무
+․ [부서]･외국인청의 의견을 존중하여 작품 제작에 반영하여야 함
+․ 당선작품에 대한 2차적 저작물 작성권을 포함한 저작재산권 일체는 [부서]･외국인청에 귀속하고 낙찰자는 계약의 이행에 따라 대가를 지급받음
+․ 「문화예술진흥법」및 동법 시행규칙에 의거 심의신청을 하여야 함
+․ 신청 업무는 [부서]･외국인청과 사전에 협의하여 진행하되, 심의신청서 이외의 작품과 관련된 제반 첨부서류(도면 등)는 당선자가 일체의 비용을 부담하여 진행하여야 함
+․ 심의 신청에 필요한 도서는 경기도 지침 및 요구사항을 우선하여 따르되, 별도의 지침이 없는 경우 [부서]･외국인청과 협의하여 작성함
+․ 심의결과 및 의견 등은 반드시 작품설계에 반영하여야 하며, 지정 기한까지 심의 승인을 득하지 못할 경우 계약이 취소될 수 있음
+․ 심의결과에 관계없이 심의도서 작성 등에 소요되는 제비용은 지급하지 않음
+․ 심의결과에 따라 발생되는 작품의 제작 및 설치비용은 공모(계약)금액으로 처리하여야 함
+․ 미술작품의 설치 후 일반인의 작품이해를 돕기 위하여 작품에 대한 명패(작품명, 작가명, 작품해설)를 제작·설치하여야 함
+․ 미술작품의 구조적인 안정성과 관련하여 전문가의 구조검토서를 제출하여야 하며, 작품의 내구성·안정성 등의 미비에 따른 문제점이 예상될 경우 이를 시정·보완하여야 함
+․ 필요한 경우 건설산업기본법 등에 의한 종합건설업 또는 전문건설업자 등과 계약하여 미술작품을 제작 및 설치하여야 함
+․ 용역 종료 후에도 미술작품 관련 소송 발생 시 대응 및 지원해야 함
+※ 서울특별시 미술작품 심의위원회의 심의에 3회 이상 통과되지 못할 경우 또는 낙찰자의 의무를 성실히 이행하지 아니하여 준공기한 내 작품설치가 곤란하다고 판단될 경우에는 계약을 취소하고 차순위자 또는 재공고에 의하여 작품을 선정할 수 있으며, 이 경우 그 동안 소요된 제반비용은 지급하지 아니함
+Ⅴ | | 기타사항
+1. 결격사유
+❍ 아래와 같은 경우에는 참가자 또는 낙찰자의 모든 자격과 권한을 취소함
+- 심사에 영향을 주기 위해 불공정한 행위를 할 때
+- 본인의 동일 작품을 다른 기관에 기설치한 사실이 확인되거나, 다른 기관에 중복 제안 한 후 본사에서 작품심사를 거쳐 낙찰자를 선정하기 전에 다른 기관에 중복 제안한 작품이 당선된 경우(미술저작권에 위배된 경우)
+- 정당한 사유 없이 본 계약 체결 등 관련 절차를 이행하지 않을 때
+- 심사 및 심의 시 보완사항 이행 불가능, 현장설치 불가능, 당선작가의 포기 등
+- 본 지침에 따른 제반자격과 규정을 위반하거나 허위로 기재한 때
+2. 입찰보증금 납부 및 국고귀속
+❍ 입찰보증금 : 입찰금액(사업비) 5%
+❍ 입찰보증금 납부 방법 : 입찰접수신청서로 갈음
+❍ 제출 마감일시 : 제안서와 동시 접수
+❍ (입찰보증금 국고귀속) 낙찰자가 정해진 기일 내에 계약을 체결하지 아니한 경우, 입찰보증금은 「국가를당사자로하는계약에관한법률시행령」 제38조에 따라 조치되며, 부정당업자 제재를 받게 됨
+3. 기타 유의사항
+❍ 계약 체결된 작품에 대한 저작재산권은 [부서]･외국인청에 귀속됨
+❍ 작품이 모작·표절 등의 결격사유가 발견될 경우에는 우선협상대상에서 배제될 수 있으며, 작가는 이에 따른 변상 등의 손해배상책임을 짐
+❍ 본 공고와 관련하여 해석상의 차이가 있을 경우에는 [부서]･외국인청의 해석에 따름
+❍ 본 공고에 들어있지 않는 사항이라도 [부서]･외국인청 및 지자체 요구사항은 성실히 수행하여야 함
+❍ 미술작품설치와 관련하여 설계도서 열람 가능
+❍ 비밀 및 보안유지
+- 제안 참여업체는 본 제안요청서 및 제안서를 포함한 모든 문서를 대외비로 취급하여야 하며, 제안 참여업체 관계자 이외의 제3자에게 공개하여서는 아니 됨
+- 본 제안요청서 및 제안서의 전체 또는 일부가 제안서 제출외의 다른 목적으로 사용되어서는 아니 됨
+- 용역 제안 참가 과정 중에 취득한 각종 정보와 계약의 이행과정에서 취득한 각종 정보를 발주처의 사전 승인 없이 누설하여서는 아니 됨
+- 제출한 모든 제안서는 제안평가위원 및 업무담당실무자 외에 제3자에게 해당업체의 권익보호차원에서 비공개를 원칙으로 함
+- 본 제안요청서에서 거론되지 아니한 사항에 대해서는 「국가를 당사자로 하는 계약에 관한 법률」등 관련 법령을 적용함
+※ 위 사항을 위반한 문제 발생 시 제안참여업체는 모든 책임을 져야 함
+4. 미술작품 설치위치
+❍ 미술작품의 설치위치는 내․외부 공간에서 참가자가 제안
+❍ 조감도
+[그림]
+❍ 북측 투시도
+[그림]
+❍ 메인 투시도
+[그림]
+❍ 1층 평면도
+[그림]
+❍ 2층 평면도
+[그림]
+❍ 3층 평면도
+[그림]
+❍ 6층 평면도
+[그림]
+❍ 7층 평면도
+[그림]
+5. 질의회신
+❍ 본 지침서 내용상의 불명확한 사항이나 의문사항에 대해서는 첨부한 지정양식에 의거 서면으로 질의할 수 있음
+❍ 질의 및 회신기간 : 나라장터 입찰공고 게시 기간 내
+- 질의는 이메일 접수를 원칙으로 하되 담당자와 유선통화 후, fax로 제출 가능
+- 계약 및 사업내용 문의 : [전화번호]([이메일])
+※ 참고 서식
+[서식 1] 입찰참가신청서 [서식 2] 위임장(대리접수의 경우)
+[서식 3] 서약서 [서식 4] 개인·정보 수집이용 동의서
+[서식 5] 청렴계약이행서약서 [서식 6] 제안서 제출서
+[서식 7] 가격제안서 [서식 8] 실적증명서
+[서식 9] 작가경력서 [서식10] 제안업체 일반현황
+[서식11] 사업수행실적 [서식12] 서면질의서
+[서식 1]
+입 찰 참 가 신 청 서 * 아래 사항 중 해당되는 경우에는 기재하시기 바랍니다. | 처리시간
+즉 시
+신청인 | 상호 또는 법인명칭 | | 법인등록번호 |
+주 소 | | 전 화 번 호 |
+대 표 자 | | 생 년 월 일 |
+입찰개요 | 입찰공고(지명) 번 호 | | 입 찰 일 자 |
+입 찰 건 명 |
+입찰보증금 | 납부면제 및 지급 확 약 | 본인은 낙찰 후 계약 미체결시 낙찰금액의 5/100에 해당하는 입찰보증금을 현금으로 납부할 것을 확약합니다.
+대리인 사용인감 | 본 입찰에 관한 일체의 권한을 다음의 자에게 위임합니다. 성 명 : 생 년 월 일 : | 본 입찰에 사용할 인감을 다음과 같이 신고 합니다. 사용인감 :
+본인은 위의 번호로 공고한 [수요기관(국가기관)]의 입찰에 참가하고자 [수요기관(국가기관)]에서 정한 용역(미술품 구매․ 기타 용역) 입찰유의사항 및 입찰공고 사항을 모두 승낙하고 별첨서류를 첨부하여 입찰참가 신청을 합니다. 붙임서류 : 1. 입찰참가자격을 증명하는 서류사본 1통 2. 인감신고서 1통 3. 기타 공고로써 정한 서류 2026. . . 신청인(대표자) [부서]･외국인청 청장 귀하
+「[부서]･외국인청 신축청사」 미술작품 제작(구매)‧설치 입찰 참가신청서 제출확인
+※ 접수번호 |
+대표사 | 업 체 명 | | 대 표 자 | (인)
+주 소 | | 전화번호 |
+사업자등록번호 | | e-mail |
+[수요기관(국가기관)]에서 시행하는 「[부서]･외국인청 신축청사」 미술작품 제작(구매)‧설치 제안 입찰에 있어 제안요청서 및 과업내용 등을 준수하여 참가할 것을 신청합니다. 붙 임 : 입찰신청 제출서류(공고문/제안요청서 참조) 2026년 월 일 신청인(업체명) (인) [부서]･외국인청 청장 귀하
+-------------------- <절 취 선> ------------------
+「[부서]･외국인청 신축청사」
+미술작품 제작(구매)‧설치 입찰 참가신청서 접수증
+접수번호 | 2026 - | 접수일자 | 2026. . .
+참가자 인적사항 | 업 체 명 | | 대 표 자 |
+신청자성명 | | 주민등록번호 |
+직 책 | | 연 락 처 | HP) E-mail)
+주 소 |
+접 수 자 | [부서]･외국인청 계약담당공무원 (인)
+※ 접수번호(음영부분) 및 확인란은 기입하지 않음
+[서식 2]
+미술작품 납품·제작·설치 참가 위임장
+□ 위 임 인
+성 명 :
+주민등록번호 :
+주 소 :
+연 락 처 :
+□ 대 리 인
+성 명 :
+주민등록번호 :
+주 소 :
+연 락 처 :
+상기 위임인 는 [부서]･외국인청 신축청사 미술작품 제작(구매)·설치 용역 입찰참가에 있어 대리인에게 위임하였음을 증명합니다.
+2026. . .
+위임인 : (인)
+※ 첨부서류 : 대리인 신분증, 위임인의 신분증 사본 각 1부, 재직증명서(업체의 경우) 1부
+※ 대리 접수로 인하여 발생하는 모든 문제는 참가자 본인이 모든 책임을 짐
+[서식 3]
+서 약 서
+본인 등은 [부서]･외국인청에서 시행하는「[부서]･외국인청 신축청사 미술작품 제작(구매)·설치 사업」에 참여하고자 관계서류 첨부하여 신청서를 제출함에 있어 다음과 같이 제반 사항을 준수할 것을 서약합니다.
+1. [부서]･외국인청에서 정한 제안요청사항에 대한 모든 내용을 준수할 것이며, 제출된 모든 관련 증빙서류는 성실하게 작성 제출하고 만약, 허위․과장된 제안내용이 발견될 시에는 즉시 계약이 취소되는 등 어떠한 불이익한 처분도 감수하겠습니다.
+2. 미술작품 납품·제작·설치용역 제안서평가를 위해 구성한 평가위원구성과 평가방법 및 기준, 평가결과에 대하여 어떠한 이의제기도 하지 않겠습니다.
+3. 제안서 평가결과 사업수행자로 선정된 경우에는 성실히 사업을 수행하겠으며, 사업수행자로 선정된 경우에도 허위사실의 적시가 발견되는 경우 즉시 계약을 취소하여도 이의를 제기하지 아니하겠습니다.
+4. 제안과 관련된 보안유지에 최선을 다하겠습니다.
+2026. . .
+성 명 : (서명 또는 날인)
+주민등록번호 :
+주 소 :
+업 체 명 :
+[부서]･외국인청 청장 귀하
+[서식 4]
+개인정보 수집‧이용 동의서 [부서]･외국인청은 ‘신축청사 미술작품 제작(구매)‧설치 사업’과 관련하여 개인정보를 수집‧이용하고자 하오니 다음 사항에 대해 충분히 읽어보신 후, 동의여부를 체크 후 서명하여 주시기 바랍니다. ▶ 개인정보 수집 및 이용 동의 구분 | 세부내용
+개인정보 수집‧이용목적 | 입찰에 따른 서류 확인 및 심사자료
+개인정보 수집항목 | 성명, 생년월일, 주소, 연락처 등 입찰 관련 제반사항
+개인정보 보유‧이용기간 | 3년
+제공 거부에 따른 불이익 | 입찰 선정평가에 제한이 따름
+※ 귀하는 위 사항에 대한 개인정보 제공 및 활용을 거부할 권리가 있습니다.
+※ 위 사항은 입찰 진행을 위해 반드시 필요한 사항으로, 거부에 따른 불이익이 발생할 수 있음(동의하지 않을 경우 입찰 공모 제안 불가함)을 알려드립니다.
+□ 개인정보 수집‧이용에 동의 □ 동의하지 않음
+◈ 수집한 개인정보는 정보주체의 동의 없이 수집한 목적 외로 사용하거나 제3자에게 제공되지 않습니다.
+본인은 “개인정보 수집․이용 동의서” 내용을 명확히 이해하였으며, 위와 같이 개인정보 수집 및 이용에 동의합니다.
+2026. . .
+성명 : (서명)
+[부서]･외국인청 청장 귀하
+[서식 5]
+청 렴 계 약 이 행 서 약 서
+당사는『부패없는투명한기업경영』이사회발전과 국가경쟁력에 중요한 관건이 됨을 인식하고, 법무부(이하 본부 및 산하기관을 포함한다.)에서 발주하는 공사 계약을 체결함에 있어 당사 임직원과 대리인은
+1. 입찰가격의 유지나 특정인의 낙찰을 위한 담합을 하거나 다른 업체와 협정, 결의, 합의하여 입찰의 자유경쟁을 부당하게 저해하는 일체의 불공정한 행위를 않겠습니다.
+2. 입찰․계약체결 및 계약이행 과정에서 관계공무원에게 직․간접적으로 금품․향응 등(친인척 등에 대한 부정한 취업 제공 포함)의 부당한 이익을 제공하지 않겠습니다.
+3. 입찰, 계약체결 및 계약이행과 관련하여 관계공무원에게 금품․향응 등(친인척 등에 대한 부정한 취업 제공 포함)을 제공한 사실이 드러날 경우, 계약체결 이전일 경우에는 낙찰자 결정 취소, 계약체결 이후의 경우에는 계약을 해제 또는 해지 하여도 감수 하겠으며, 민·형사상 이의를 제기하지 않겠습니다.
+4. 기타 본 계약 이행과 관련하여 관계법령을 준수할 것이며 이를 위반했을 때는 불이익 처분을 감수하겠습니다.
+2026. . . 서약자 : (인)
+[부서]･외국인청 청장 귀하
+[서식 6]
+「[부서]･외국인청 신축청사」 미술작품 제작(구매)·설치 입찰 작품제안서 제출
+접 수 번 호 | | 접수일자 | 2026. .
+입찰공고번호 |
+입 찰 건 명 | 「[부서]･외국인청 신축청사」 미술작품 제작(구매)·설치 사업
+소 속 | | 연 락 처 (핸드폰) | ☏ H․P
+대표자 | 성 명 | (인) | 제 출 자 | (인)
+주 소 |
+[수요기관(국가기관)]에서 시행하는 「[부서]･외국인청 신축청사」 미술작품 제작(구매)·설치 사업에 작품제안서를 제출합니다. 1. 입찰 참가 신청서 접수증 1부 2. 위임장 및 재직증명서 1부(대리인이 등록시) 3. 제출서류 : 제안서 5부 2026년 월 일 신청인(업체명) : (인) [부서]･외국인청 청장 귀하
+
+「[부서]･외국인청 신축청사」 미술작품 제작(구매)‧설치 입찰 작품제안서 접수증
+접수번호 | | 접수일자 | 2026. . .
+소 속 | | 연 락 처 (핸드폰) | ☏ H․P
+대표자 | 성 명 | (인) | 제 출 자 | (인)
+주 소 |
+법무부에서 시행하는 「[부서]･외국인청 신축청사」 미술작품 제작(구매)·설치 사업에 작품제안서를 접수하였음을 확인합니다. 2026년 월 일 접수자 : [부서]･외국인청 계약담당공무원 (인)
+※ 접수번호(음영부분) 및 확인란은 기입하지 않음
+[서식 7]
+「[부서]･외국인청 신축청사」 미술작품 제작(구매)‧설치 가격 제안서
+용 역 명 |
+발주기관 |
+사업기간 |
+제안금액 (부가세포함) | 금 원 ( 원)
+신청자 | 상호 또는 법인명칭 | | 법인등록번호 (사업자등록번호) |
+주소 | | 전화번호 |
+대표자 | | |
+상기 금액으로 가격 제안서를 제출 합니다. 붙 임 : 세부산출내역서 1부. 2026. . . 업체명 | : |
+대표자 | : | (인)
+주소 | : |
+[부서]･외국인청 청장 귀하
+[서식 8]
+실 적 증 명 서
+신 청 인 | 성 명 | | 전화번호 |
+주 소 | | 제 출 처 | [부서]･외국인청
+증명서용도 | 「[부서]･외국인청 신축청사 미술작품 제작(구매)·설치 사업 」 실적증명용
+사업규모 |
+사업수행 실적내용 | 사 업 명 |
+총사업금액 | 금 원정 | 100%
+계약번호 | 계약일자 | 계약기간 | 이행실적 | 비 고
+비율(%) | 실적(원)
+| | ～ | | | 공동이행실적시 이행사 名
+증 명 서 발급기관 | 위 사실을 증명함 2026년 월 일 기 관 명 : (인)
+발급부서 :
+전화번호 : | 담 당 자 : (인)
+※ 공고일 기준 최근 5년이내 국가, 지방자치단체, 공공기관에서 단일 건으로 1억원 이상 미술작품 납품·제작·설치 실적만 작성, 계약금액란은 기재 후 투명 접착테이프를 붙여 증명을 받아야 함
+※ 본 서식 또는 해당 기업체, 정부기관 등 납품기관에서 발급한 서식 사용가능
+[서식 9]
+작 가 경 력 서
+인적사항 | 성 명 |
+주민등록번호 | -
+주소 | 자 택 | | 전화 |
+사무실 | | 전화 |
+학 력 | 년 월 일 |
+|
+|
+수상경력 | 년 월 일 |
+|
+|
+개 인 전 | 년 월 일 |
+|
+|
+초 대 전 | 년 월 일 |
+|
+|
+단 체 전 | 년 월 일 |
+|
+|
+기타경력 | 년 월 일 |
+|
+|
+현 재 | 년 월 일 |
+|
+|
+※ 수상 경력은 공고일 기준 최근 10년, 전시 경력은 공고일 기준 최근 5년 이내 기재
+※ 수상경력 관련 상장사본 또는 확인서 제출
+[서식 10]
+제안업체 일반현황 회 사 명 | | 대 표 자 |
+사업분야 | | 사업자번호 |
+주 소 |
+전화번호 | | FAX 번호 |
+홈페이지 주소 |
+회사설립 연도 | 년 월
+해당부문 사업기간 | 년 월 ~ 2026년 공고일 현재 ( 년 개월)
+※ 세부내용 작성 : 회사소개에 관한 핵심적 내용 작성(2p 내외) - 회사 주요연혁(요약), 미술장식품 전문인력 보유현황, 최근 5년간 주요성과 등
+[서식 11] 최근 5년간 사업수행실적 연번 | 사 업 명 | 사업규모 | 심의년도 | 계약금액 (천원) | 발주처 | 증빙유형 | 증빙번호
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
+1. 사업수행실적은 공고일로부터 5년 이내 시행한 미술작품 제작(구매)･설치(시공) 완료 실적
+2. 발주처로부터 확인을 받은 실적증명서, 계약서 갑지 사본, 전자세금계산서 등 증빙서류 첨부
+[서식 12]
+미술작품 제작(구매)·설치 참가에 따른 서면질의서
+성 명 | | 접수일자 (접수번호) |
+주 소 | | 전화번호 |
+참가분야 | 조형 및 회화 | FAX |
+E-mail |
+질의사항 : ※ 지침서를 다시 한 번 숙지하신 후 질의하여 주시기 바라며 이메일 질의접수가 원칙이므로 FAX 전송 시에는 반드시 전화로 접수여부를 확인하시고, 질의는 가능한 6하 원칙에 의거 명료하게 해 주시기 바랍니다. [부서]･외국인청 청장 귀하
