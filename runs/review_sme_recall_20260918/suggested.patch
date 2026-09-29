@@ -1,0 +1,22 @@
+--- a/script.py
++++ b/script.py
+@@ -750,7 +750,7 @@
+         if "창업기업" in s and not listed:
+             continue
+         if not listed and not re.search(r"한함|한정|제한|소지한|보유(하고|한)|갖춘|등록(한|된)|자이어야|업체이어야"
+-                                        r"|업체일 것|참가\s*자격|경쟁\s*\(|경쟁입찰\s*\(", s):
++                                        r"|우선\s*조달계약\s*대상|업체일 것|참가\s*자격|경쟁\s*\(|경쟁입찰\s*\(", s):
+             continue
+         level = classify_level(s)
+         if level is None:
+@@ -842,6 +842,10 @@
+     '제2조의3 제1항 제2호에 따라 비영리법인은 확인서 없이 참가 가능'은 제한을 유지한 채 비영리법인만 더 받는
+     정형 문구라 예외로 보지 않는다(dev v15 놓침 3건: DEV-055·079·080)."""
+     for m in EXCEPTION_RE.finditer(src):
++        if m.group(0).lstrip().startswith("제"):
++            context = src[max(0, m.start() - 120):m.end() + 120]
++            if not re.search(r"판로지원|구매촉진|우선\s*조달", context):
++                continue
+         after = src[m.end():m.end() + 120]
+         if "비영리" in after or re.search(r"(?<!\d)2\s*호", after[:20]):
+             continue

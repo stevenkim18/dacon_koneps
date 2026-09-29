@@ -1,0 +1,39 @@
+[rule_extract]   ! 청크(1건) 실패 → 건 단위 재시도: RuntimeError: synthetic failure
+[rule_extract]   ! 건 단위 실패 → 빈 출력: RuntimeError: synthetic failure
+dev/original macro= 0.83447536940184 pairs= 159 changes= 0 seconds= 0.732
+dev/explicit_priority_target macro= 0.8365587027351733 pairs= 158 changes= 1 seconds= 0.725
+[{"id": "PPS-DEV-173", "item": "v18", "old": 1, "new": 0, "label": 0}]
+dev/body_exception_absence_only macro= 0.8321859921124627 pairs= 160 changes= 1 seconds= 0.722
+[{"id": "PPS-DEV-113", "item": "v17", "old": 0, "new": 1, "label": 0}]
+dev/without_meta_negotiation macro= 0.8321859921124627 pairs= 160 changes= 1 seconds= 0.719
+[{"id": "PPS-DEV-099", "item": "v16", "old": 0, "new": 1, "label": 0}]
+dev/no_unqualified_article_exception macro= 0.8321859921124627 pairs= 160 changes= 1 seconds= 0.719
+[{"id": "PPS-DEV-113", "item": "v17", "old": 0, "new": 1, "label": 0}]
+dev/article_law_guard macro= 0.83447536940184 pairs= 159 changes= 0 seconds= 0.727
+dev/combined macro= 0.8365587027351733 pairs= 158 changes= 1 seconds= 0.723
+[{"id": "PPS-DEV-173", "item": "v18", "old": 1, "new": 0, "label": 0}]
+train500/original macro= None pairs= 123 changes= 0 seconds= 1.795
+train500/explicit_priority_target macro= None pairs= 123 changes= 0 seconds= 1.668
+train500/body_exception_absence_only macro= None pairs= 125 changes= 2 seconds= 1.658
+[{"id": "PPS-D-021626", "item": "v17", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-014153", "item": "v15", "old": 0, "new": 1, "label": null}]
+train500/without_meta_negotiation macro= None pairs= 131 changes= 8 seconds= 1.657
+[{"id": "PPS-D-020939", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-009727", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-004146", "item": "v16", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-016966", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-018592", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-001915", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-014147", "item": "v16", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-011328", "item": "v18", "old": 0, "new": 1, "label": null}]
+train500/no_unqualified_article_exception macro= None pairs= 128 changes= 5 seconds= 1.684
+[{"id": "PPS-D-018333", "item": "v11", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-021626", "item": "v17", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-014711", "item": "v16", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-020711", "item": "v16", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-009373", "item": "v16", "old": 0, "new": 1, "label": null}]
+train500/article_law_guard macro= None pairs= 124 changes= 1 seconds= 1.752
+[{"id": "PPS-D-020711", "item": "v16", "old": 0, "new": 1, "label": null}]
+train500/combined macro= None pairs= 124 changes= 1 seconds= 1.669
+[{"id": "PPS-D-020711", "item": "v16", "old": 0, "new": 1, "label": null}]
+train250/original macro= None pairs= 52 changes= 0 seconds= 0.816
+train250/explicit_priority_target macro= None pairs= 52 changes= 0 seconds= 0.972
+train250/body_exception_absence_only macro= None pairs= 53 changes= 1 seconds= 0.91
+[{"id": "PPS-D-019644", "item": "v17", "old": 0, "new": 1, "label": null}]
+train250/without_meta_negotiation macro= None pairs= 59 changes= 7 seconds= 0.918
+[{"id": "PPS-D-008096", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-019057", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-007907", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-019877", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-020552", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-020840", "item": "v18", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-012987", "item": "v18", "old": 0, "new": 1, "label": null}]
+train250/no_unqualified_article_exception macro= None pairs= 54 changes= 2 seconds= 0.825
+[{"id": "PPS-D-014739", "item": "v16", "old": 0, "new": 1, "label": null}, {"id": "PPS-D-019288", "item": "v16", "old": 0, "new": 1, "label": null}]
+train250/article_law_guard macro= None pairs= 52 changes= 0 seconds= 0.793
+train250/combined macro= None pairs= 52 changes= 0 seconds= 0.804
+zip {'files': ['script.py', 'requirements.txt'], 'script_matches': True, 'requirements_match': True, 'sha256': '5aa2f224f56c511a5d0bd6f9dbfc34c92454dcf117572af6565968c5995a40c2'}
+synthetic_unrelated_law True
+synthetic_call_failure ['']

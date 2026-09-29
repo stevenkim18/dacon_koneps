@@ -1,0 +1,12 @@
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[eval_extract] [main] 생성 대상 0건 (저장됨 250건)
+[eval_extract] [item] 생성 대상 0건 (저장됨 153건)
+[eval_extract] [model] 생성 대상 55건 (저장됨 0건)
+[eval_extract]   [model] 10/55 … 21s (tok=383)
+[eval_extract]   [model] 20/55 … 33s (tok=376)
+[eval_extract]   [model] 30/55 … 45s (tok=573)
+[eval_extract]   [model] 40/55 … 57s (tok=1333)
+[eval_extract]   [model] 50/55 … 70s (tok=427)
+[eval_extract]   [model] 55/55 … 76s (tok=493)
+[eval_extract] 생성 완료: main 250건 · item 153건 · model 55건

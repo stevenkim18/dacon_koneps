@@ -1,0 +1,45 @@
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[eval_extract] [main] 생성 대상 0건 (저장됨 200건)
+[eval_extract] [item] 생성 대상 0건 (저장됨 122건)
+[eval_extract] [model] 생성 대상 0건 (저장됨 59건)
+[eval_extract] [sme] 생성 대상 0건 (저장됨 200건)
+[eval_extract] [metacmp] 생성 대상 200건 (저장됨 0건)
+[eval_extract]   [metacmp] 10/200 … 85s (tok=2780)
+[eval_extract]   [metacmp] 20/200 … 176s (tok=2314)
+[eval_extract]   [metacmp] 30/200 … 253s (tok=3057)
+[eval_extract]   [metacmp] 40/200 … 334s (tok=2129)
+[eval_extract]   [metacmp] 50/200 … 419s (tok=2332)
+[eval_extract]   [metacmp] 60/200 … 494s (tok=1941)
+[eval_extract]   [metacmp] 70/200 … 575s (tok=2056)
+[eval_extract]   [metacmp] 80/200 … 651s (tok=2036)
+[eval_extract]   [metacmp] 90/200 … 742s (tok=3213)
+[eval_extract]   [metacmp] 100/200 … 833s (tok=2440)
+[eval_extract]   [metacmp] 110/200 … 915s (tok=2188)
+[eval_extract]   [metacmp] 120/200 … 990s (tok=2010)
+[eval_extract]   [metacmp] 130/200 … 1078s (tok=1961)
+[eval_extract]   [metacmp] 140/200 … 1157s (tok=4027)
+[eval_extract]   [metacmp] 150/200 … 1233s (tok=2090)
+[eval_extract]   [metacmp] 160/200 … 1314s (tok=2333)
+[eval_extract]   [metacmp] 170/200 … 1388s (tok=2510)
+[eval_extract]   [metacmp] 180/200 … 1470s (tok=2433)
+[eval_extract]   [metacmp] 190/200 … 1560s (tok=2118)
+[eval_extract]   [metacmp] 200/200 … 1647s (tok=2383)
+[eval_extract] [region] 생성 대상 0건 (저장됨 200건)
+[eval_extract] 채점 200건 · 유효 JSON 199건
+Traceback (most recent call last):
+  File "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/scripts/mlx_eval_extract.py", line 289, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/scripts/mlx_eval_extract.py", line 262, in main
+    per_mode_preds[name] = {r["id"]: mod.decide(r, done[r["id"]], table, policy=policy,
+                                     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                **extra(r["id"]))[0] for r in scored}
+                                                ^^^^^^^^^^^^^^^^^
+  File "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/submissions/20260922_metacmp/script.py", line 2060, in decide
+    llm, rx, _ = apply_metacmp_call(rec, llm, rx, metacmp_text)
+                 ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/submissions/20260922_metacmp/script.py", line 1224, in apply_metacmp_call
+    and official_amount_line(rec, float(amt)):
+        ^^^^^^^^^^^^^^^^^^^^
+NameError: name 'official_amount_line' is not defined

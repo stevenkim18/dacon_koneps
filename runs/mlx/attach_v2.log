@@ -1,0 +1,7 @@
+[mlx_eval] 평가 대상 128건 (라벨 매칭 128건) · script=submissions/20260916_attachment_excerpt/script.py
+[mlx_eval] 모델 로드 중: /Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/models/gemma-4-26b-a4b-it-4bit
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+[mlx_eval] 모델 로드 완료 8.1s
+/Users/seungwookim/miniconda3/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-iyevnelf'}
+  warnings.warn(

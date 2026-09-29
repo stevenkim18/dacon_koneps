@@ -1,0 +1,25 @@
+913c913
+<         "대기업_참여제한_문구": bool(re.search(r"대기업|상호출자제한|중견기업", src)),
+---
+>         "대기업_참여제한_문구": bool(re.search(r"대기업|상호출자제한|중견기업", src)) or sw_big_limit_noted(src),
+917a918,937
+> 
+> 
+> # SW진흥법 제48조 + 고시(중소 소프트웨어사업자의 사업 참여 지원에 관한 지침) 제3조②:
+> # 발주기관은 공고문·제안요청서에 "대기업 참여제한 하한제도 적용 여부(적용 근거 포함)"를 명시해야 한다.
+> # 그 명시는 '대기업'이라는 낱말 없이도 성립한다(dev DEV-064 "소프트웨어진흥법 제48조에 따른
+> # 소프트웨어사업자의 사업금액별 참여 제한", 무라벨 "입찰참여 제한금액: 없음" 확인 문구).
+> # 제48조·"참여 제한"은 단독으로는 보안서약서·계약보증금 상투문에 흔하므로(20,000건 조사),
+> # 같은 줄에 소프트웨어 + 참여제한 + 금액/조문 고리가 모두 있고 상투문 낱말이 없을 때만 인정한다.
+> SW_LIMIT_RE = re.compile(r"(참여|참가)\s*제한")
+> SW_LIMIT_HOOK_RE = re.compile(r"제\s*48\s*조(?!\s*의)|사업\s*금액|제한\s*금액|하한")
+> SW_LIMIT_NOISE_RE = re.compile(r"보안|손해배상|부정당|청렴|금품|향응|계약보증금|하자보증")
+> 
+> 
+> def sw_big_limit_noted(src: str) -> bool:
+>     for line in src.split("\n"):
+>         if "소프트웨어" not in line:
+>             continue
+>         if SW_LIMIT_RE.search(line) and SW_LIMIT_HOOK_RE.search(line) and not SW_LIMIT_NOISE_RE.search(line):
+>             return True
+>     return False

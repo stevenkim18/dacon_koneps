@@ -1,0 +1,119 @@
+700a701,703
+>     # '중소기업창업 지원법에 따라 중소기업을 창업하여 …'의 '중소기업'은 창업기업 정의어지 제한 수준이 아니다
+>     # (무라벨 PPS-D-002805·004746: 실제 제한은 소기업·소상공인·벤처·창업기업인데 중소기업으로 읽혔다).
+>     body = re.sub(r"중소기업창업\s*지원법|중소기업을?\s*창업", " ", body)
+718c721,723
+<     rf"[,、\s{DOT}]*(및|또는)?[\s]*(중소기업|소기업|소상공인|중기업)?\s*$")
+---
+>     rf"([,、\s{DOT}]*(및|또는)?[\s]*(중소기업|중\s*[{DOT}]?\s*소기업|소기업|소상공인|중기업)){{0,3}}\s*$"
+>     # 자격 목록 줄이 법 조문을 인용하며 수준을 적는 형태('마. 「중소기업기본법」 제2조제2항에 따른 소기업 또는 …')
+>     rf"|^[가-힣]\s*[.)]\s*[「｢『][^\n]{{0,60}}?(따른|의한)\s*(중소기업|중\s*[{DOT}]?\s*소기업|소기업|소상공인|중기업)")
+746c751,754
+<         if re.search(r"\d+\s*부\b|사본|가점|평가|신용|하도급|제8조의2|부정당|협동조합|경쟁제품|유찰", s):
+---
+>         # SW진흥법 제48조의 대기업·중견기업 참여제한은 판로지원법의 기업규모 자격 제한과 다른 제도다.
+>         # 그 문장을 기업규모 제한으로 읽으면 v14·v17 오탐이 된다(무라벨 PPS-D-001948·003204).
+>         if re.search(r"\d+\s*부\b|사본|가점|평가|신용|하도급|제8조의2|부정당|협동조합|경쟁제품|유찰"
+>                      r"|대기업|중견기업|소프트웨어\s*진흥법|제\s*48\s*조", s):
+752,753c760,770
+<         if not listed and not re.search(r"한함|한정|제한|소지한|보유(하고|한)|갖춘|등록(한|된)|자이어야|업체이어야"
+<                                         r"|우선\s*조달계약\s*대상|업체일 것|참가\s*자격|경쟁\s*\(|경쟁입찰\s*\(", s):
+---
+>         # 무라벨 500건 검토(2026-09-19)에서 놓친 자격 문장 어휘를 보강한다.
+>         #  "… 비영리법인 이어야 합니다"(PPS-D-018457) / "자격을 구비해야 합니다"(PPS-D-008343)
+>         #  "중기업·소기업·소상공인 참여가능"(PPS-D-016589) / "확인서 소지업체"(PPS-D-011558)
+>         #  국가계약법 시행령 제21조·지방계약법 시행령 제20조는 제한경쟁입찰의 근거 조문이라
+>         #  그 조문을 인용하며 기업규모를 적은 줄은 자격 문장이다(PPS-D-013200).
+>         if not listed and not re.search(r"한함|한정|제한|소지한|소지\s*업체|소지하고|보유(하고|한)|갖춘"
+>                                         r"|등록(한|된)|자이어야|업체이어야|이어야\s*(합니다|한다|함)"
+>                                         r"|구비(해야|하여야)"
+>                                         r"|(중기업|소기업|소상공인|중소기업)[^\n]{0,8}(참여|참가)\s*가능"
+>                                         r"|우선\s*조달계약\s*대상|업체일 것|참가\s*자격|경쟁\s*\(|경쟁입찰\s*\("
+>                                         r"|제\s*2[01]\s*조에?\s*(의하여|의한|따라|따른)", s):
+913c930
+<         "대기업_참여제한_문구": bool(re.search(r"대기업|상호출자제한|중견기업", src)),
+---
+>         "대기업_참여제한_문구": bool(re.search(r"대기업|상호출자제한|중견기업", src)) or sw_big_limit_noted(src),
+919a937,956
+> # SW진흥법 제48조 + 고시(중소 소프트웨어사업자의 사업 참여 지원에 관한 지침) 제3조②:
+> # 발주기관은 공고문·제안요청서에 "대기업 참여제한 하한제도 적용 여부(적용 근거 포함)"를 명시해야 한다.
+> # 그 명시는 '대기업'이라는 낱말 없이도 성립한다(dev DEV-064 "소프트웨어진흥법 제48조에 따른
+> # 소프트웨어사업자의 사업금액별 참여 제한", 무라벨 "입찰참여 제한금액: 없음" 확인 문구).
+> # 제48조·"참여 제한"은 단독으로는 보안서약서·계약보증금 상투문에 흔하므로(20,000건 조사),
+> # 같은 줄에 소프트웨어 + 참여제한 + 금액/조문 고리가 모두 있고 상투문 낱말이 없을 때만 인정한다.
+> SW_LIMIT_RE = re.compile(r"(참여|참가)\s*제한")
+> SW_LIMIT_HOOK_RE = re.compile(r"제\s*48\s*조(?!\s*의)|사업\s*금액|제한\s*금액|하한")
+> SW_LIMIT_NOISE_RE = re.compile(r"보안|손해배상|부정당|청렴|금품|향응|계약보증금|하자보증")
+> 
+> 
+> def sw_big_limit_noted(src: str) -> bool:
+>     for line in src.split("\n"):
+>         if "소프트웨어" not in line:
+>             continue
+>         if SW_LIMIT_RE.search(line) and SW_LIMIT_HOOK_RE.search(line) and not SW_LIMIT_NOISE_RE.search(line):
+>             return True
+>     return False
+> 
+> 
+1026a1064,1070
+> 
+> 
+> # 판로지원법 제6조·제7조: 중기부장관(옛 중소기업청장)이 지정·공고한 제품이 중소기업자간 경쟁제품이다.
+> # 나라장터 meta의 조항호내용에 그 지정 사실이 남는 공고가 있다(dev 11건). 이 기재는 발주기관 자신이
+> # "이 계약의 목적물은 지정 경쟁제품"이라고 밝힌 것이므로, 본 호출이 품목을 못 고른 경우에 한해
+> # 전용 호출의 코드를 인정하는 근거로 쓴다(dev 11건 중 10건은 이미 comp=True라 바뀌는 것은 1건뿐).
+> META_DESIGNATED_RE = re.compile(r"(중소벤처기업부장관|중소기업청장)[^\n]{0,10}지정")
+1028a1073,1085
+> def meta_designated_competitive(rec: Dict[str, Any]) -> bool:
+>     return bool(META_DESIGNATED_RE.search(str(meta(rec, "조항호내용") or "")))
+> 
+> 
+> # 나라장터 면허업종 '기타자유업(행사대행업)'을 요구했다는 것은 목적물이 행사·전시·축제 대행이라는 뜻이고,
+> # 그 품명들은 중기간 경쟁제품 목록의 '전시회,회의및행사대행서비스'·'축제' 그룹에 있다(dev 24건).
+> LICENSE_EVENT_RE = re.compile(r"행사대행")
+> 
+> 
+> def meta_event_license(rec: Dict[str, Any]) -> bool:
+>     return bool(LICENSE_EVENT_RE.search(str(meta(rec, "면허업종제한목록") or "")))
+> 
+> 
+1089c1146,1148
+<     if not comp and not exception and priced and not private_contract:
+---
+>     # 항목표 비고: 판로지원 예외 면책은 v15~v18에만 달려 있고 v14에는 없다.
+>     # v14(고시금액 이상 구간의 기업규모 제한)는 우선조달 예외를 적어도 면책되지 않는다.
+>     if not comp and priced and not private_contract:
+1090a1150
+>     if not comp and not exception and priced and not private_contract:
+1111a1172,1174
+> 
+> 
+> OFFICIAL_AMOUNT_RE = re.compile(r"기초\s*금액|용역\s*금액|물품\s*금액|계약\s*금액|입찰\s*금액")
+1113a1177,1182
+> def official_amount_line(rec: Dict[str, Any], amount: float) -> bool:
+>     """공고서에 적힌 금액이 공식 고지 금액(기초금액 등)으로 표기된 줄에 있는지."""
+>     s = f"{int(amount):,}"
+>     return any(s in line and OFFICIAL_AMOUNT_RE.search(line) for line in full_text(rec).split("\n"))
+> 
+> 
+1118,1119c1187,1191
+<     # LLM이 옮긴 금액이 원문에 그대로 있을 때만 비교(숫자 환각 방지)
+<     if isinstance(amount, (int, float)) and amount > 1_000_000 and f"{int(amount):,}" in full_text(rec):
+---
+>     # LLM이 옮긴 금액이 원문에 그대로 있을 때만 비교(숫자 환각 방지).
+>     # 게다가 그 금액이 '기초금액·용역금액·계약금액'처럼 공고가 공식적으로 고지하는 금액으로 적혀 있어야 한다.
+>     # '사업예산·과업예산'은 발주부서 내부 예산 표기라 나라장터 배정예산과 달라도 기재 오류가 아니다
+>     # (dev 오탐 DEV-044 '과업예산 61,560,000' 라벨 0 / 정탐 DEV-29 '기초금액 37,930,000' 라벨 1).
+>     if isinstance(amount, (int, float)) and amount > 1_000_000 and official_amount_line(rec, amount):
+1250a1323,1329
+>         # 용역 공고에서 본 호출이 '물품' 경쟁제품 코드를 고르면 원문·meta에 그 번호가 적혀 있을 때만 인정한다.
+>         # 전용 호출은 스키마가 용역 코드로 제한돼 있지만 본 호출은 제한이 없어 '안내판'·'쓰레기봉투' 같은
+>         # 엉뚱한 물품 코드를 고르는 일이 있다(용역 592건 중 10건). 반대로 전시물 제작·설치처럼 목적물이
+>         # 실제 물품 경쟁제품인 용역도 있고, 그런 공고는 직생확인 요구 줄에 세부품명번호를 직접 적는다.
+>         if (base and base != "해당없음" and base in table and base not in service_codes(table)
+>                 and base not in codes_in_record(rec)):
+>             base = None
+1253a1333,1335
+>         if code == "해당없음" and (meta_designated_competitive(rec) or meta_event_license(rec)) and table.get(str(item["세부품명번호"])):
+>             # meta가 지정 경쟁제품이라고 적었는데 본 호출만 품목을 못 고른 경우(dev DEV-061)
+>             code = str(item["세부품명번호"])
