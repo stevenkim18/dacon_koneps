@@ -1,0 +1,6 @@
+기준 submissions/20260927_scope_recall/script.py · 양성 5,085 · 예외 0
+  v1:1 v2:598 v3:64 v4:194 v5:46 v6:174 v7:480 v8:211 v9:0 v10:331 v11:210 v12:183 v13:289 v14:262 v15:142 v16:333 v17:406 v18:701 v19:100 v20:250 v21:12 v22:66 v23:6 v24:26
+runs/recall_probe_20260926/var_R11.py: Δ+8 · 변경 4공고 · 예외 0 · v2+4 v4+3 v8+1
+runs/recall_probe_20260926/var_R12.py: Δ+0 · 변경 0공고 · 예외 0 · 
+runs/recall_probe_20260926/var_R13.py: Δ+0 · 변경 0공고 · 예외 0 · 
+runs/recall_probe_20260926/var_r2all.py: Δ+116 · 변경 112공고 · 예외 0 · v2+4 v4+111 v8+1
