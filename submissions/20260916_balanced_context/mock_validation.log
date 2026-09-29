@@ -1,0 +1,12 @@
+[baseline] 입력 10건 ← open/data/test.jsonl.gz
+[baseline] 모델 로드 0.0s
+[baseline] 프롬프트 토큰 중앙값 6,629 · 최대 6,661 · 예산 축소 0건
+[baseline]   10/10건 … 0s
+[baseline] {"건수": 10, "모델로드_s": 0.0, "추론_s": 0.0, "건당_s": 0.0, "전체_s": 0.0, "유효JSON": 10, "메운_항목수": 0, "근거_유지": 0, "근거_원문불일치_폐기": 0, "출력": "/tmp/koneps_20260916_direct/submission.csv", "자가검증": "PASS"}
+
+[ZIP 검증]
+파일: script.py, requirements.txt
+압축 무결성: PASS
+압축 해제 후 독립 mock 실행: PASS
+출력 검증: 10행, 49열, v1~v24 모두 0/1
+SHA-256: 6f64088ea8a2913962b933132c78ff5087d769eccdd876f509c6c2616397e568

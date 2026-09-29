@@ -1,0 +1,1201 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""나라장터 자체입찰 공고 법령 위반사항 모니터링 AI 경진대회 — audit_v9 변형.
+
+기준: submissions/20260917_item_veto. 변경은 세 묶음이다.
+  1) v9(특정 모델명 지정): 물품 공고의 규격서·과업지시서에서 모델·제조사 후보 줄을 정규식으로 뽑고,
+     "특정 제품을 지정한 줄인가"만 묻는 전용 LLM 호출을 추가한다(`build_model_messages`).
+  2) v24(공고서-메타 불일치): LLM이 읽은 계약방법 비교를 뺀다(오탐 원인). 금액은 LLM이 옮긴 숫자가
+     원문에 실제로 있을 때만 비교한다.
+  3) 무라벨 250건 표본 검토(labels/train250_audit.csv)에서 찾은 오탐 패턴 수정
+     - 지역제한 문장: '이야기 소재'·주소 줄·지역업체 가산점 제외(`rx_region`)
+     - 기업규모 수준: 법령·기관·확인서 이름 속 '중소기업'을 지우고 주 자격 문장 우선(`classify_level`·`rx_sme_level`),
+       LLM 수준도 LLM 근거 문장으로 재분류
+     - v16·v18은 제한경쟁 입찰에만 적용, v10은 줄바꿈을 넘어 직생 요구를 넓게 탐지
+     - 품목 전용 호출이 과업 정보 부족으로 "해당없음"을 낸 경우 거부권 미적용
+  로컬 MLX dev: 0.7357 → 0.7711, 교차 검증 0.6883 → 0.7438, 무라벨 표본 정밀도 0.386 → 0.596.
+
+이하 item_veto 설명.
+
+기준: submissions/20260917_rule_extract (Public 0.6247556727). 변경은 하나다.
+  용역 공고에만 "계약 목적물 품목 판별" 전용 LLM 호출을 추가하고(용역 경쟁제품 29개 전체 제시),
+  전용 호출이 "해당없음"이면 경쟁제품에서 제외한다(`build_item_messages`·`decide`).
+  로컬 MLX dev 200건: 0.7203 → 0.7357, 2분할 교차 검증 평균 0.6774 → 0.6883.
+
+이하 rule_extract 설명.
+
+기존 후보들은 LLM 한 번에 24개 항목의 위반 여부를 "판단"시켰다. dev 200건을 다시 대조해 보니
+라벨은 법령 조건식을 기계적으로 적용한 결과였다(docs/05_study_log/20260917/4. from_scratch_reanalysis.md).
+그래서 역할을 나눈다.
+
+  LLM(공고당 1회, 용역은 품목 판별 1회 추가) → 공고문·첨부에서 판정에 필요한 "사실"만 JSON으로 추출
+                      (실적 요구금액, 제한 지역 단위, 기업규모 제한 수준, 설명회·마감 일자 …)
+  정규식            → 같은 사실을 원문에서 한 번 더 추출(LLM 결손·오류 보완)
+  Python 판정기     → 메타 금액·계약유형 + 사실 + 법령패키지 기준으로 v1~v24 판정
+
+평가 서버는 이 파일을 `python script.py`로 그대로 실행합니다.
+  입력   ./data/test.jsonl.gz (+ 법령패키지/중기부고시 세부품명 CSV)
+  출력   ./output/submission.csv  (열 = id, v1..v24, e1..e24)
+  경로   PPS_DATA_DIR · PPS_OUTPUT_DIR · PPS_MODEL_DIR 환경변수 우선
+
+로컬 실행
+  python script.py --mock          # 모델 없이 입력·출력 흐름 확인(정규식 사실만으로 판정)
+  python script.py --limit 10      # 앞 10건 실행
+"""
+from __future__ import annotations
+
+# ===== 1. 상수·경로 =====
+import argparse
+import csv
+import gzip
+import io
+import json
+import os
+import re
+import sys
+import time
+import unicodedata
+from datetime import date
+from typing import Any, Dict, Iterator, List, Optional, Tuple
+
+DATA_DIR = os.environ.get("PPS_DATA_DIR", "./data")
+OUTPUT_DIR = os.environ.get("PPS_OUTPUT_DIR", "./output")
+MODEL_DIR = os.environ.get("PPS_MODEL_DIR", "/opt/models/gemma-4-26B-A4B-it")
+
+ITEMS = [f"v{i}" for i in range(1, 25)]
+EVID = [f"e{i}" for i in range(1, 25)]
+COLUMNS = ["id"] + ITEMS + EVID
+ABSENCE = ["v10", "v11", "v16", "v18", "v20"]          # 부재탐지 항목: 근거 문구 빈칸
+
+SEED = 20260826
+MAX_MODEL_LEN = 16384
+MAX_TOKENS = 1200                       # 추출 JSON 출력 토큰 예산
+PROMPT_BUDGET = MAX_MODEL_LEN - MAX_TOKENS
+EVIDENCE_MAX = 500
+QUANT = "int8_per_channel_weight_only"
+
+# 법령 금액 기준
+NOTICE_AMOUNT = 230_000_000             # 고시금액(물품·용역 2억 3천만 원)
+LOCAL_REGION_AMOUNT = 500_000_000       # 지방계약법 시행규칙 제24조 제2호 나목(지역제한 가능 금액)
+ONE_HUNDRED_MILLION = 100_000_000
+LOCAL_MIN_SHARE, NATIONAL_MIN_SHARE = 5.0, 10.0
+
+PROVINCES = ["서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시",
+             "세종특별자치시", "경기도", "강원특별자치도", "강원도", "충청북도", "충청남도", "전북특별자치도",
+             "전라북도", "전라남도", "경상북도", "경상남도", "제주특별자치도", "제주도"]
+PROVINCE_ALIAS = {"강원도": "강원특별자치도", "전라북도": "전북특별자치도", "제주도": "제주특별자치도"}
+PROVINCE_RE = re.compile("|".join(sorted(PROVINCES, key=len, reverse=True)))
+
+
+def log(msg: str) -> None:
+    print(f"[rule_extract] {msg}", file=sys.stderr, flush=True)
+
+
+# ===== 2. 데이터 로더 =====
+def _open(path: str):
+    if str(path).endswith(".gz"):
+        return gzip.open(path, "rt", encoding="utf-8")
+    return io.open(path, "r", encoding="utf-8")
+
+
+def validate_record(rec: Any) -> None:
+    if not isinstance(rec, dict):
+        raise ValueError(f"레코드가 object가 아니다: {type(rec).__name__}")
+    for k in ("id", "docs", "meta"):
+        if k not in rec:
+            raise ValueError(f"필수 키 없음: {k}")
+    if not isinstance(rec["docs"], list) or not rec["docs"]:
+        raise ValueError(f"docs가 비어 있다 (id={rec['id']})")
+    for d in rec["docs"]:
+        if not isinstance(d, dict) or not isinstance(d.get("text"), str):
+            raise ValueError(f"docs 원소 형식 오류 (id={rec['id']})")
+    if not isinstance(rec["meta"], dict):
+        raise ValueError(f"meta가 object가 아니다 (id={rec['id']})")
+
+
+def normalize(rec: Dict[str, Any]) -> Dict[str, Any]:
+    for d in rec.get("docs", []):
+        d["text"] = unicodedata.normalize("NFC", d["text"])
+        if isinstance(d.get("type"), str):
+            d["type"] = unicodedata.normalize("NFC", d["type"])
+    return rec
+
+
+def iter_records(path: str, limit: Optional[int] = None) -> Iterator[Dict[str, Any]]:
+    n = 0
+    with _open(path) as f:
+        for lineno, line in enumerate(f, 1):
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                rec = json.loads(line)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"{path}:{lineno} JSON 파싱 실패: {e}") from e
+            validate_record(rec)
+            yield normalize(rec)
+            n += 1
+            if limit and n >= limit:
+                return
+
+
+def full_text(rec: Dict[str, Any]) -> str:
+    return "\n".join(d["text"] for d in rec["docs"])
+
+
+def meta(rec: Dict[str, Any], key: str) -> Any:
+    return rec.get("meta", {}).get(key)
+
+
+def price(rec: Dict[str, Any]) -> Optional[float]:
+    for key in ("입찰추정가격", "배정예산금액"):
+        v = meta(rec, key)
+        try:
+            if v not in (None, ""):
+                return float(v)
+        except (TypeError, ValueError):
+            pass
+    return None
+
+
+def is_local(rec: Dict[str, Any]) -> bool:
+    return meta(rec, "적용계약법") == "지방계약법"
+
+
+def is_negotiation(rec: Dict[str, Any]) -> bool:
+    return meta(rec, "낙찰방법") == "협상에의한계약"
+
+
+def is_goods(rec: Dict[str, Any]) -> bool:
+    return "물품" in str(meta(rec, "업무구분") or "")
+
+
+def local_small_quote(rec: Dict[str, Any]) -> bool:
+    # 항목표 비고 "지방 + 소액수의 가능": 지방계약 소액수의견적은 실적·지역 제한 위반 대상에서 제외
+    return is_local(rec) and meta(rec, "낙찰방법") == "소액수의견적"
+
+
+# ===== 3. 법령패키지: 중기간 경쟁제품 세부품명 =====
+LIMIT_RE = re.compile(r"추정가격\s*([\d,\.]+)\s*(억|천만|백만)?\s*원\s*미만")
+UNIT = {"억": 1e8, "천만": 1e7, "백만": 1e6, "만": 1e4, None: 1}
+
+
+def load_competitive_table(data_dir: str = DATA_DIR) -> Dict[str, Dict[str, Any]]:
+    """세부품명번호 → {이름, 특이사항, 금액한도}. 특이사항의 "추정가격 N억원 미만에 한함"을 금액한도로 읽는다."""
+    p = os.path.join(data_dir, "법령패키지", "중기부고시", "중기부고시_경쟁제품_세부품명.csv")
+    table: Dict[str, Dict[str, Any]] = {}
+    try:
+        with io.open(p, encoding="utf-8-sig", newline="") as f:
+            for row in csv.DictReader(f):
+                code = (row.get("세부품명번호") or "").strip()
+                if not code:
+                    continue
+                note = (row.get("특이사항") or "").strip()
+                m = LIMIT_RE.search(note)
+                limit = float(m.group(1).replace(",", "")) * UNIT[m.group(2)] if m else None
+                table[code] = {"name": (row.get("세부품명") or "").strip(), "note": note, "limit": limit,
+                               "group": (row.get("제품명") or "").strip(), "category": (row.get("대분류") or "").strip()}
+    except OSError:
+        pass
+    return table
+
+
+CODE_RE = re.compile(r"(?<!\d)(\d{4})\s?(\d{6})(?!\d)")
+
+
+def codes_in_record(rec: Dict[str, Any]) -> List[str]:
+    src = (meta(rec, "세부품명번호목록") or "") + "\n" + full_text(rec)
+    seen: List[str] = []
+    for m in CODE_RE.finditer(src):
+        c = m.group(1) + m.group(2)
+        if c not in seen:
+            seen.append(c)
+    return seen
+
+
+def title_of(rec: Dict[str, Any]) -> str:
+    t = rec["docs"][0]["text"]
+    m = re.search(r"(용\s*역\s*명|건\s*명|사\s*업\s*명|공\s*고\s*명|물\s*품\s*명|입찰건명)\s*[:：|]?\s*([^\n]{4,100})", t)
+    first = next((ln.strip() for ln in t.split("\n") if len(ln.strip()) >= 6), "")
+    return ((m.group(2) if m else "") + " " + first)[:200]
+
+
+def _bigrams(s: str) -> set:
+    s = re.sub(r"[\s\W\d_]+", "", s.replace("서비스", ""))
+    return {s[i:i + 2] for i in range(len(s) - 1)}
+
+
+def candidate_items(rec: Dict[str, Any], table: Dict[str, Dict[str, Any]], k: int = 8) -> List[Tuple[str, str, str]]:
+    """LLM이 계약 목적물의 세부품명을 고를 후보: 원문·메타에 적힌 번호 + 공고명과 비슷한 경쟁제품 이름."""
+    out: List[Tuple[str, str, str]] = []
+    for c in codes_in_record(rec)[:10]:
+        it = table.get(c)
+        out.append((c, it["name"] if it else "(경쟁제품 목록 외 번호)", it["note"] if it else ""))
+    tb = _bigrams(title_of(rec))
+    scored = []
+    for c, it in table.items():
+        nb = _bigrams(it["name"])
+        if nb and tb:
+            s = len(nb & tb) / len(nb)
+            if s >= 0.3:
+                scored.append((s, c))
+    for _, c in sorted(scored, reverse=True)[:k]:
+        if all(c != o[0] for o in out):
+            out.append((c, table[c]["name"], table[c]["note"]))
+    return out
+
+
+# ===== 4. 프롬프트 문맥: 판정에 필요한 문장만 모은다 =====
+SNIPPET_GROUPS = [
+    ("참가자격", r"참가\s*자격|자격\s*요건|입찰\s*참가|참여\s*가능|참가할\s*수"),
+    ("실적", r"실적"),
+    ("지역", r"주된\s*영업소|본점\s*소재지|본사\s*소재|소재지|지역\s*제한|소재한|소재하"),
+    ("기업규모", r"중소기업|소기업|소상공인|중기업|비영리|우선조달"),
+    ("직접생산", r"직접생산"),
+    ("설명회", r"설명회|현장\s*설명|제안요청서?\s*설명|사업\s*설명|과업\s*설명"),
+    ("일정", r"마감|접수\s*기간|제출\s*기간|제출\s*일시|공고\s*기간|개찰"),
+    ("공동수급", r"공동수급|공동이행|분담이행|지분"),
+    ("SW", r"소프트웨어|대기업|상호출자|중견기업"),
+    ("확약서", r"확약서|확약|협약서|공급\s*확인"),
+    ("모델", r"모델명|모델\s*:|제조사|상표|브랜드|동등\s*이상|동등제품"),
+    ("기관한정", r"대학|산학협력단|기관만|기관에 한|협회|조합원|학교"),
+    ("계약개요", r"입찰\s*방법|계약\s*방법|제한경쟁|일반경쟁|지명경쟁|수의|업종|예산|기초금액|추정가격|사업비|긴급"),
+]
+SNIPPET_LINE_MAX = 320
+SNIPPET_GROUP_BUDGET = 900
+HEADER_CHARS = 1200
+
+
+def _clip_line(line: str, m: re.Match) -> str:
+    if len(line) <= SNIPPET_LINE_MAX:
+        return line
+    s = max(0, m.start() - SNIPPET_LINE_MAX // 2)
+    return line[s:s + SNIPPET_LINE_MAX]
+
+
+def build_snippets(rec: Dict[str, Any], scale: float = 1.0) -> str:
+    """문서별로 키워드 그룹에 걸린 줄을 모은다. 같은 줄은 한 번만 넣고, 그룹마다 글자 예산을 둔다."""
+    used_lines = set()
+    blocks = []
+    header = rec["docs"][0]["text"][: int(HEADER_CHARS * scale)]
+    blocks.append(f"[공고문 머리말]\n{header}")
+    for name, pat in SNIPPET_GROUPS:
+        rx = re.compile(pat)
+        picked, used = [], 0
+        for d in rec["docs"]:
+            for line in d["text"].split("\n"):
+                line = line.strip()
+                if len(line) < 6:
+                    continue
+                m = rx.search(line)
+                if not m:
+                    continue
+                piece = _clip_line(line, m)
+                if piece in used_lines or piece in header:
+                    continue
+                if used + len(piece) > SNIPPET_GROUP_BUDGET * scale:
+                    break
+                used_lines.add(piece)
+                picked.append(f"({d['type']}) {piece}")
+                used += len(piece)
+        if picked:
+            blocks.append(f"[{name}]\n" + "\n".join(picked))
+    dropped = rec.get("dropped_doc_counts") or {}
+    if dropped:
+        blocks.append("[미수록 첨부] " + ", ".join(f"{t} {n}건" for t, n in dropped.items()))
+    return "\n\n".join(blocks)
+
+
+META_FIELDS = ["적용계약법", "업무구분", "계약방법", "낙찰방법", "배정예산금액", "입찰추정가격",
+               "세부품명번호목록", "제한지역코드목록", "지역제한여부", "면허업종제한목록", "조항호내용",
+               "공고게시일자", "개찰예정일자"]
+
+SYSTEM_PROMPT = """당신은 공공 입찰공고에서 사실을 정확히 뽑는 추출기다. 위반 여부를 판단하지 말고, 질문한 사실만 JSON으로 답한다.
+원문에 없는 내용은 추측하지 않는다. 근거 필드에는 원문 문장을 한 글자도 바꾸지 말고 그대로(200자 이내) 옮기고, 없으면 null.
+
+필드 설명
+- 계약목적물_세부품명번호: 이번 계약으로 실제 구매·용역하는 대상에 해당하는 세부품명번호(10자리)를 [세부품명 후보]에서 고른다. 맞는 후보가 없으면 "해당없음".
+- 직접생산확인_요구: 입찰참가자격으로 직접생산확인증명서 소지를 요구하면 true(제출서류 목록에만 '해당 시'로 있으면 false).
+- 기업규모_제한: 입찰참가자격에서 기업 규모를 제한하는 수준.
+  "소기업·소상공인" = 소기업 또는 소상공인만 참가 가능. "중소기업" = 중소기업(중기업 포함, '중·소기업·소상공인' 표현 포함)만 참가 가능. 제한이 없으면 "없음".
+- 우선조달_예외사유_기재: 판로지원법 시행령 제2조의3 등 우선조달 예외(비영리법인 참가 허용 등)를 공고에 적었으면 true.
+- 실적제한: 입찰참가자격으로 일정 금액·규모 이상의 수행·납품 실적을 요구하면 true(제안서 평가 배점용 실적은 false).
+- 실적_요구금액_원: 참가자격 실적의 최소 금액(원 단위 정수). 없으면 null.
+- 실적_발주처_공공한정: 인정 실적을 국가·지자체·공공기관·특정기관 발주분으로 한정하면 true(민간 실적도 인정하면 false).
+- 지역제한: 입찰참가자격으로 본점·주된 영업소 소재지를 제한하면 true(납품장소·주소 안내는 false).
+- 지역_단위: 제한 지역이 시·도 단위면 "시도", 시·군·구 단위면 "시군구"([지역:r1|단위=기초] 토큰, [수요기관(기초자치단체)] 관할구역 포함), 없으면 "없음".
+- 지역_시도목록: 소재지로 허용한 시·도 이름 목록.
+- 특정기관_한정: 대학·산학협력단·특정 협회 회원 등 특정 기관·단체만 참가할 수 있게 하면 true.
+- 특정모델_지정: 규격서·과업지시서가 특정 제조사·상표·모델명을 지정하면 true('동등 이상' 허용 문구와 무관하게 모델명을 적시하면 true).
+- 확약서_입찰시제출: 제조사 물품공급·기술지원 확약서를 입찰(서류) 제출 시점이나 마감 전에 보유·제출하도록 요구하면 true.
+- 설명회_미참석_참가불가: 현장·사업·제안요청 설명회에 참석한 업체만 입찰(제안)할 수 있으면 true.
+- 설명회_개최일: 설명회를 연다면 그 날짜(YYYY-MM-DD). 열지 않거나 날짜가 없으면 null.
+- 제안서_마감일: 제안서(또는 입찰서) 제출 마감 날짜(YYYY-MM-DD). 없으면 null.
+- 공동수급_최소지분율: 공동수급 구성원 최소 지분율(%) 숫자. 없으면 null.
+- 대기업_참여제한_문구: 대기업·상호출자제한기업집단·중견기업의 참여 제한을 적었으면 true.
+- 공고서_계약방법: 공고서에 적힌 입찰(계약) 방법.
+- 공고서_예산금액_원: 공고서에 적힌 사업예산·기초금액(부가세 포함 총액, 원 단위 정수). 없으면 null.
+- 공고서_업종코드: 입찰참가자격 업종 등록에 적힌 4자리 업종코드 목록."""
+
+
+def extraction_schema() -> Dict[str, Any]:
+    s_or_null = {"type": ["string", "null"]}
+    i_or_null = {"type": ["integer", "null"]}
+    b = {"type": "boolean"}
+    props = {
+        "계약목적물_세부품명번호": {"type": "string"},
+        "직접생산확인_요구": b,
+        "기업규모_제한": {"type": "string", "enum": ["없음", "중소기업", "소기업·소상공인"]},
+        "기업규모_근거": s_or_null,
+        "우선조달_예외사유_기재": b,
+        "실적제한": b,
+        "실적_요구금액_원": i_or_null,
+        "실적_발주처_공공한정": b,
+        "실적_근거": s_or_null,
+        "지역제한": b,
+        "지역_단위": {"type": "string", "enum": ["없음", "시도", "시군구"]},
+        "지역_시도목록": {"type": "array", "items": {"type": "string"}},
+        "지역_근거": s_or_null,
+        "특정기관_한정": b,
+        "특정기관_근거": s_or_null,
+        "특정모델_지정": b,
+        "특정모델_근거": s_or_null,
+        "확약서_입찰시제출": b,
+        "확약서_근거": s_or_null,
+        "설명회_미참석_참가불가": b,
+        "설명회_개최일": s_or_null,
+        "제안서_마감일": s_or_null,
+        "설명회_근거": s_or_null,
+        "공동수급_최소지분율": {"type": ["number", "null"]},
+        "공동수급_근거": s_or_null,
+        "대기업_참여제한_문구": b,
+        "공고서_계약방법": {"type": "string", "enum": ["일반경쟁", "제한경쟁", "지명경쟁", "수의계약", "불명"]},
+        "공고서_예산금액_원": i_or_null,
+        "공고서_업종코드": {"type": "array", "items": {"type": "string"}},
+    }
+    return {"type": "object", "additionalProperties": False, "required": list(props), "properties": props}
+
+
+def build_user_prompt(rec: Dict[str, Any], table: Dict[str, Dict[str, Any]], scale: float = 1.0) -> str:
+    m = rec.get("meta", {})
+    meta_lines = "\n".join(f"- {k}: {'미기재' if m.get(k) is None else m.get(k)}" for k in META_FIELDS if k in m)
+    cands = candidate_items(rec, table)
+    cand_lines = "\n".join(f"- {c} {n}" + (f" ({note})" if note else "") for c, n, note in cands) or "- (후보 없음)"
+    return (
+        f"[공고명] {title_of(rec)[:120]}\n\n"
+        f"[나라장터 입력 메타]\n{meta_lines}\n\n"
+        f"[세부품명 후보]\n{cand_lines}\n\n"
+        f"[공고 원문 발췌]\n{build_snippets(rec, scale)}\n"
+    )
+
+
+def build_messages(rec: Dict[str, Any], table: Dict[str, Dict[str, Any]], scale: float = 1.0) -> List[Dict[str, str]]:
+    return [{"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": build_user_prompt(rec, table, scale)}]
+
+
+# ----- 4-1. 용역 품목 판별 호출 -----
+# 경쟁제품 여부(v10~v13)와 판로지원 항목(v14~v18)이 모두 "계약 목적물이 경쟁제품인가"에 달려 있다.
+# 첫 호출에서 공고명과 글자가 비슷한 후보만 보여 주자 일반적인 이름(운영위탁서비스·측량용역)을 과하게 골랐고,
+# "공연 행사 대행"에는 정작 기타행사기획및대행서비스가 후보에 없었다. 용역 경쟁제품은 29개뿐이라 전체를 보여 준다.
+ITEM_SYSTEM_PROMPT = """공공 용역 입찰공고의 계약 목적물(실제로 수행시키는 과업)이 아래 [용역 경쟁제품 목록]의 어느 세부품명에 해당하는지 고른다.
+- 과업의 주된 내용이 그 세부품명에 직접 해당할 때만 고른다. 단어가 비슷하거나 부수 업무만 겹치면 "해당없음".
+- 공고에 적힌 직접생산확인 세부품명은 참고만 한다. 과업 내용과 맞지 않으면 따르지 않는다.
+- 목록의 '운영위탁서비스'·'정보시스템유지관리서비스' 등 정보시스템 계열은 소프트웨어·정보시스템 과업일 때만 해당한다.
+- 먼저 계약목적물_요약에 과업을 한 구절로 적고, 세부품명번호를 고른다."""
+ITEM_CONTEXT_RE = re.compile(r"용\s*역\s*명|사\s*업\s*명|건\s*명|공\s*고\s*명|과업|사업\s*내용|용역\s*내용|주요\s*내용|"
+                             r"사업\s*개요|사업\s*목적|목\s*적|범\s*위|세부품명")
+ITEM_CONTEXT_CHARS = 1600
+
+
+def service_codes(table: Dict[str, Dict[str, Any]]) -> List[str]:
+    return [c for c in table if c[:2].isdigit() and int(c[:2]) >= 70]
+
+
+def item_schema(table: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
+    return {"type": "object", "additionalProperties": False, "required": ["계약목적물_요약", "세부품명번호"],
+            "properties": {"계약목적물_요약": {"type": "string", "maxLength": 60},
+                           "세부품명번호": {"type": "string", "enum": service_codes(table) + ["해당없음"]}}}
+
+
+def build_item_messages(rec: Dict[str, Any], table: Dict[str, Dict[str, Any]]) -> List[Dict[str, str]]:
+    picked, used, seen = [], 0, set()
+    for d in rec["docs"]:
+        for line in d["text"].split("\n"):
+            line = line.strip()
+            if len(line) < 6 or line in seen or not ITEM_CONTEXT_RE.search(line):
+                continue
+            piece = line[:240]
+            if used + len(piece) > ITEM_CONTEXT_CHARS:
+                break
+            seen.add(line)
+            picked.append(f"({d['type']}) {piece}")
+            used += len(piece)
+    catalog = "\n".join(
+        f"- {c} {table[c]['name']} [{table[c]['group']}]" + (f" ({table[c]['note']})" if table[c]["note"] else "")
+        for c in service_codes(table))
+    user = (f"[공고명] {title_of(rec)[:120]}\n[추정가격] {meta(rec, '입찰추정가격')}\n\n"
+            f"[과업 관련 원문]\n" + ("\n".join(picked) or "(없음)") + f"\n\n[용역 경쟁제품 목록]\n{catalog}\n")
+    return [{"role": "system", "content": ITEM_SYSTEM_PROMPT}, {"role": "user", "content": user}]
+
+
+def needs_item_call(rec: Dict[str, Any]) -> bool:
+    return not is_goods(rec)
+
+
+# ----- 4-2. 물품 특정 모델 지정 판별 호출 (v9) -----
+# 본 호출은 긴 발췌 속에서 규격 수치·동등 이상 예시까지 모델 지정으로 읽었다(dev v9 F1 0.31).
+# 규격서·과업지시서에서 모델·제조사 후보 줄만 뽑아 짧게 묻는다.
+MODEL_SYSTEM_PROMPT = """물품 구매 공고의 규격서·과업지시서에서 뽑은 번호 붙은 줄들이다.
+특정 제조사의 특정 제품(모델명·상표·제품명)을 지정해서 그 제품을 납품하게 하는 줄이 있는지 판단한다.
+- 해당: "제조사·모델명 : ○○ ○○", "Agilent ICP-OES 5900", "DJI Matrice 4 시리즈 배터리일 것", 제품명에 모델번호를 붙여 구매 품목으로 적은 줄.
+- 제외: 용량·전압·감도·인터페이스(USB, RJ-45, ISO, IP55 등) 같은 일반 규격 수치, '동등 이상'·'동등품'·'또는 동등' 허용이 붙은 예시, 제조사 증명서·확약서 제출 요구.
+해당하는 줄이 있으면 특정모델_지정=true와 가장 대표적인 줄 번호를, 없으면 false와 null을 낸다."""
+MODEL_SPEC_WORDS = re.compile(
+    r"(USB|RJ|ISO|IP\d|KS|HDMI|Wi-?Fi|LTE|Type|GHz|MHz|DDR|SSD|HDD|PCIe|LED|LCD|UHD|FHD|mAh|Wh|rpm|RPM|PTO|IEC|IEEE|"
+    r"SATA|NVMe|Gbps|Mbps|OLED|VGA|DVI|RS-?\d|M\.2)")
+MODEL_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9])([A-Z][A-Za-z]*[\-\s]?\d{2,}[A-Za-z0-9\-/]*|[A-Z]{2,}\d+[A-Za-z0-9\-]*|"
+                            r"\d{2,}[A-Z]{2,}[A-Za-z0-9\-]*)")
+MODEL_HINT_RE = re.compile(r"제조사|모델명|모델\s*[:：]|상표|브랜드|\(([A-Z][a-z]+\s?)+\)")
+MODEL_MAX_LINES = 40
+
+
+def model_candidate_lines(rec: Dict[str, Any]) -> List[str]:
+    order = {"규격서": 0, "과업지시서": 1, "제안요청서": 2, "공고문": 3}
+    out, seen = [], set()
+    for d in sorted(rec["docs"], key=lambda d: order.get(d["type"], 4)):
+        for line in d["text"].split("\n"):
+            s = line.strip()
+            if len(s) < 4 or s in seen:
+                continue
+            tokens = [t for t in MODEL_TOKEN_RE.findall(s) if not MODEL_SPEC_WORDS.match(t)]
+            if tokens or MODEL_HINT_RE.search(s):
+                seen.add(s)
+                out.append(s[:200])
+                if len(out) >= MODEL_MAX_LINES:
+                    return out
+    return out
+
+
+def needs_model_call(rec: Dict[str, Any]) -> bool:
+    return is_goods(rec) and bool(model_candidate_lines(rec))
+
+
+def model_schema() -> Dict[str, Any]:
+    return {"type": "object", "additionalProperties": False, "required": ["특정모델_지정", "줄번호"],
+            "properties": {"특정모델_지정": {"type": "boolean"}, "줄번호": {"type": ["integer", "null"]}}}
+
+
+def build_model_messages(rec: Dict[str, Any]) -> List[Dict[str, str]]:
+    lines = model_candidate_lines(rec)
+    body = "\n".join(f"{n}. {s}" for n, s in enumerate(lines, 1))
+    user = f"[물품] {title_of(rec)[:100]}\n[세부품명] {meta(rec, '세부품명번호목록')}\n\n[후보 줄]\n{body}\n"
+    return [{"role": "system", "content": MODEL_SYSTEM_PROMPT}, {"role": "user", "content": user}]
+
+
+def apply_model_call(rec: Dict[str, Any], llm: Optional[Dict[str, Any]], model_text: str) -> Optional[Dict[str, Any]]:
+    """v9 전용 호출 결과로 본 호출의 특정모델 사실을 덮어쓴다. 줄 번호가 유효할 때만 근거로 쓴다."""
+    res = parse_facts(model_text)
+    if not res or not needs_model_call(rec):
+        return llm
+    out = dict(llm or {})
+    lines = model_candidate_lines(rec)
+    idx = res.get("줄번호")
+    line = lines[idx - 1] if isinstance(idx, int) and 1 <= idx <= len(lines) else ""
+    out["특정모델_지정"] = bool(res.get("특정모델_지정")) and bool(line)
+    out["특정모델_근거"] = line or None
+    return out
+
+
+def fit_to_budget(rec: Dict[str, Any], table, runner, budget: int = PROMPT_BUDGET):
+    scale = 1.0
+    while True:
+        msgs = build_messages(rec, table, scale)
+        n = runner.count_tokens(msgs)
+        if n <= budget or scale <= 0.3:
+            return msgs, n, scale
+        scale *= 0.75
+
+
+# ===== 5. 모델 러너 =====
+class VLLMRunner:
+    def __init__(self, schema: Dict[str, Any], model_dir: str = MODEL_DIR, quant: Optional[str] = QUANT,
+                 max_tokens: int = MAX_TOKENS, seed: int = SEED, gpu_mem: float = 0.92, tp: int = 1):
+        t0 = time.time()
+        import vllm
+        from vllm import LLM, SamplingParams
+        from vllm.sampling_params import StructuredOutputsParams
+
+        log(f"vllm {vllm.__version__} · 모델 {model_dir} · quant={quant} · max_model_len={MAX_MODEL_LEN}")
+        kw = dict(model=model_dir, tokenizer=model_dir, max_model_len=MAX_MODEL_LEN,
+                  gpu_memory_utilization=gpu_mem, seed=seed, tensor_parallel_size=tp, dtype="auto")
+        if quant:
+            kw["quantization"] = quant
+        self.llm = LLM(**kw)
+        self.tok = self.llm.get_tokenizer()
+        self.sp = SamplingParams(
+            temperature=0.0, max_tokens=max_tokens, seed=seed,
+            structured_outputs=StructuredOutputsParams(json=schema, disable_any_whitespace=True),
+        )
+        self.load_seconds = time.time() - t0
+
+    def count_tokens(self, messages: List[Dict[str, str]]) -> int:
+        try:
+            ids = self.tok.apply_chat_template(messages, add_generation_prompt=True, tokenize=True)
+            if hasattr(ids, "keys") and "input_ids" in ids:
+                ids = ids["input_ids"]
+            return len(ids)
+        except Exception:
+            return len(self.tok.encode("\n".join(m["content"] for m in messages)))
+
+    def chat(self, batch: List[List[Dict[str, str]]], schema: Optional[Dict[str, Any]] = None) -> List[str]:
+        sp = self.sp
+        if schema is not None:
+            from vllm import SamplingParams
+            from vllm.sampling_params import StructuredOutputsParams
+            sp = SamplingParams(temperature=0.0, max_tokens=128, seed=SEED,
+                                structured_outputs=StructuredOutputsParams(json=schema, disable_any_whitespace=True))
+        outs = self.llm.chat(batch, sampling_params=sp, use_tqdm=False)
+        return [o.outputs[0].text if o.outputs else "" for o in outs]
+
+
+class MockRunner:
+    """모델 없이 흐름을 확인한다. 빈 출력 → 판정기는 정규식 사실만 사용한다."""
+    load_seconds = 0.0
+
+    def __init__(self, schema: Dict[str, Any], **_):
+        pass
+
+    def count_tokens(self, messages: List[Dict[str, str]]) -> int:
+        return sum(len(m["content"]) for m in messages) // 2
+
+    def chat(self, batch: List[List[Dict[str, str]]], schema: Optional[Dict[str, Any]] = None) -> List[str]:
+        return ["" for _ in batch]
+
+
+def run_chunk(runner, batch: List[List[Dict[str, str]]], schema: Optional[Dict[str, Any]] = None) -> List[str]:
+    try:
+        return runner.chat(batch, schema)
+    except Exception as e:
+        log(f"  ! 청크({len(batch)}건) 실패 → 건 단위 재시도: {type(e).__name__}: {str(e)[:160]}")
+    outs = []
+    for m in batch:
+        try:
+            outs.append(runner.chat([m], schema)[0])
+        except Exception as e:
+            log(f"  ! 건 단위 실패 → 빈 출력: {type(e).__name__}: {str(e)[:160]}")
+            outs.append("")
+    return outs
+
+
+def parse_facts(text: str) -> Optional[Dict[str, Any]]:
+    text = (text or "").strip()
+    if not text:
+        return None
+    for cand in (text, text[text.find("{"): text.rfind("}") + 1]):
+        try:
+            obj = json.loads(cand)
+            if isinstance(obj, dict):
+                return obj
+        except (json.JSONDecodeError, ValueError):
+            pass
+    return None
+
+
+# ===== 6. 정규식 사실 추출 =====
+AMOUNT_RE = re.compile(r"(\d[\d,\.]*)\s*(억|천만|백만|만)?\s*(\d[\d,]*)?\s*(천만|백만|만)?\s*원")
+EVAL_CONTEXT_RE = re.compile(r"기재|배점|\d+\s*점|건수|합산|평가|인정|실적만|대상으로|제출\s*-|\|\s*\d")
+PUBLIC_ISSUER_RE = re.compile(r"국가|정부|공공기관|지방자치단체|지자체|공기업|대학병원|\[수요기관|기관(이|에서)?\s*발주")
+DATE_FULL_RE = re.compile(r"(20\d{2})\s*[\.\-/년]\s*(\d{1,2})\s*[\.\-/월]\s*(\d{1,2})")
+DATE_SHORT_RE = re.compile(r"(?<![\d\.])(\d{1,2})\s*[\.월]\s*(\d{1,2})\s*[\.일]?\s*\(")
+
+
+def parse_amounts(s: str) -> List[float]:
+    out = []
+    for m in AMOUNT_RE.finditer(s):
+        try:
+            v = float(m.group(1).replace(",", "")) * UNIT.get(m.group(2), 1)
+            if m.group(3) and m.group(4):
+                v += float(m.group(3).replace(",", "")) * UNIT[m.group(4)]
+            out.append(v)
+        except ValueError:
+            pass
+    return out
+
+
+def _lines(rec: Dict[str, Any], pat: str) -> List[str]:
+    rx = re.compile(pat)
+    return [ln.strip() for d in rec["docs"] for ln in d["text"].split("\n") if rx.search(ln)]
+
+
+def rx_performance(rec: Dict[str, Any]) -> List[str]:
+    out = []
+    for s in _lines(rec, r"실적"):
+        if not (re.search(r"이상|보유|있는", s) and parse_amounts(s)):
+            continue
+        if EVAL_CONTEXT_RE.search(s):
+            continue
+        if re.search(r"업체|자이어야|자\)|있어야|참가\s*자격|한함|있는 자|보유한 자", s):
+            out.append(s)
+    return out
+
+
+def rx_region(rec: Dict[str, Any]) -> List[str]:
+    out = []
+    # '소재'만으로는 "이야기 소재" 같은 문장까지 걸려(무라벨 검토) 영업소·본점·소재지·소재한 업체로 좁힌다.
+    for s in _lines(rec, r"주된\s*영업소|본점|소재지|본사|소재한\s*(업체|자|사업자)|소재하(는|고)\s*있는|내에\s*소재"):
+        if re.search(r"주소|위치|장소|납품|설치|전화|☎", s[:40]):
+            continue
+        if re.search(r"가산|가점|배점|평가", s):      # 지역업체 가산점 조건은 참가 제한이 아니다
+            continue
+        if PROVINCE_RE.search(s) or "단위=기초" in s or "기초자치단체" in s:
+            out.append(s)
+    return out
+
+
+# 법령·규정·기관·확인서 이름 속 "중소기업"·"중·소기업"은 제한 수준이 아니다(무라벨 검토: v17 오탐 9건).
+DOT = "·ㆍ‧․･•"
+LAW_NAME_RE = re.compile(
+    r"[「『｢〔\[][^」』｣〕\]]{0,40}[」』｣〕\]]"
+    rf"|중\s*[{DOT}]?\s*소기업\s*범위\s*및\s*확인에?\s*관한\s*규정"
+    rf"|중\s*[{DOT}]?\s*소기업\s*[{DOT}]?\s*소상공인\s*및\s*장애인기업\s*확인요령"
+    r"|중소기업기본법(\s*시행령)?|중소기업제품\s*[^\s,]*|중소기업\s*공공구매[^\s,]*|중소기업공공구매[^\s,]*"
+    r"|중소(기업)?\s*벤처(기업)?\s*부|중소기업청(\s*고시)?|중소기업현황\s*정보시스템|중소기업\s*간주|중소기업중앙회"
+    r"|중소기업협동조합|종합정보망")
+CERT_SME_RE = re.compile(rf"중\s*[{DOT}/]\s*소기업\s*[{DOT}]?\s*소상공인\s*확인서|중소기업\s*[{DOT}]?\s*소상공인\s*확인서|중소기업\s*확인서")
+CERT_SMALL_RE = re.compile(rf"(?<![중{DOT}])소기업\s*[{DOT}및,\s]*소상공인\s*확인서|(?<![중{DOT}])소기업\s*확인서")
+
+
+def classify_level(sentence: str) -> Optional[str]:
+    """제한 문장 하나를 '중소기업'/'소기업·소상공인'으로 분류한다. 법령·기관명을 지운 본문을 먼저 보고, 없으면 확인서 이름을 본다."""
+    if not sentence:
+        return None
+    body = LAW_NAME_RE.sub(" ", sentence)
+    if re.search(rf"중\s*[{DOT}/]\s*소기업|중소기업(자)?|중기업", body):
+        return "중소기업"
+    if re.search(r"소기업|소상공인", body):
+        return "소기업·소상공인"
+    if CERT_SME_RE.search(sentence):
+        return "중소기업"
+    if CERT_SMALL_RE.search(sentence):
+        return "소기업·소상공인"
+    return None
+
+
+PRIMARY_LEVEL_RE = re.compile(rf"(따른|의한|규정된|해당하는)\s*(중\s*[{DOT}/]?\s*소기업|중소기업|소기업|소상공인|중기업)")
+
+
+def rx_sme_level(rec: Dict[str, Any]) -> Tuple[str, str]:
+    """참가자격의 기업규모 제한 수준. '~에 따른 (중)소기업 … 소지한 자' 형태의 주 자격 문장을 우선하고,
+    확인서 조회 안내·간주 특별법인 문장은 수준 판단에 쓰지 않는다(무라벨 검토)."""
+    primary: Dict[str, str] = {}
+    secondary: Dict[str, str] = {}
+    notice: Dict[str, str] = {}      # 확인서 조회 안내·간주 특별법인: 제한 존재의 증거로만, 수준은 마지막 순위
+    for s in _lines(rec, r"소기업|소상공인|중소기업|중기업"):
+        if re.search(r"\d+\s*부\b|사본|가점|평가|신용|하도급|제8조의2|부정당|협동조합|창업기업|경쟁제품", s):
+            continue
+        if not re.search(r"한함|한정|제한|소지한|자이어야|업체이어야|업체일 것|참가\s*자격|경쟁\s*\(|경쟁입찰\s*\(", s):
+            continue
+        level = classify_level(s)
+        if level is None:
+            continue
+        if re.search(r"간주|특별법인|확인(이|하며|되지|이 되지|이 안)|확인서는|확인서가", s):
+            bucket = notice
+        else:
+            bucket = primary if PRIMARY_LEVEL_RE.search(s) else secondary
+        bucket.setdefault(level, s)
+    for bucket in (primary, secondary, notice):
+        if "중소기업" in bucket:
+            return "중소기업", bucket["중소기업"]
+        if "소기업·소상공인" in bucket:
+            return "소기업·소상공인", bucket["소기업·소상공인"]
+    return "없음", ""
+
+
+def _to_date(y: int, mth: int, d: int) -> Optional[date]:
+    try:
+        return date(y, mth, d)
+    except ValueError:
+        return None
+
+
+def dates_in(s: str, year: int) -> List[date]:
+    out = []
+    for m in DATE_FULL_RE.finditer(s):
+        dt = _to_date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        if dt:
+            out.append(dt)
+    if not out:
+        for m in DATE_SHORT_RE.finditer(s):
+            dt = _to_date(year, int(m.group(1)), int(m.group(2)))
+            if dt:
+                out.append(dt)
+    return out
+
+
+def posting_year(rec: Dict[str, Any]) -> int:
+    v = str(meta(rec, "공고게시일자") or "")
+    return int(v[:4]) if v[:4].isdigit() else 2026
+
+
+def rx_briefing(rec: Dict[str, Any]) -> Tuple[Optional[date], Optional[date], str]:
+    year = posting_year(rec)
+    brief, ev = None, ""
+    for s in _lines(rec, r"설명회|현장\s*설명|제안요청서?\s*설명\s*[:：]|사업\s*설명\s*[:：]"):
+        if re.search(r"미개최|없음|생략|갈음|하지\s*않|개별\s*통보|추후", s):
+            continue
+        ds = dates_in(s, year)
+        if ds:
+            brief, ev = ds[0], s
+            break
+    # 표가 줄 단위로 풀려 날짜가 다음 줄에 오는 경우가 많아, 키워드 줄 뒤 3줄까지 함께 본다.
+    deadline = None
+    key = re.compile(r"(제안서|입찰서|가격입찰서).{0,20}(제출|접수)|제출\s*마감|접수\s*마감|마감\s*일시")
+    for d in rec["docs"]:
+        lines = [ln.strip() for ln in d["text"].split("\n") if ln.strip()]
+        for idx, s in enumerate(lines):
+            if not key.search(s) or re.search(r"설명회|평가|개찰", s):
+                continue
+            ds = dates_in(" ".join(lines[idx:idx + 4]), year)
+            if ds:
+                cand = max(ds)
+                if deadline is None or cand > deadline:
+                    deadline = cand
+    return brief, deadline, ev
+
+
+def regex_facts(rec: Dict[str, Any], table: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
+    src = full_text(rec)
+    perf = rx_performance(rec)
+    region = rx_region(rec)
+    level, level_ev = rx_sme_level(rec)
+    region_text = " ".join(region) + " " + str(meta(rec, "제한지역코드목록") or "")
+    provinces = sorted({PROVINCE_ALIAS.get(p, p) for p in PROVINCE_RE.findall(" ".join(region))}
+                       | {PROVINCE_ALIAS.get(p, p) for p in PROVINCE_RE.findall(str(meta(rec, "제한지역코드목록") or ""))})
+    shares = [float(m.group(5)) for m in re.finditer(
+        r"(최소\s*(참여)?\s*지분(율|비율)?|지분(율|비율)?[^\n]{0,15}최소)[^\n%]{0,25}?(\d+(\.\d+)?)\s*%", src)]
+    brief_restrict = re.search(r"설명회[^\n]{0,80}(참석[^\n]{0,30}(한하|만|자격|허용되지|제외|접수하지|불가)"
+                               r"|미참석|불참|참석하지 아니한|참석한 자)", src)
+    brief, deadline, brief_ev = rx_briefing(rec)
+    direct = [s for s in _lines(rec, r"직접생산") if re.search(r"소지|보유", s) and not re.search(r"\d+\s*부\b|해당\s*시", s)]
+    # 부재형 v10용: 줄바꿈으로 '소지'가 다음 줄에 가도 직생 요구로 본다(위반 경고 상투문은 제외). v12(존재형)는 위 좁은 기준을 쓴다.
+    direct_broad = False
+    for d in rec["docs"]:
+        lines = [ln.strip() for ln in d["text"].split("\n") if ln.strip()]
+        for k, ln in enumerate(lines):
+            if "직접생산" not in ln or re.search(r"위반|하도급|하청|타사제품|확인기준을|요구하지\s*않|해당\s*시|\d+\s*부\b", ln):
+                continue
+            window = " ".join(lines[k:k + 2])
+            if re.search(r"증명서|확인서", window) and re.search(r"소지|보유|발급|확인되지|자격", window):
+                direct_broad = True
+                break
+        if direct_broad:
+            break
+    comp_codes = [c for c in codes_in_record(rec) if c in table]
+    share_line = next((s for s in _lines(rec, r"지분") if re.search(r"\d\s*%", s)), "")
+    return {
+        "계약목적물_세부품명번호": comp_codes[0] if comp_codes else "해당없음",
+        "직접생산확인_요구": bool(direct),
+        "직접생산_언급_넓게": direct_broad,
+        "기업규모_제한": level,
+        "기업규모_근거": level_ev or None,
+        "우선조달_예외사유_기재": bool(re.search(r"제2조의3|비영리법인[^\n]{0,20}(참가|참여)\s*가능|우선조달계약.{0,10}(예외|제외)", src)),
+        "실적제한": bool(perf),
+        "실적_요구금액_원": int(max(a for s in perf for a in parse_amounts(s))) if perf else None,
+        "실적_발주처_공공한정": any(PUBLIC_ISSUER_RE.search(s) and "민간" not in s for s in perf),
+        "실적_근거": perf[0] if perf else None,
+        "지역제한": bool(region) or meta(rec, "지역제한여부") == "Y",
+        "지역_단위": "시군구" if ("단위=기초" in region_text or "기초자치단체" in region_text)
+        else ("시도" if provinces else "없음"),
+        "지역_시도목록": provinces,
+        "지역_근거": region[0] if region else None,
+        "특정기관_한정": False,
+        "특정기관_근거": None,
+        "특정모델_지정": False,
+        "특정모델_근거": None,
+        "확약서_입찰시제출": False,
+        "확약서_근거": None,
+        "설명회_미참석_참가불가": bool(brief_restrict),
+        "설명회_개최일": brief.isoformat() if brief else None,
+        "제안서_마감일": deadline.isoformat() if deadline else None,
+        "설명회_근거": (brief_restrict.group(0) if brief_restrict else brief_ev) or None,
+        "공동수급_최소지분율": min(shares) if shares else None,
+        "공동수급_근거": share_line or None,
+        "대기업_참여제한_문구": bool(re.search(r"대기업|상호출자제한|중견기업", src)),
+        "공고서_계약방법": "불명",
+        "공고서_예산금액_원": None,
+        "공고서_업종코드": [],
+    }
+
+
+# ===== 7. 사실 결합 =====
+BOOL_KEYS = ["직접생산확인_요구", "우선조달_예외사유_기재", "실적제한", "실적_발주처_공공한정", "지역제한",
+             "특정기관_한정", "특정모델_지정", "확약서_입찰시제출", "설명회_미참석_참가불가", "대기업_참여제한_문구"]
+
+
+def merge_facts(llm: Optional[Dict[str, Any]], rx: Dict[str, Any], policy: Dict[str, str]) -> Dict[str, Any]:
+    """policy[key] ∈ {llm, rx, or, and}. LLM 출력이 없으면 정규식 사실을 그대로 쓴다."""
+    if not llm:
+        return dict(rx)
+    out = dict(rx)
+    for k, v in llm.items():
+        if k not in rx:
+            continue
+        mode = policy.get(k, "llm")
+        if k in BOOL_KEYS:
+            lv, rv = bool(v), bool(rx[k])
+            out[k] = {"llm": lv, "rx": rv, "or": lv or rv, "and": lv and rv}[mode]
+        elif mode == "rx":
+            out[k] = rx[k]
+        elif mode in ("or", "llm_then_rx"):
+            empty = v in (None, "", [], "없음", "해당없음", "불명")
+            out[k] = rx[k] if empty else v
+        else:
+            out[k] = v
+    return out
+
+
+# 항목별 사실 출처(dev 200건 MLX 비교 결과, README 참고).
+#  rx  : 정규식 사실. 규칙형 항목에서 LLM은 평가표 실적·주소 등을 제한으로 읽어 오탐이 많았다.
+#  llm : 문맥 판단이 필요한 항목(특정기관·모델명·확약서·경쟁제품 품목·기업규모 수준).
+#  or  : 날짜처럼 한쪽이 못 찾으면 다른 쪽 값으로 채운다.  and : 두 쪽이 모두 동의할 때만.
+ITEM_SOURCE: Dict[str, str] = {k: "rx" for k in ITEMS}
+ITEM_SOURCE.update({"v1": "llm", "v9": "llm", "v11": "llm", "v13": "llm", "v15": "llm", "v19": "llm",
+                    "v10": "and", "v23": "or"})
+FACT_KEYS = BOOL_KEYS + ["계약목적물_세부품명번호", "기업규모_제한", "실적_요구금액_원", "지역_단위", "지역_시도목록",
+                         "설명회_개최일", "제안서_마감일", "공동수급_최소지분율"]
+
+
+# ===== 8. 법령 판정기 =====
+def _norm_date(s: Any) -> Optional[date]:
+    if not isinstance(s, str):
+        return None
+    m = DATE_FULL_RE.search(s)
+    return _to_date(int(m.group(1)), int(m.group(2)), int(m.group(3))) if m else None
+
+
+def _meta_industry_codes(rec: Dict[str, Any]) -> set:
+    return set(re.findall(r"\((\d{4})\)", str(meta(rec, "면허업종제한목록") or "")))
+
+
+def _meta_method(rec: Dict[str, Any]) -> str:
+    return str(meta(rec, "계약방법") or "")
+
+
+def is_software(rec: Dict[str, Any]) -> bool:
+    return "소프트웨어" in str(meta(rec, "면허업종제한목록") or "") or "소프트웨어사업자" in full_text(rec)
+
+
+def is_competitive(facts: Dict[str, Any], rec: Dict[str, Any], table: Dict[str, Dict[str, Any]]) -> bool:
+    code = str(facts.get("계약목적물_세부품명번호") or "")
+    it = table.get(code)
+    if not it:
+        return False
+    p = price(rec)
+    return it["limit"] is None or p is None or p < it["limit"]
+
+
+TITLE_BAND_RE = re.compile(r"\((일반경쟁|제한경쟁|수의계약|지명경쟁)\s*[·ㆍ]\s*(\d+)\s*억원?\s*(미만|이상)\)")
+
+
+def judge(rec: Dict[str, Any], facts: Dict[str, Any], table: Dict[str, Dict[str, Any]]) -> Dict[str, int]:
+    p = price(rec) or 0.0
+    # 단가계약 등으로 추정가격이 1원·5원처럼 의미 없는 공고는 금액 구간 판정을 하지 않는다.
+    priced = p >= 1_000_000
+    local = is_local(rec)
+    small_quote = local_small_quote(rec)
+    region_limit = LOCAL_REGION_AMOUNT if local else NOTICE_AMOUNT
+    budget = float(meta(rec, "배정예산금액") or p or 0)
+    comp = is_competitive(facts, rec, table)
+    level = facts.get("기업규모_제한") or "없음"
+    exception = bool(facts.get("우선조달_예외사유_기재"))
+    private_contract = _meta_method(rec) == "수의계약"
+    perf = bool(facts.get("실적제한"))
+    region = bool(facts.get("지역제한"))
+    provinces = {PROVINCE_ALIAS.get(x, x) for x in (facts.get("지역_시도목록") or []) if isinstance(x, str)}
+    perf_amount = facts.get("실적_요구금액_원")
+    share = facts.get("공동수급_최소지분율")
+    v: Dict[str, int] = {k: 0 for k in ITEMS}
+
+    v["v1"] = int(bool(facts.get("특정기관_한정")))
+    # 실적 제한
+    v["v2"] = int(perf and priced and p < NOTICE_AMOUNT and not small_quote)
+    v["v3"] = int(perf and isinstance(perf_amount, (int, float)) and budget > 0 and perf_amount >= budget)
+    v["v4"] = int(perf and bool(facts.get("실적_발주처_공공한정")))
+    # 지역 제한
+    v["v5"] = int(region and priced and p >= region_limit)
+    v["v6"] = int(region and priced and facts.get("지역_단위") == "시군구" and p < region_limit and not small_quote)
+    v["v7"] = int(region and priced and len(provinces) >= 2 and p < region_limit and not small_quote)
+    # 지방계약법 시행규칙 제25조 제7항: 실적(1호)과 지역(6호) 중복 제한 금지
+    v["v8"] = int(local and not small_quote and perf and region)
+    # '동등 이상' 허용 규격은 특정 모델 지정으로 보지 않는다.
+    v["v9"] = int(is_goods(rec) and bool(facts.get("특정모델_지정")) and "동등" not in str(facts.get("특정모델_근거") or ""))
+    # 중기간 경쟁제품(판로지원법 제7조 경쟁입찰 규정 — dev에서 수의계약 건은 이 계열 위반 라벨 0건)
+    if not private_contract:
+        v["v10"] = int(comp and not facts.get("직접생산확인_요구") and not facts.get("직접생산_언급_넓게"))
+        v["v11"] = int(comp and level == "없음" and not exception)
+        v["v13"] = int(comp and level == "소기업·소상공인")
+    v["v12"] = int(bool(facts.get("직접생산확인_요구")) and not comp)
+    # 판로지원법 시행령 제2조의2: 1억 미만 소기업·소상공인, 1억~고시금액 중소기업, 고시금액 이상 제한 금지
+    if not comp and not exception and priced and not private_contract:
+        v["v14"] = int(p >= NOTICE_AMOUNT and level != "없음")
+        v["v15"] = int(ONE_HUNDRED_MILLION <= p < NOTICE_AMOUNT and level == "소기업·소상공인")
+        # 부재형 v16·v18은 제한경쟁 입찰에만 적용(dev 양성 13건 모두 제한경쟁, 일반경쟁 무제한은 dev·무라벨 모두 정상)
+        restricted_bid = _meta_method(rec) == "제한경쟁"
+        v["v16"] = int(ONE_HUNDRED_MILLION <= p < NOTICE_AMOUNT and level == "없음" and restricted_bid)
+        v["v17"] = int(p < ONE_HUNDRED_MILLION and level == "중소기업")
+        v["v18"] = int(p < ONE_HUNDRED_MILLION and level == "없음" and restricted_bid)
+    # 제조사 물품공급·기술지원 확약서를 입찰·마감 시점에 요구한 경우만(계약 시 제출·제출 가능 업체는 제외)
+    commit_ev = str(facts.get("확약서_근거") or "")
+    v["v19"] = int(is_goods(rec) and bool(facts.get("확약서_입찰시제출")) and "확약" in commit_ev
+                   and bool(re.search(r"입찰|마감", commit_ev)) and bool(re.search(r"제조|공급|기술지원|A/S", commit_ev)))
+    v["v20"] = int(is_software(rec) and priced and p >= ONE_HUNDRED_MILLION and not facts.get("대기업_참여제한_문구"))
+    v["v21"] = int(isinstance(share, (int, float)) and 0 < share < (LOCAL_MIN_SHARE if local else NATIONAL_MIN_SHARE))
+    v["v22"] = int(is_negotiation(rec) and bool(facts.get("설명회_미참석_참가불가")))
+    # 지방 낙찰자 결정기준 제7장 제3절 2-다: 설명은 제안서 마감 전일부터 기산해 10/20/40일 전
+    brief, deadline = _norm_date(facts.get("설명회_개최일")), _norm_date(facts.get("제안서_마감일"))
+    if is_negotiation(rec) and local and brief and deadline and deadline >= brief:
+        need = 40 if p >= 1e9 else (20 if p >= ONE_HUNDRED_MILLION else 10)
+        v["v23"] = int((deadline - brief).days <= need)
+    v["v24"] = int(meta_mismatch(rec, facts))
+    return v
+
+
+def meta_mismatch(rec: Dict[str, Any], facts: Dict[str, Any]) -> bool:
+    """공고서 기재값과 나라장터 입력값 대조: 예산·업종코드·제목 금액구간.
+    LLM이 읽은 계약방법 비교는 dev 오탐 3건·정탐 0건이라 쓰지 않는다(계약방법 불일치는 제목 정규식이 잡는다)."""
+    amount = facts.get("공고서_예산금액_원")
+    # LLM이 옮긴 금액이 원문에 그대로 있을 때만 비교(숫자 환각 방지)
+    if isinstance(amount, (int, float)) and amount > 1_000_000 and f"{int(amount):,}" in full_text(rec):
+        known = [float(meta(rec, k)) for k in ("배정예산금액", "입찰추정가격") if meta(rec, k) not in (None, "")]
+        if known and all(abs(amount - x) > max(1000.0, x * 0.001) for x in known):
+            return True
+    codes = {c for c in (facts.get("공고서_업종코드") or []) if isinstance(c, str) and re.fullmatch(r"\d{4}", c)}
+    mcodes = _meta_industry_codes(rec)
+    if codes and mcodes and not codes & mcodes:
+        return True
+    m = TITLE_BAND_RE.search(rec["docs"][0]["text"][:300])
+    p = price(rec)
+    if m and p:
+        bound = float(m.group(2)) * 1e8
+        if (m.group(3) == "미만" and p >= bound) or (m.group(3) == "이상" and p < bound):
+            return True
+    return False
+
+
+# ===== 9. 근거 문구 =====
+EVIDENCE_KEYS = {
+    "v1": ["특정기관_근거"], "v2": ["실적_근거"], "v3": ["실적_근거"], "v4": ["실적_근거"],
+    "v5": ["지역_근거"], "v6": ["지역_근거"], "v7": ["지역_근거"], "v8": ["실적_근거", "지역_근거"],
+    "v9": ["특정모델_근거"], "v12": ["기업규모_근거"], "v13": ["기업규모_근거"], "v14": ["기업규모_근거"],
+    "v15": ["기업규모_근거"], "v17": ["기업규모_근거"], "v19": ["확약서_근거"], "v21": ["공동수급_근거"],
+    "v22": ["설명회_근거"], "v23": ["설명회_근거"],
+}
+
+
+def clean_evidence(ev: Any, src: str) -> str:
+    if not isinstance(ev, str) or not ev:
+        return ""
+    ev = unicodedata.normalize("NFC", ev).replace("\r", "").strip()[:EVIDENCE_MAX].strip()
+    if not ev or ev[0] in "=+@":
+        return ""
+    return ev if ev in src else ""
+
+
+def evidence_for(item: str, rec: Dict[str, Any], llm: Optional[Dict[str, Any]], rx: Dict[str, Any], src: str) -> str:
+    if item in ABSENCE:
+        return ""
+    if item == "v12":
+        cand = [s for s in _lines(rec, r"직접생산") if re.search(r"소지|보유", s)]
+        return clean_evidence(cand[0], src) if cand else ""
+    for key in EVIDENCE_KEYS.get(item, []):
+        for facts in (llm or {}, rx):
+            ev = clean_evidence(facts.get(key), src)
+            if ev:
+                return ev
+    return ""
+
+
+def decide(rec: Dict[str, Any], llm_text: str, table: Dict[str, Dict[str, Any]],
+           policy: Optional[Dict[str, str]] = None, item_text: str = "",
+           model_text: str = "") -> Tuple[Dict[str, int], Dict[str, str], bool]:
+    llm = parse_facts(llm_text)
+    parsed_main = llm is not None
+    if model_text:
+        llm = apply_model_call(rec, llm, model_text)
+    rx = regex_facts(rec, table)
+    if llm and llm.get("기업규모_제한") in ("중소기업", "소기업·소상공인"):
+        ev = clean_evidence(llm.get("기업규모_근거"), full_text(rec))
+        level = classify_level(ev)
+        if level:
+            llm = dict(llm, 기업규모_제한=level)
+    item = parse_facts(item_text)
+    if item and needs_item_call(rec) and item.get("세부품명번호") in (service_codes(table) + ["해당없음"]):
+        # 용역 품목: 본 호출이 고른 품목을 쓰되, 전용 호출이 "해당없음"이면 경쟁제품에서 뺀다.
+        # 두 판단이 모두 경쟁제품이라고 할 때만 인정(dev: 전용 호출 단독 0.715, 본 호출 단독 0.720, 결합 0.736).
+        base = (llm or {}).get("계약목적물_세부품명번호") if llm else rx["계약목적물_세부품명번호"]
+        uninformed = bool(re.search(r"명시되지|없어|없음|불가|알 수 없|확인할 수 없|포함되어 있지", str(item.get("계약목적물_요약") or "")))
+        veto = item["세부품명번호"] == "해당없음" and not uninformed   # 과업 정보가 없어 못 고른 경우는 거부권 없음
+        code = "해당없음" if veto else (base or "해당없음")
+        rx["계약목적물_세부품명번호"] = code
+        if llm:
+            llm["계약목적물_세부품명번호"] = code
+    if policy is not None:                       # 평가용: 모든 사실에 같은 출처 정책을 적용
+        hits = judge(rec, merge_facts(llm, rx, policy), table)
+    else:
+        by_mode = {mode: judge(rec, merge_facts(llm, rx, {k: mode for k in FACT_KEYS}), table)
+                   for mode in set(ITEM_SOURCE.values())}
+        hits = {k: by_mode[ITEM_SOURCE[k]][k] for k in ITEMS}
+    src = full_text(rec)
+    evid = {k: (evidence_for(k, rec, llm, rx, src) if hits[k] else "") for k in ITEMS}
+    return hits, evid, parsed_main
+
+
+def to_row(rec_id: str, hits: Dict[str, int], evid: Dict[str, str]) -> Dict[str, Any]:
+    row = {"id": rec_id}
+    for i, v in enumerate(ITEMS, 1):
+        row[v] = int(hits[v])
+        row[f"e{i}"] = evid.get(v, "") if hits[v] else ""
+    return row
+
+
+# ===== 10. submission.csv 저장·자가검증 =====
+def write_csv(rows: List[Dict[str, Any]], path: str) -> None:
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+    with io.open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=COLUMNS, lineterminator="\n")
+        w.writeheader()
+        for r in rows:
+            w.writerow({k: unicodedata.normalize("NFC", str(r[k])) for k in COLUMNS})
+
+
+def validate_csv(path: str, expected_ids: List[str]) -> List[str]:
+    errs: List[str] = []
+    with io.open(path, "r", encoding="utf-8", newline="") as f:
+        rd = csv.reader(f)
+        header = next(rd, None)
+        rows = list(rd)
+    if header != COLUMNS:
+        return [f"헤더 불일치: {len(header or [])}열 (기대 {len(COLUMNS)})"]
+    if len(rows) != len(expected_ids):
+        errs.append(f"행 수 {len(rows)} ≠ 입력 {len(expected_ids)}")
+    ids = [r[0] for r in rows]
+    if len(set(ids)) != len(ids):
+        errs.append("id 중복")
+    if set(ids) != set(expected_ids):
+        errs.append(f"id 집합 불일치 (누락 {len(set(expected_ids) - set(ids))})")
+    absence_idx = {COLUMNS.index("e" + v[1:]) for v in ABSENCE}
+    for r in rows:
+        if len(r) != len(COLUMNS):
+            errs.append(f"{r[0]}: 열 수 {len(r)}")
+            continue
+        if any(x not in ("0", "1") for x in r[1:25]):
+            errs.append(f"{r[0]}: 위반여부에 0/1 아닌 값")
+        if any(len(x) > EVIDENCE_MAX for x in r[25:]):
+            errs.append(f"{r[0]}: 근거문구 {EVIDENCE_MAX}자 초과")
+        if any(r[j] for j in absence_idx):
+            errs.append(f"{r[0]}: 부재탐지 항목에 근거문구")
+        if any(x.startswith(("=", "+", "@")) for x in r[25:]):
+            errs.append(f"{r[0]}: 수식 접두 근거문구")
+    return errs
+
+
+# ===== 11. 실행 =====
+def run(input_path: str, out_path: str, runner_cls, limit: Optional[int], chunk: int,
+        data_dir: str, **runner_kw) -> Dict[str, Any]:
+    t_all = time.time()
+    recs = list(iter_records(input_path, limit=limit))
+    log(f"입력 {len(recs)}건 ← {input_path}")
+    if not recs:
+        write_csv([], out_path)
+        return {"건수": 0, "자가검증": "PASS"}
+
+    table = load_competitive_table(data_dir)
+    log(f"중기간 경쟁제품 세부품명 {len(table)}건 로드")
+    runner = runner_cls(extraction_schema(), **runner_kw)
+    log(f"모델 로드 {runner.load_seconds:.1f}s")
+
+    msgs_all, ntok, shrunk = [], [], 0
+    for rec in recs:
+        m, n, scale = fit_to_budget(rec, table, runner)
+        msgs_all.append(m)
+        ntok.append(n)
+        shrunk += int(scale < 1.0)
+    log(f"프롬프트 토큰 중앙값 {sorted(ntok)[len(ntok) // 2]:,} · 최대 {max(ntok):,} · 예산 축소 {shrunk}건")
+
+    t_inf = time.time()
+    texts: List[str] = []
+    for s in range(0, len(msgs_all), chunk):
+        texts.extend(run_chunk(runner, msgs_all[s:s + chunk]))
+        log(f"  {min(s + chunk, len(msgs_all))}/{len(msgs_all)}건 … {time.time() - t_inf:.0f}s")
+    item_idx = [i for i, rec in enumerate(recs) if needs_item_call(rec)]
+    item_texts: Dict[int, str] = {}
+    ischema = item_schema(table)
+    item_msgs = [build_item_messages(recs[i], table) for i in item_idx]
+    for s in range(0, len(item_msgs), chunk):
+        outs = run_chunk(runner, item_msgs[s:s + chunk], ischema)
+        for j, o in zip(item_idx[s:s + chunk], outs):
+            item_texts[j] = o
+    log(f"품목 판별 호출 {len(item_idx)}건 · 유효 {sum(1 for t in item_texts.values() if parse_facts(t))}건")
+    model_idx = [i for i, rec in enumerate(recs) if needs_model_call(rec)]
+    model_texts: Dict[int, str] = {}
+    mschema = model_schema()
+    model_msgs = [build_model_messages(recs[i]) for i in model_idx]
+    for s in range(0, len(model_msgs), chunk):
+        outs = run_chunk(runner, model_msgs[s:s + chunk], mschema)
+        for j, o in zip(model_idx[s:s + chunk], outs):
+            model_texts[j] = o
+    log(f"모델명 판별 호출 {len(model_idx)}건 · 유효 {sum(1 for t in model_texts.values() if parse_facts(t))}건")
+    inf_seconds = time.time() - t_inf
+
+    rows, parsed_ok = [], 0
+    for n, (rec, text) in enumerate(zip(recs, texts)):
+        try:
+            hits, evid, ok = decide(rec, text, table, item_text=item_texts.get(n, ""),
+                                    model_text=model_texts.get(n, ""))
+            parsed_ok += int(ok)
+        except Exception as e:
+            log(f"  ! {rec['id']} 판정 실패 → 전항목 0: {type(e).__name__}: {e}")
+            hits, evid = {k: 0 for k in ITEMS}, {}
+        rows.append(to_row(rec["id"], hits, evid))
+    assert len(rows) == len(recs)
+
+    write_csv(rows, out_path)
+    errs = validate_csv(out_path, [r["id"] for r in recs])
+    positives = {v: sum(r[v] for r in rows) for v in ITEMS}
+    report = {
+        "건수": len(recs), "모델로드_s": round(runner.load_seconds, 1), "추론_s": round(inf_seconds, 1),
+        "전체_s": round(time.time() - t_all, 1), "유효JSON": parsed_ok, "항목별_양성": positives,
+        "출력": out_path, "자가검증": "PASS" if not errs else errs[:20],
+    }
+    log(json.dumps(report, ensure_ascii=False))
+    return report
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="사실 추출 + 법령 판정기")
+    ap.add_argument("--data-dir", default=DATA_DIR)
+    ap.add_argument("--output-dir", default=OUTPUT_DIR)
+    ap.add_argument("--input", default=None, help="기본 = <data-dir>/test.jsonl.gz")
+    ap.add_argument("--model-dir", default=MODEL_DIR)
+    ap.add_argument("--quantization", default=os.environ.get("PPS_QUANT", QUANT))
+    ap.add_argument("--gpu-mem", type=float, default=0.92)
+    ap.add_argument("--tp", type=int, default=1)
+    ap.add_argument("--chunk", type=int, default=128)
+    ap.add_argument("--max-tokens", type=int, default=MAX_TOKENS)
+    ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--mock", action="store_true")
+    a = ap.parse_args()
+
+    input_path = a.input or os.path.join(a.data_dir, "test.jsonl.gz")
+    out_path = os.path.join(a.output_dir, "submission.csv")
+    quant = None if str(a.quantization).lower() in ("none", "") else a.quantization
+    runner_kw = {} if a.mock else dict(model_dir=a.model_dir, quant=quant, max_tokens=a.max_tokens,
+                                       seed=SEED, gpu_mem=a.gpu_mem, tp=a.tp)
+    report = run(input_path, out_path, MockRunner if a.mock else VLLMRunner,
+                 limit=a.limit, chunk=a.chunk, data_dir=a.data_dir, **runner_kw)
+    return 0 if report.get("자가검증") == "PASS" else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

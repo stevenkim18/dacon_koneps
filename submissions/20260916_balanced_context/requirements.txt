@@ -1,0 +1,2 @@
+# 평가 서버 기본 패키지만 사용합니다.
+# vllm·torch·transformers·xgrammar는 서버 고정 버전을 그대로 사용합니다.

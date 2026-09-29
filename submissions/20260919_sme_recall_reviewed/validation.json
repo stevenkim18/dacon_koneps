@@ -1,0 +1,15 @@
+{
+  "zip_sha256": "bf4309ce7e56de4dc51c0d625bd6f2971e5bc1a3530dc8aad83131c089ba5c28",
+  "zip_bytes": 25702,
+  "zip_source_match": true,
+  "review_experiment_source_match": true,
+  "original_zip_unchanged": true,
+  "mock_exit": 0,
+  "mock_rows": 10,
+  "mock_columns": 49,
+  "mock_csv_validation": "PASS",
+  "replay_records": 700,
+  "replay_valid_main_json": 698,
+  "required_evidence_checked": 202,
+  "evidence_validation": "PASS"
+}

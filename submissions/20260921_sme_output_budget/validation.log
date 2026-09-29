@@ -1,0 +1,8 @@
+[rule_extract] [출력진단] max_tokens=1200 · 요청=1 · 응답=1 · 종료={'stop': 1} · 출력토큰합=2 · 최대=2
+[rule_extract] [출력진단] max_tokens=400 · 요청=1 · 응답=1 · 종료={'stop': 1} · 출력토큰합=2 · 최대=2
+[rule_extract] [출력진단] max_tokens=128 · 요청=1 · 응답=1 · 종료={'stop': 1} · 출력토큰합=2 · 최대=2
+[rule_extract] [출력진단] max_tokens=128 · 요청=1 · 응답=1 · 종료={'stop': 1} · 출력토큰합=2 · 최대=2
+saved-output regression: 200 records, changed: 0
+output budget routing: main=1200, sme=400, item/model=128 PASS
+saved SME outputs: {"count": 200, "valid_json": 198, "over_128": 159, "over_400": 0, "median": 175, "max": 400}
+Retokenized local outputs indicate length risk; these are not server truncation counts.

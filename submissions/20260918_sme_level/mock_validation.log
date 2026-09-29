@@ -1,0 +1,13 @@
+[rule_extract] 입력 10건 ← ./data/test.jsonl.gz
+[rule_extract] 중기간 경쟁제품 세부품명 615건 로드
+[rule_extract] 모델 로드 0.0s
+[rule_extract] 프롬프트 토큰 중앙값 3,625 · 최대 5,205 · 예산 축소 0건
+[rule_extract]   10/10건 … 0s
+[rule_extract] 품목 판별 호출 5건 · 유효 0건
+[rule_extract] 모델명 판별 호출 2건 · 유효 0건
+[rule_extract] {"건수": 10, "모델로드_s": 0.0, "추론_s": 0.0, "전체_s": 0.1, "유효JSON": 0, "항목별_양성": {"v1": 0, "v2": 0, "v3": 0, "v4": 0, "v5": 0, "v6": 0, "v7": 1, "v8": 0, "v9": 0, "v10": 0, "v11": 0, "v12": 0, "v13": 0, "v14": 1, "v15": 0, "v16": 0, "v17": 0, "v18": 0, "v19": 0, "v20": 0, "v21": 0, "v22": 0, "v23": 0, "v24": 0}, "출력": "./output/submission.csv", "자가검증": "PASS"}
+
+[ZIP 검증]
+파일: script.py, requirements.txt
+출력 검증: 10행, 49열, v 0/1=True, BOM 없음=True
+SHA-256: 44a79017d6e84e990f92de16aa8e6002f8f3c088bf470b643481edcd4a6ab619

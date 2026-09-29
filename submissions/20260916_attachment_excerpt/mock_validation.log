@@ -1,0 +1,20 @@
+[baseline] 입력 10건 ← open/data/test.jsonl.gz
+[baseline] 중기간 경쟁제품 세부품명번호 615건 로드(v13 오탐 억제용)
+[baseline] 모델 로드 0.0s
+[baseline] 프롬프트 토큰 중앙값 3,224 · 최대 3,350 · 예산 축소 0건
+[baseline]   10/10건 … 0s
+[baseline] {"건수": 10, "모델로드_s": 0.0, "추론_s": 0.0, "건당_s": 0.0, "전체_s": 0.0, "유효JSON": 10, "메운_항목수": 0, "근거_유지": 0, "근거_원문불일치_폐기": 0, "출력": "/var/folders/9x/0ndvd9g12qsbc5s995ff578m0000gn/T/tmp.ssy9Itkx75/output/submission.csv", "자가검증": "PASS"}
+
+[ZIP 검증]
+파일: script.py, requirements.txt
+압축 무결성: PASS
+압축 해제 후 독립 mock 실행: PASS
+출력 검증: 10행, 49열, v1~v24 모두 0/1
+SHA-256: 11a2e6edeecfd86d511ff64407a9579c8c47dfa4bb6ab51df03e33db9f2d386e
+
+[MLX 로컬 dev 128건 추론 — 서버 검증 아님, 참고용]
+모델: mlx-community/gemma-4-26b-a4b-it-4bit (서버는 vLLM+int8, 로컬은 mlx-vlm+4bit → 정확히 일치하지 않음)
+표본: dev 200건 중 위반 라벨 보유 88건 전부 + 무작위 정상 40건 = 128건(층화, 전체 dev 대표 표본 아님)
+macro F1(128건 기준): baseline 0.1405 → attachment_excerpt(v1, 첨부 발췌만) 0.1735 → +v22/v23 게이트·v13 목록대조(v2) 0.1753
+v13 fp 23건→11건(세부품명번호 대조로 목록 밖 품목 오탐 제거). v22/v23 게이트는 이 128건 표본엔 적중 사례가 없어 국지적 영향 0(서버 평가셋에서는 안전망).
+근거: docs/05_study_log/20260917/1. mlx_local_eval_attachment_excerpt.md, docs/05_study_log/20260917/2. dev_reanalysis_v13_v22_v23.md

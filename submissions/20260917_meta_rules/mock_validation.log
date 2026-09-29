@@ -1,0 +1,19 @@
+[baseline] 입력 10건 ← open/data/test.jsonl.gz
+[baseline] 중기간 경쟁제품 세부품명번호 615건 로드(v13 오탐 억제용)
+[baseline] 모델 로드 0.0s
+[baseline] 프롬프트 토큰 중앙값 3,224 · 최대 3,350 · 예산 축소 0건
+[baseline]   10/10건 … 0s
+[baseline] {"건수": 10, "모델로드_s": 0.0, "추론_s": 0.0, "건당_s": 0.0, "전체_s": 0.0, "유효JSON": 10, "메운_항목수": 0, "근거_유지": 1, "근거_원문불일치_폐기": 0, "출력": "/var/folders/9x/0ndvd9g12qsbc5s995ff578m0000gn/T/tmp.Cu2g8pJije/output/submission.csv", "자가검증": "PASS"}
+
+[ZIP 검증]
+파일: script.py, requirements.txt
+압축 무결성: PASS
+압축 해제 후 독립 mock 실행: PASS
+출력 검증: 10행, 49열, v1~v24 모두 0/1=True, BOM 없음=True
+SHA-256: 6c588b4d1af3d7bbb541d9e0eb310816ebc340f2c8784fba460e26f3e9399cfe
+
+[MLX 로컬 dev 128건 — 저장된 attachment_excerpt 원문 출력에 새 postprocess만 재적용, 서버 검증 아님]
+프롬프트·모델 호출 코드는 attachment_excerpt와 동일하므로 재추론 없이 후처리만 다시 적용했다.
+macro F1(128건 기준): attachment_excerpt 0.1753 → meta_rules 0.2534 (+0.0781)
+dev 200건 정답 양성 중 금액·업무 게이트에 막힌 건: 0건
+근거: docs/05_study_log/20260917/3. meta_price_gates_and_sme_rules.md
