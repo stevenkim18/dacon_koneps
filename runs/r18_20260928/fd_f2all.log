@@ -1,0 +1,71 @@
+######## f2all
+== dev·4bit: 판정 변경 37건 {(1, '0'): 29, (-1, '1'): 6, (1, '1'): 1, (-1, '0'): 1} · 근거 문구 변경 2건 · 근거 요건 위반 0건 · 시간 4.8s→4.8s
+    +v10  PPS-DEV-04     label=0  ''
+    +v10  PPS-DEV-040    label=0  ''
+    +v10  PPS-DEV-041    label=0  ''
+    +v10  PPS-DEV-042    label=0  ''
+    +v10  PPS-DEV-043    label=0  ''
+    +v10  PPS-DEV-044    label=0  ''
+    +v10  PPS-DEV-066    label=0  ''
+    +v10  PPS-DEV-075    label=1  ''
+    +v10  PPS-DEV-081    label=0  ''
+    +v10  PPS-DEV-099    label=0  ''
+    +v10  PPS-DEV-10     label=0  ''
+    +v10  PPS-DEV-123    label=0  ''
+    +v10  PPS-DEV-136    label=0  ''
+    +v10  PPS-DEV-141    label=0  ''
+    +v10  PPS-DEV-173    label=0  ''
+    +v10  PPS-DEV-28     label=0  ''
+    +v10  PPS-DEV-32     label=0  ''
+    +v11  PPS-DEV-04     label=0  ''
+    +v11  PPS-DEV-040    label=0  ''
+    +v11  PPS-DEV-041    label=0  ''
+    +v11  PPS-DEV-043    label=0  ''
+    +v11  PPS-DEV-044    label=0  ''
+    +v11  PPS-DEV-066    label=0  ''
+    +v11  PPS-DEV-081    label=0  ''
+    +v11  PPS-DEV-099    label=0  ''
+    +v11  PPS-DEV-123    label=0  ''
+    +v11  PPS-DEV-141    label=0  ''
+    +v11  PPS-DEV-28     label=0  ''
+    +v13  PPS-DEV-136    label=0  '「중소기업제품 구매촉진 및 판로지원에 관한 법률 시행령」 제2조의2(중소기업자와의 우선조달계약)에 의한 소기업 또는 소상공인에 해당하는 자로서'
+    +v13  PPS-DEV-173    label=0  "2) 중소기업제품 구매촉진 및 판로지원에 관한 법률 시행령 제2조의2에 따른 우선조달계약 대상으로 '소기업' 또는 소상공인기본법 제2조의 '소상공인'"
+    -v16  PPS-DEV-066    label=1  ''
+    -v17  PPS-DEV-042    label=1  '나. 중소기업기본법 제2조 제2항에 따른 중·소기업 또는 소상공인 보호 및 지원에 관한 법률 제2조에 따른 소상공인으로서 중·소기업, 소상공인확인서 중 하나를 소'
+    -v17  PPS-DEV-075    label=0  '다.「중소기업기본법」 제2조에 따른 중소기업자 또는 「소상공인기본법」제2조에\n\n따른 소상공인으로 「중소기업범위 및 확인에 관한 규정」에 따라 발급된 유효\n\n기간 '
+    -v18  PPS-DEV-040    label=1  ''
+    -v18  PPS-DEV-041    label=1  ''
+    -v18  PPS-DEV-043    label=1  ''
+    -v18  PPS-DEV-044    label=1  ''
+== dev·int8①: 판정 변경 29건 {(1, '0'): 22, (-1, '1'): 5, (1, '1'): 1, (-1, '0'): 1} · 근거 문구 변경 2건 · 근거 요건 위반 0건 · 시간 4.8s→4.8s
+    +v10  PPS-DEV-04     label=0  ''
+    +v10  PPS-DEV-040    label=0  ''
+    +v10  PPS-DEV-041    label=0  ''
+    +v10  PPS-DEV-042    label=0  ''
+    +v10  PPS-DEV-043    label=0  ''
+    +v10  PPS-DEV-066    label=0  ''
+    +v10  PPS-DEV-075    label=1  ''
+    +v10  PPS-DEV-081    label=0  ''
+    +v10  PPS-DEV-099    label=0  ''
+    +v10  PPS-DEV-10     label=0  ''
+    +v10  PPS-DEV-136    label=0  ''
+    +v10  PPS-DEV-173    label=0  ''
+    +v10  PPS-DEV-28     label=0  ''
+    +v10  PPS-DEV-32     label=0  ''
+    +v11  PPS-DEV-04     label=0  ''
+    +v11  PPS-DEV-040    label=0  ''
+    +v11  PPS-DEV-041    label=0  ''
+    +v11  PPS-DEV-043    label=0  ''
+    +v11  PPS-DEV-066    label=0  ''
+    +v11  PPS-DEV-081    label=0  ''
+    +v11  PPS-DEV-099    label=0  ''
+mode=b4
+  v10del    23/ 25
+  v11del    23/ 25
+  v13swap   13/ 18
+  v15swap   16/ 19
+  v17swap   11/ 15
+  v19ins    20/ 20
+  v1ins     25/ 30
+  v9ins     10/ 20
+  목표 밖 새 양성: {('v11del', 'v10'): 15, ('v11del', 'v18'): 1, ('v13swap', 'v12'): 1, ('v13swap', 'v15'): 1, ('v10del', 'v11'): 2, ('v10del', 'v14'): 1, ('v10del', 'v13'): 1}

@@ -1,0 +1,15 @@
+## 7. mock (submit.zip을 풀어 실행)
+submit.zip SHA-256 c1abf3e5cc9d052aebc68fcb9871d621336203baa506dd1f045362558a510270
+script.py SHA-256 f51998407cf41b072ce39e03095fe5c92626ef54be6492de30565215548df58b (압축 안 파일과 cmp: 일치) · md5 3d4b038cc732246006a4fd353367acd0
+requirements.txt SHA-256 5740d52bbd587c05f02b72dfebf0059712ea68605f9e00092e5a058faf49de0f (wrap_r16과 같음)
+exit10=0 exit950=0
+"건수": 10	"전체_s": 1.1	"자가검증": "PASS"
+"건수": 950	"전체_s": 86.5	"자가검증": "PASS"
+out10 · rows 10 · cols [49] · 헤더 True · v열 0/1 True · ID 중복 False · BOM False · 수식 접두(=+@) False · 500자 초과 False
+out950 · rows 950 · cols [49] · 헤더 True · v열 0/1 True · ID 중복 False · BOM False · 수식 접두(=+@) False · 500자 초과 False
+
+## 8. 문법·속도
+3.9.6 compile OK
+3.13.5 compile OK
+무라벨 20,000 중 가장 긴 공고 365건 decide: 20260928_wrap_r16 18.3초(최대 0.07초/건)
+무라벨 20,000 중 가장 긴 공고 365건 decide: 20260929_r17_edit_shapes 20.0초(최대 0.07초/건)

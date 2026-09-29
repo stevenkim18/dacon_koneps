@@ -1,0 +1,362 @@
+{
+ "H9-000-021389": {
+  "item": "v9",
+  "base": "PPS-D-021389",
+  "kind": "v9h9",
+  "note": "CPU: 인텔 코어 울트라 7 155H 프로세서"
+ },
+ "H9-001-020387": {
+  "item": "v9",
+  "base": "PPS-D-020387",
+  "kind": "v9h9",
+  "note": "CPU: 인텔 코어 울트라 7 155H 프로세서"
+ },
+ "H9-010-004379": {
+  "item": "v9",
+  "base": "PPS-D-004379",
+  "kind": "v9h9",
+  "note": "모니터: LG전자 27UP850N 27인치"
+ },
+ "H9-011-009322": {
+  "item": "v9",
+  "base": "PPS-D-009322",
+  "kind": "v9h9",
+  "note": "모니터: LG전자 27UP850N 27인치"
+ },
+ "H9-020-019131": {
+  "item": "v9",
+  "base": "PPS-D-019131",
+  "kind": "v9h9",
+  "note": "노트북: 삼성 갤럭시북4 프로 NT960XGK"
+ },
+ "H9-021-007370": {
+  "item": "v9",
+  "base": "PPS-D-007370",
+  "kind": "v9h9",
+  "note": "노트북: 삼성 갤럭시북4 프로 NT960XGK"
+ },
+ "H9-030-000987": {
+  "item": "v9",
+  "base": "PPS-D-000987",
+  "kind": "v9h9",
+  "note": "복합기: 신도리코 D451 흑백 레이저"
+ },
+ "H9-031-011996": {
+  "item": "v9",
+  "base": "PPS-D-011996",
+  "kind": "v9h9",
+  "note": "복합기: 신도리코 D451 흑백 레이저"
+ },
+ "H9-040-012523": {
+  "item": "v9",
+  "base": "PPS-D-012523",
+  "kind": "v9h9",
+  "note": "태블릿: Apple iPad Air 11 (M2) Wi-Fi 128GB"
+ },
+ "H9-041-014241": {
+  "item": "v9",
+  "base": "PPS-D-014241",
+  "kind": "v9h9",
+  "note": "태블릿: Apple iPad Air 11 (M2) Wi-Fi 128GB"
+ },
+ "H9-050-003817": {
+  "item": "v9",
+  "base": "PPS-D-003817",
+  "kind": "v9h9",
+  "note": "소프트웨어: Microsoft Office LTSC Standard 2024"
+ },
+ "H9-051-016058": {
+  "item": "v9",
+  "base": "PPS-D-016058",
+  "kind": "v9h9",
+  "note": "소프트웨어: Microsoft Office LTSC Standard 2024"
+ },
+ "H9-060-013210": {
+  "item": "v9",
+  "base": "PPS-D-013210",
+  "kind": "v9h9",
+  "note": "측정 장비는 Keysight 사의 N9020B MXA 신호분석기로 한다"
+ },
+ "H9-061-007756": {
+  "item": "v9",
+  "base": "PPS-D-007756",
+  "kind": "v9h9",
+  "note": "측정 장비는 Keysight 사의 N9020B MXA 신호분석기로 한다"
+ },
+ "H9-070-021266": {
+  "item": "v9",
+  "base": "PPS-D-021266",
+  "kind": "v9h9",
+  "note": "현미경: Olympus CX43 생물현미경"
+ },
+ "H9-071-019266": {
+  "item": "v9",
+  "base": "PPS-D-019266",
+  "kind": "v9h9",
+  "note": "현미경: Olympus CX43 생물현미경"
+ },
+ "H9-080-004308": {
+  "item": "v9",
+  "base": "PPS-D-004308",
+  "kind": "v9h9",
+  "note": "원심분리기(한일과학 Combi-514R)"
+ },
+ "H9-081-006983": {
+  "item": "v9",
+  "base": "PPS-D-006983",
+  "kind": "v9h9",
+  "note": "원심분리기(한일과학 Combi-514R)"
+ },
+ "H9-090-018805": {
+  "item": "v9",
+  "base": "PPS-D-018805",
+  "kind": "v9h9",
+  "note": "트랙터: 대동 HX1400 (140마력)"
+ },
+ "H9-091-014146": {
+  "item": "v9",
+  "base": "PPS-D-014146",
+  "kind": "v9h9",
+  "note": "트랙터: 대동 HX1400 (140마력)"
+ },
+ "H9-100-008475": {
+  "item": "v9",
+  "base": "PPS-D-008475",
+  "kind": "v9h9",
+  "note": "영상장치: 소니 FX6 시네마 카메라 바디"
+ },
+ "H9-101-008764": {
+  "item": "v9",
+  "base": "PPS-D-008764",
+  "kind": "v9h9",
+  "note": "영상장치: 소니 FX6 시네마 카메라 바디"
+ },
+ "H9-110-020923": {
+  "item": "v9",
+  "base": "PPS-D-020923",
+  "kind": "v9h9",
+  "note": "빔프로젝터 엡손 EB-L630U"
+ },
+ "H9-111-013745": {
+  "item": "v9",
+  "base": "PPS-D-013745",
+  "kind": "v9h9",
+  "note": "빔프로젝터 엡손 EB-L630U"
+ },
+ "H9-120-000199": {
+  "item": "v9",
+  "base": "PPS-D-000199",
+  "kind": "v9h9",
+  "note": "네트워크 스위치: Cisco Catalyst 9300-48P"
+ },
+ "H9-121-018528": {
+  "item": "v9",
+  "base": "PPS-D-018528",
+  "kind": "v9h9",
+  "note": "네트워크 스위치: Cisco Catalyst 9300-48P"
+ },
+ "H9-130-016589": {
+  "item": "v9",
+  "base": "PPS-D-016589",
+  "kind": "v9h9",
+  "note": "방화벽: Fortinet FortiGate 200F"
+ },
+ "H9-131-001563": {
+  "item": "v9",
+  "base": "PPS-D-001563",
+  "kind": "v9h9",
+  "note": "방화벽: Fortinet FortiGate 200F"
+ },
+ "H9-140-004405": {
+  "item": "v9",
+  "base": "PPS-D-004405",
+  "kind": "v9h9",
+  "note": "냉난방기: 캐리어 CPV-Q1308DX 스탠드형"
+ },
+ "H9-141-013468": {
+  "item": "v9",
+  "base": "PPS-D-013468",
+  "kind": "v9h9",
+  "note": "냉난방기: 캐리어 CPV-Q1308DX 스탠드형"
+ },
+ "H9-150-002535": {
+  "item": "v9",
+  "base": "PPS-D-002535",
+  "kind": "v9h9",
+  "note": "청소기: 다이슨 V15 디텍트"
+ },
+ "H9-151-007973": {
+  "item": "v9",
+  "base": "PPS-D-007973",
+  "kind": "v9h9",
+  "note": "청소기: 다이슨 V15 디텍트"
+ },
+ "H9-160-003711": {
+  "item": "v9",
+  "base": "PPS-D-003711",
+  "kind": "v9h9",
+  "note": "스캐너: 후지쯔 fi-8170"
+ },
+ "H9-161-007008": {
+  "item": "v9",
+  "base": "PPS-D-007008",
+  "kind": "v9h9",
+  "note": "스캐너: 후지쯔 fi-8170"
+ },
+ "H9-170-014163": {
+  "item": "v9",
+  "base": "PPS-D-014163",
+  "kind": "v9h9",
+  "note": "3D프린터: Stratasys J55 Prime"
+ },
+ "H9-171-004615": {
+  "item": "v9",
+  "base": "PPS-D-004615",
+  "kind": "v9h9",
+  "note": "3D프린터: Stratasys J55 Prime"
+ },
+ "H9-180-013929": {
+  "item": "v9",
+  "base": "PPS-D-013929",
+  "kind": "v9h9",
+  "note": "드론: DJI Mavic 3 Enterprise(M3E)"
+ },
+ "H9-181-004749": {
+  "item": "v9",
+  "base": "PPS-D-004749",
+  "kind": "v9h9",
+  "note": "드론: DJI Mavic 3 Enterprise(M3E)"
+ },
+ "H9-190-020715": {
+  "item": "v9",
+  "base": "PPS-D-020715",
+  "kind": "v9h9",
+  "note": "펌프: 그런포스(Grundfos) CR 32-2"
+ },
+ "H9-191-001813": {
+  "item": "v9",
+  "base": "PPS-D-001813",
+  "kind": "v9h9",
+  "note": "펌프: 그런포스(Grundfos) CR 32-2"
+ },
+ "H9-200-016108": {
+  "item": "v9",
+  "base": "PPS-D-016108",
+  "kind": "v9h9",
+  "note": "분광광도계 Shimadzu UV-1900i"
+ },
+ "H9-201-001547": {
+  "item": "v9",
+  "base": "PPS-D-001547",
+  "kind": "v9h9",
+  "note": "분광광도계 Shimadzu UV-1900i"
+ },
+ "H9-210-012391": {
+  "item": "v9",
+  "base": "PPS-D-012391",
+  "kind": "v9h9",
+  "note": "보안카메라: 하이크비전 DS-2CD2387G2"
+ },
+ "H9-211-015711": {
+  "item": "v9",
+  "base": "PPS-D-015711",
+  "kind": "v9h9",
+  "note": "보안카메라: 하이크비전 DS-2CD2387G2"
+ },
+ "H9-220-008743": {
+  "item": "v9",
+  "base": "PPS-D-008743",
+  "kind": "v9h9",
+  "note": "서버: Dell PowerEdge R760"
+ },
+ "H9-221-000538": {
+  "item": "v9",
+  "base": "PPS-D-000538",
+  "kind": "v9h9",
+  "note": "서버: Dell PowerEdge R760"
+ },
+ "H9-230-015234": {
+  "item": "v9",
+  "base": "PPS-D-015234",
+  "kind": "v9h9",
+  "note": "UPS: APC Smart-UPS SRT 3000VA"
+ },
+ "H9-231-019538": {
+  "item": "v9",
+  "base": "PPS-D-019538",
+  "kind": "v9h9",
+  "note": "UPS: APC Smart-UPS SRT 3000VA"
+ },
+ "H9-240-001304": {
+  "item": "v9",
+  "base": "PPS-D-001304",
+  "kind": "v9h9",
+  "note": "전동공구: 마키타 DHP486Z 충전드릴"
+ },
+ "H9-241-012302": {
+  "item": "v9",
+  "base": "PPS-D-012302",
+  "kind": "v9h9",
+  "note": "전동공구: 마키타 DHP486Z 충전드릴"
+ },
+ "H9-250-008641": {
+  "item": "v9",
+  "base": "PPS-D-008641",
+  "kind": "v9h9",
+  "note": "제세동기: 필립스 하트스타트 HS1"
+ },
+ "H9-251-001912": {
+  "item": "v9",
+  "base": "PPS-D-001912",
+  "kind": "v9h9",
+  "note": "제세동기: 필립스 하트스타트 HS1"
+ },
+ "H9-260-007858": {
+  "item": "v9",
+  "base": "PPS-D-007858",
+  "kind": "v9h9",
+  "note": "로봇청소기 삼성 비스포크 AI 스팀"
+ },
+ "H9-261-007471": {
+  "item": "v9",
+  "base": "PPS-D-007471",
+  "kind": "v9h9",
+  "note": "로봇청소기 삼성 비스포크 AI 스팀"
+ },
+ "H9-270-013503": {
+  "item": "v9",
+  "base": "PPS-D-013503",
+  "kind": "v9h9",
+  "note": "음향 콘솔: Yamaha CL5 디지털 믹서"
+ },
+ "H9-271-019088": {
+  "item": "v9",
+  "base": "PPS-D-019088",
+  "kind": "v9h9",
+  "note": "음향 콘솔: Yamaha CL5 디지털 믹서"
+ },
+ "H9-280-000995": {
+  "item": "v9",
+  "base": "PPS-D-000995",
+  "kind": "v9h9",
+  "note": "제조사: 한국○○정밀, 모델: KP-500"
+ },
+ "H9-281-018360": {
+  "item": "v9",
+  "base": "PPS-D-018360",
+  "kind": "v9h9",
+  "note": "제조사: 한국○○정밀, 모델: KP-500"
+ },
+ "H9-290-014418": {
+  "item": "v9",
+  "base": "PPS-D-014418",
+  "kind": "v9h9",
+  "note": "승합차: 현대 스타리아 11인승 투어러"
+ },
+ "H9-291-011949": {
+  "item": "v9",
+  "base": "PPS-D-011949",
+  "kind": "v9h9",
+  "note": "승합차: 현대 스타리아 11인승 투어러"
+ }
+}

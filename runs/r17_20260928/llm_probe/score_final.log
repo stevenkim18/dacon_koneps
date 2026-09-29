@@ -1,0 +1,38 @@
+## submissions/20260928_wrap_r16/script.py
+mode=rx
+  v10del     4/ 25
+  v11del    14/ 25
+  v13swap   14/ 18
+  v15swap   18/ 19
+  v17swap   11/ 15
+  v19ins    20/ 20
+  v1ins     13/ 30
+  v9ins      0/ 20
+mode=b4
+  v10del    14/ 25
+  v11del    12/ 25
+  v13swap   13/ 18
+  v15swap   16/ 19
+  v17swap   11/ 15
+  v19ins    20/ 20
+  v1ins     19/ 30
+  v9ins     10/ 20
+## runs/r17_20260928/cand.py
+mode=rx
+  v10del     4/ 25
+  v11del    14/ 25
+  v13swap   14/ 18
+  v15swap   18/ 19
+  v17swap   11/ 15
+  v19ins    20/ 20
+  v1ins     24/ 30
+  v9ins      0/ 20
+mode=b4
+  v10del    17/ 25
+  v11del    19/ 25
+  v13swap   13/ 18
+  v15swap   16/ 19
+  v17swap   11/ 15
+  v19ins    20/ 20
+  v1ins     25/ 30
+  v9ins     10/ 20

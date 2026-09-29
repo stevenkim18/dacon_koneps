@@ -1,0 +1,16 @@
+## 6-10 v1 보류 세트 H5~H9 (r17 · r18)
+### runs/r17_20260928/probe_h5_v1.py
+submissions/20260929_r17_edit_shapes/script.py: 정규식만 72/108 · LLM있음 72/108
+submissions/20260929_r18_fresh_holdout/script.py: 정규식만 96/108 · LLM있음 96/108
+### runs/r18_20260928/probe_h6_v1.py
+submissions/20260929_r17_edit_shapes/script.py: 정규식만 42/138 · LLM있음 42/138
+submissions/20260929_r18_fresh_holdout/script.py: 정규식만 138/138 · LLM있음 138/138
+### runs/r18_20260928/probe_h7_v1.py
+submissions/20260929_r17_edit_shapes/script.py: 정규식만 18/120 · LLM있음 18/120
+submissions/20260929_r18_fresh_holdout/script.py: 정규식만 78/120 · LLM있음 78/120
+### runs/r18_20260928/probe_h8_v1.py
+submissions/20260929_r17_edit_shapes/script.py: 정규식만 0/120 · LLM있음 0/120
+submissions/20260929_r18_fresh_holdout/script.py: 정규식만 72/120 · LLM있음 72/120
+### runs/r18_20260928/probe_h9_v1.py
+submissions/20260929_r17_edit_shapes/script.py: 정규식만 12/120 · LLM있음 12/120
+submissions/20260929_r18_fresh_holdout/script.py: 정규식만 54/120 · LLM있음 54/120

@@ -1,0 +1,14 @@
+[model2] todo 11 (done 0)
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+  11/11 15s
+[model2] todo 9 (done 0)
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+  9/9 13s
+[model2] todo 38 (done 0)
+/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS/.venv/lib/python3.13/site-packages/transformers/audio_utils.py:821: UserWarning: At least one mel filter has all zero values. The value for `num_mel_filters` (128) may be set too high. Or, the value for `num_frequency_bins` (257) may be set too low.
+  warnings.warn(
+  20/38 29s
+  38/38 50s
+ALLDONE
