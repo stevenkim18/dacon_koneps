@@ -1,7 +1,8 @@
 # 나라장터 자체입찰 공고 법령 위반사항 모니터링 AI 경진대회 정리
 
 > 확인 기준: 2026-09-15 KST  
-> DACON 공식 페이지와 토크 게시판의 운영 답변을 함께 정리했습니다.
+> DACON 공식 페이지와 토크 게시판의 운영 답변을 함께 정리했습니다.  
+> **대회는 2026-09-30에 끝났습니다.** 최종 결과는 [제출 이력](../submissions/README.md#최종-결과), 대회 후 정리는 [회고](06_wrap_up/01_retrospective.md)와 [최종 제출물 재현하기](06_wrap_up/02_reproduce.md)를 봅니다. 아래 1~6절은 대회 초(09-15) 공식 페이지 요약입니다.
 
 ## 상세 문서
 
@@ -13,7 +14,8 @@
 | 데이터 | [데이터 개요](02_data/01_overview.md) · [상세 명세](02_data/02_detailed-spec.md) · [dev 200건 분석](02_data/03_dev-200-analysis.md) · [무라벨 20,000건 분석](02_data/04_train-unlabeled-20000-analysis.md) |
 | 베이스라인 | [코드 공유 목록](03_baselines/01_codeshare.md) · [Gemma](03_baselines/02_gemma.md) · [Gemma + 법령 RAG](03_baselines/03_rag.md) |
 | 토크 게시판 | [운영 답변과 점수 개선 정보 (2026-09-18)](01_competition/05_talkboard_findings.md) |
-| 실험·제출 기록 | [제출 이력과 현재 결정](../submissions/README.md) · [로컬 실행 결과](../runs/README.md) · [자가 라벨](../labels/README.md) · 날짜별 [study log](05_study_log/) (최신: [09-23 ⑤ 위반 공고는 실제 공고를 고쳐 만든 것 · 0.78 경로](05_study_log/20260923/5.%20edited_notices_dataset_model.md) · [09-23 ② dev 구성(위반 91 + 5월 109) · int8 인용 보정](05_study_log/20260923/2.%20dev_structure_and_int8_quote_port.md) · [09-23 ① 105위 · 클라우드 int8 실험(LLM 직접 판정 기각)](05_study_log/20260923/1.%20leaderboard_gap_and_cloud_int8_plan.md) · [09-22 ① 규칙 레버 전수 측정](05_study_log/20260922/1.%20rule_levers_swept_and_lost_port.md) · [09-22 ② dev에서 안 보이는 개념 혼동](05_study_log/20260922/2.%20concept_confusion_invisible_in_dev.md)) |
+| 실험·제출 기록 | [제출 이력과 최종 결과](../submissions/README.md) · [로컬 실행 결과](../runs/README.md) · [자가 라벨](../labels/README.md) · [연구 일지 목록](05_study_log/README.md) |
+| 대회 후 정리 | [회고](06_wrap_up/01_retrospective.md) · [최종 제출물 재현하기](06_wrap_up/02_reproduce.md) |
 
 이 파일은 빠른 확인용 요약이고, 제출 제약·필드 정의·실행 환경처럼 세부적인 내용은 위 상세 문서를 기준으로 확인합니다.
 
@@ -392,20 +394,22 @@ assembly_policy_version
 
 ## 7. 프로젝트 구현 체크리스트
 
-- [ ] `dev`와 `sample_submission.csv`로 입출력 형식 검증
-- [ ] `baseline/script.py --mock` 실행
-- [ ] 20,000건 비라벨 데이터 자기 라벨링
-- [ ] 공고문 우선, 첨부문서 순서대로 context 구성
-- [ ] `meta` 21개 필드 활용
-- [ ] 고정 Gemma를 공고마다 최소 1회 호출
-- [ ] 법령 패키지 기반 정적 RAG 구성
-- [ ] 구조화 JSON 출력 및 파싱 실패 fallback 구현
-- [ ] `v` 값은 0/1만 출력
-- [ ] `e` 값은 원문에서 정확히 추출
-- [ ] `v10/v11/v16/v18/v20`의 근거 문구는 공란 처리
-- [ ] `__main__` 가드 사용
-- [ ] `PPS_*` 환경 변수 사용
-- [ ] 최종 CSV 49개 컬럼·ID·행 수 검증
-- [ ] 2026.09.29 10:00 이전에 제출 완료
+대회 첫날(09-15) 만든 목록에 최종 제출(`20260929_r18_fresh_holdout`) 기준 결과를 표시했습니다(09-30). 근거는 그 후보의 `validation.log`와 `script.py`입니다.
+
+- [x] `dev`와 `sample_submission.csv`로 입출력 형식 검증
+- [x] `baseline/script.py --mock` 실행 (09-15 `20260915_baseline` README)
+- [ ] 20,000건 비라벨 데이터 자기 라벨링 — 부분: 손라벨은 무라벨 750건 표본, 20,000건은 정규식 재생과 새 적중 판독([자가 라벨](../labels/README.md))
+- [x] context 구성 — '공고문 우선' 대신 호출마다 필요한 줄을 모으는 발췌 그물로 바꿨다(예: 모델명 호출은 규격서 우선)
+- [x] `meta` 필드 활용 — 금액·계약유형 등을 판정기가 직접 사용
+- [x] 고정 Gemma를 공고마다 최소 1회 호출 (본 호출)
+- [ ] 법령 패키지 기반 정적 RAG 구성 — 하지 않음. 법령 조건을 Python 판정기로 옮겼다([회고](06_wrap_up/01_retrospective.md) 3절)
+- [x] 구조화 JSON 출력 및 파싱 실패 fallback 구현 (vLLM JSON 스키마 출력 + 정규식 사실로 보완)
+- [x] `v` 값은 0/1만 출력
+- [x] `e` 값은 원문에서 정확히 추출 (근거 요건 위반 0)
+- [x] `v10/v11/v16/v18/v20`의 근거 문구는 공란 처리 (자가검증 포함)
+- [x] `__main__` 가드 사용
+- [x] `PPS_*` 환경 변수 사용
+- [x] 최종 CSV 49개 컬럼·ID·행 수 검증 (mock 10·950건)
+- [x] 2026.09.29 10:00 이전에 제출 완료 (15회, 마지막 09-29)
 
 가장 중요한 방향은 **고정 LLM 호출 + 제공 법령 패키지 기반 판단 + 정확한 원문 근거 추출 + 엄격한 제출 형식 검증**입니다.
