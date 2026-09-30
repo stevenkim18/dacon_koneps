@@ -4,6 +4,43 @@
 
 제출 ZIP에는 넣지 않는다.
 
+## 폴더 목록 (2026-09-30 정리)
+
+폴더마다 자기 `README.md`가 있으면 링크했다. 없는 것은 이 문서의 해당 절이나 연결된 기록을 본다. 대부분의 도구는 저장소 루트에서 `.venv/bin/python runs/<폴더>/<파일>`로 실행하고, GPU 없이 저장된 출력과 무라벨 20,000 정규식 재생만 쓴다.
+
+| 폴더 | 날짜 | 내용 | 결과물·기록 |
+|---|---|---|---|
+| `mlx/` | 09-17~ | 로컬 MLX 4bit 기본 출력(dev 200 · 무라벨 250/500)과 dev 전용 호출 출력. 이 문서 아래 `mlx/` 절 | 거의 모든 후보의 재채점 입력 |
+| [`review_sme_recall_20260918/`](review_sme_recall_20260918/README.md) | 09-18 | `sme_recall` 제출 전 리뷰 | [`20260919_sme_recall_reviewed`](../submissions/20260919_sme_recall_reviewed/README.md) |
+| [`final_20260919/`](final_20260919/README.md) | 09-19 | 09-19 최종 후보(R1+C3+W1+Y1+P+T2), 재추론 없이 재채점 | 미제출 |
+| [`item_fallback_20260919/`](item_fallback_20260919/README.md) | 09-19 | v20 제48조 + 품목 meta 대체(R1+C3) | 미제출 |
+| [`v20_sw48_20260919/`](v20_sw48_20260919/README.md) | 09-19 | v20 대기업 참여제한 탐지 보강(R1) | 미제출 |
+| [`final_20260920/`](final_20260920/README.md) | 09-20 | 기업규모 수준 오독 2종 수정 | 미제출 |
+| `v21_full_context_20260920/` | 09-20~21 | 발췌 그물 확장(S1)과 전용 호출(S2)을 나눠 잰 dev 생성. 이 문서 아래 절. `generate.sh`의 후보 폴더는 남아 있지 않다 | S1 기각 · S2 채택 → [`20260921_recall_first`](../submissions/20260921_recall_first/README.md) |
+| [`rejected_20260921/`](rejected_20260921/README.md) | 09-21 | 측정으로 기각한 후보 코드(`metacmp` v24 대조 전용 호출, `candlist` 후보 목록 교체) | 기각 |
+| `v22_focused_20260921/` | 09-21 | 실적·지역 전용 호출 dev 생성(`generate.sh` · `dev.log` · `exp_tight_gate.py`) | 지역 채택 · 실적 기각 → [`20260922_focused_calls`](../submissions/20260922_focused_calls/README.md) |
+| `v22_goods_20260921/` | 09-21 | 물품 품목 전용 호출 dev 생성 | 기각([`submissions/README.md`](../submissions/README.md) '닫힌 문') |
+| `v24_metacmp_20260921/` | 09-21 | v24 대조 전용 호출 dev 생성과 변형(`exp_*.py`). 해석은 `rejected_20260921/README.md` | 판정 변화 0건, 기각 |
+| `thinking_20260922/` | 09-22 | Gemma 4 thinking 모드 시험. 이 문서 아래 09-22 절 | 기각 |
+| [`cloud_int8_20260923/`](cloud_int8_20260923/README.md) | 09-23 | 클라우드 int8(서버와 같은 vLLM·양자화) dev 200 실행 | int8 dev 0.8468 |
+| [`cloud_int8_exp/`](cloud_int8_exp/README.md) | 09-23 | int8 실험 묶음(실적·물품 호출 재시험, LLM 직접 판정) | 전부 기각 |
+| [`int8_port_20260923/`](int8_port_20260923/README.md) | 09-23 | int8 출력 형식 보정 도구·변형(`devtool.py`는 이후 도구들이 함께 씀) | [`20260924_int8_quote_port`](../submissions/20260924_int8_quote_port/README.md) |
+| [`edit_model_20260923/`](edit_model_20260923/README.md) | 09-23 | 편집 공고 모형 실험(압축을 푼 `open/dev.jsonl`을 읽는다) | [`20260924_edit_model_combo`](../submissions/20260924_edit_model_combo/README.md)(보류) |
+| [`review_20260924/`](review_20260924/README.md) | 09-24 | 09-24 검토 도구. `devscore.sh`(dev 재채점 3벌)는 이후 후보 검증에도 썼다 | study log 09-24 ①② |
+| [`sme_sentence_20260924/`](sme_sentence_20260924/README.md) | 09-24 | 평가셋 구성 적합 · int8/4bit 차이 · 여러 줄 기업규모 문장 · v17 수의계약 | [`20260927_sme_sentence_v17`](../submissions/20260927_sme_sentence_v17/README.md) |
+| [`review_20260925/`](review_20260925/README.md) | 09-25 | 후보 재검토(서버 경로) · 안전망 · 소액수의 대비판 생성기 | [`20260926_private_scope_safetynet`](../submissions/20260926_private_scope_safetynet/README.md) 등 |
+| [`scope_audit_20260925/`](scope_audit_20260925/README.md) | 09-25 | 법령 적용 범위 전수 대조 · 편집 문장 재현율 | [`20260927_private_scope_recall`](../submissions/20260927_private_scope_recall/README.md) |
+| [`review_20260926/`](review_20260926/README.md) | 09-26 | 09-27 후보 재검토 | [`20260927_scope_cleanup`](../submissions/20260927_scope_cleanup/README.md) |
+| [`recall_probe_20260926/`](recall_probe_20260926/README.md) | 09-26 | 새 표현 주입 탐침 R1~R9(+R14 `make_round3.py`) | [`20260927_scope_recall`](../submissions/20260927_scope_recall/README.md) · [`20260928_plus_r3`](../submissions/20260928_plus_r3/README.md) |
+| [`wrapjoin_20260927/`](wrapjoin_20260927/README.md) | 09-27 | 줄바꿈 문장 이어 읽기(W)와 R15 | [`20260928_wrap_r15`](../submissions/20260928_wrap_r15/README.md) |
+| [`r16_20260927/`](r16_20260927/README.md) | 09-27 | 제외어가 지우던 자격 문장 되살리기(R16) | [`20260928_wrap_r16`](../submissions/20260928_wrap_r16/README.md) |
+| [`del_probe_20260928/`](del_probe_20260928/README.md) | 09-28 | 지우기·바꾸기 편집 탐침(정규식 경로) | [`20260929_r17_edit_shapes`](../submissions/20260929_r17_edit_shapes/README.md) |
+| [`r17_20260928/`](r17_20260928/README.md) | 09-28 | R17 후보 생성·검증 | [`20260929_r17_edit_shapes`](../submissions/20260929_r17_edit_shapes/README.md) |
+| [`r18_20260928/`](r18_20260928/README.md) | 09-28 | R18 새 보류 세트로 다시 재기 | [`20260929_r18_fresh_holdout`](../submissions/20260929_r18_fresh_holdout/README.md)(최종 제출) |
+| `replay_cache/` | — | `scripts/replay_unlabeled.py` 판정 캐시. **git 제외**, 지워도 다시 만들어진다 | — |
+
+루트의 로그·스크립트: `queue_20260921.sh`·`.log`(09-21 GPU 직렬 큐) · `v21_sme_unlabeled.log` · `v22_region_unlabeled.log`(무라벨 전용 호출 생성) · `v22_candlist_20260921.log`·`v22_candlist_score.log`(후보 목록 교체, 기각) · `win_dev_20260921.log`(원문 전체 창 분할, 기각) · `gate_ablation_20260922.log`(아래 09-22 절).
+
 ## mlx/
 
 ### rule_extract 계열 (현재 후보가 쓰는 출력)
