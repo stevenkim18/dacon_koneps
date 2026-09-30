@@ -1,6 +1,6 @@
 # safetynet_vague_perf — 09-26 권장판: 안전망 판 + 막연한 실적 요구(P2)
 
-상태: **채택 · 현재 최고점(2026-09-26 제출, Public 0.7065958482).** 기준은 [`20260926_private_scope_safetynet`](../20260926_private_scope_safetynet/README.md)(미제출). 그 판의 모든 변경(09-26 표현·파서 보강, v1fix, 소액수의 v10·v17, v3·v23 재현율, 여러 줄 기업규모 문장, v13·v15·v19 안전망)은 그대로 두고, **판정기의 실적 정규식 한 곳(P2)**만 넓혔다.
+상태: **채택 · 당시 최고점(2026-09-26 제출, Public 0.7065958482).** 기준은 [`20260926_private_scope_safetynet`](../20260926_private_scope_safetynet/README.md)(미제출). 그 판의 모든 변경(09-26 표현·파서 보강, v1fix, 소액수의 v10·v17, v3·v23 재현율, 여러 줄 기업규모 문장, v13·v15·v19 안전망)은 그대로 두고, **판정기의 실적 정규식 한 곳(P2)**만 넓혔다.
 현재 최고점은 Public **0.7053174255** [`20260925_v8nat_v22fix_v21wide`](../20260925_v8nat_v22fix_v21wide/README.md)다. LLM 호출·프롬프트·출력 예산은 09-25 제출본과 같다(`run()`·`main()` 이하 코드 동일, 960건에서 LLM 메시지·호출 대상 차이 0건 → 예상 서버 시간 약 51분).
 생성기: [`runs/review_20260925/make_vague_perf.py`](../../runs/review_20260925/make_vague_perf.py) — `make_vague_perf.py <safetynet script.py> <out>`.
 

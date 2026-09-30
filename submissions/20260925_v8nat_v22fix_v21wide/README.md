@@ -1,6 +1,6 @@
 # v8nat_v22fix_v21wide — int8_quote_port + v8 국가계약 + v22 정규식 수정판 + v21 지분 표현 확장
 
-상태: **채택 · 현재 기준(최고점). 2026-09-25 제출, Public 0.7053174255 (+0.0145018075).** 기준은 [`20260924_int8_quote_port`](../20260924_int8_quote_port/README.md)(Public 0.690815618).
+상태: **채택 · 당시 최고점. 2026-09-25 제출, Public 0.7053174255 (+0.0145018075).** 기준은 [`20260924_int8_quote_port`](../20260924_int8_quote_port/README.md)(Public 0.690815618).
 판정기의 정규식과 판정 줄만 바뀌었다. LLM 호출·프롬프트·출력 예산은 기준과 같다(예상 서버 시간은 기준과 같은 약 51분).
 근거와 재검토 과정: [study log 09-24 ①](../../docs/05_study_log/20260924/1.%20int8_quote_port_result_and_next.md)(v8·v22 측정) · [09-24 ②](../../docs/05_study_log/20260924/2.%20rereview_zero_cost_broadening.md)(v21과 기각한 방안).
 
