@@ -2,7 +2,8 @@
 정규식 경로·서버 경로(저장 LLM 출력 유지) 재현율을 두 판에서 비교한다. 문장은 dev v1 정답 말투(기관 유형만 참가·회원사·지사망·인원)를 본떴다.
   python runs/r17_20260928/probe_h5_v1.py BASE.py VAR.py [nb=6]"""
 import sys, json, gzip, re, copy, random, importlib.util
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2])
 H5 = [  # 09-28 R18 H6(v1 보류 세트): V1X 설계 전에 새로 쓴 문장 — 이름은 H5 코드 재사용을 위해 그대로 둔다
     "가. 입찰참가자격: 「고등교육법」에 따른 전문대학 이상 교육기관",
     "○ 본 과업은 국립대학교 산학협력단에 한정하여 발주합니다.",

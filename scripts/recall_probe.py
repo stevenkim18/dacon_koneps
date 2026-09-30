@@ -24,7 +24,8 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_SCRIPT = ROOT / "submissions" / "20260921_full_context" / "script.py"
+# 원래 기본값 20260921_full_context는 이름이 바뀌어 없다 → 그 후보를 이어 제출한 recall_first를 쓴다
+DEFAULT_SCRIPT = ROOT / "submissions" / "20260921_recall_first" / "script.py"
 
 
 def log(msg: str) -> None:

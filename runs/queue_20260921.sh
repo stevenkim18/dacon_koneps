@@ -11,7 +11,7 @@ log "선행 작업 종료 확인"
 
 # 1) C: 본 호출 후보 목록 교체 — dev 200건 재추론(약 70분)
 log "C 시작: 후보 목록 교체 본 호출 재생성"
-$P scripts/mlx_eval_extract.py --script submissions/20260922_candlist/script.py \
+$P scripts/mlx_eval_extract.py --script runs/rejected_20260921/candlist/script.py \
   --outputs runs/mlx/v22_candlist_main_dev.jsonl \
   --item-outputs runs/mlx/item_outputs.jsonl --model-outputs runs/mlx/model_outputs.jsonl \
   --sme-outputs runs/mlx/v21_sme_dev.jsonl --region-outputs runs/mlx/v22_region_dev.jsonl --cv \

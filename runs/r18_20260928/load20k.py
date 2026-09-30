@@ -2,11 +2,12 @@
 import gzip, json, pickle
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-CP = Path("/Users/seungwookim/.claude/jobs/81b11c94/tmp/u20k.pkl")
+CP = ROOT / "runs" / "replay_cache" / "u20k.pkl"
 def load():
     if CP.exists():
         return pickle.load(open(CP, "rb"))
     recs = [json.loads(l) for l in gzip.open(ROOT / "open" / "train_unlabeled.jsonl.gz", "rt", encoding="utf-8")]
+    CP.parent.mkdir(parents=True, exist_ok=True)
     pickle.dump(recs, open(CP, "wb"))
     return recs
 if __name__ == "__main__":

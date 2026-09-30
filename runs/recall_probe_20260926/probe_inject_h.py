@@ -3,7 +3,7 @@ usage: probe_inject.py SCRIPT.py [SCRIPT2.py ...] [item,item]
 SME items use base notices whose regex AND saved-LLM level are both '없음' (append = realistic edit)."""
 import json, gzip, re, sys, copy, importlib.util, random, collections
 from pathlib import Path
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+ROOT = str(Path(__file__).resolve().parents[2])
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from probe_paraphrases import Q, H
 

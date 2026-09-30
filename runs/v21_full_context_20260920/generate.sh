@@ -3,6 +3,8 @@
 set -u
 cd "$(dirname "$0")/../.."
 P=.venv/bin/python
+# 주의(09-30): submissions/20260921_full_context는 남아 있지 않다. S2(전용 호출)는 20260921_recall_first에 들어갔고
+# S1(그물 확장, 기각) 프롬프트를 담은 판은 저장소에서 찾지 못했다. 그래서 이 스크립트는 그대로는 돌지 않는 기록용이다.
 S=submissions/20260921_full_context/script.py
 OUT=runs/v21_full_context_20260920
 

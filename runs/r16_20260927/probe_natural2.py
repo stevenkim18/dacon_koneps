@@ -2,7 +2,8 @@
 위반형으로 최소 편집한 뒤 알맞은 공고(무라벨 750, 저장 출력 있음)에 넣는다.
   python runs/r16_20260927/probe_natural2.py BASE.py [VAR.py] [n_lines=60] [nb=4] [show=N]"""
 import sys, gzip, json, re, random, copy, hashlib, importlib.util, collections
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2])
 args = sys.argv[1:]; paths = [a for a in args if a.endswith(".py")]; opts = dict(a.split("=", 1) for a in args if "=" in a)
 NL = int(opts.get("n_lines", 60)); NB = int(opts.get("nb", 4))
 def load(p):

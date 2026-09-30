@@ -2,7 +2,7 @@
 usage: struct_probe.py SCRIPT.py [SCRIPT2.py] [transforms=T0,T1,...] [items=v2,v4]"""
 import json, gzip, re, sys, copy, importlib.util, random, collections
 from pathlib import Path
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+ROOT = str(Path(__file__).resolve().parents[2])
 sys.path.insert(0, ROOT + "/runs/recall_probe_20260926")
 sys.path.insert(0, ROOT + "/runs/edit_model_20260923")
 sys.path.insert(0, ROOT + "/runs/wrapjoin_20260927")

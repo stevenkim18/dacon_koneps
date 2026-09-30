@@ -2,7 +2,8 @@
 정규식 경로·서버 경로(저장 LLM 출력 유지) 재현율을 두 판에서 비교한다. 문장은 dev v1 정답 말투(기관 유형만 참가·회원사·지사망·인원)를 본떴다.
   python runs/r17_20260928/probe_h5_v1.py BASE.py VAR.py [nb=6]"""
 import sys, json, gzip, re, copy, random, importlib.util
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2])
 H5 = [
     "다. 본 입찰은 「고등교육법」 제2조에 따른 대학교(대학원 포함)만 참가할 수 있습니다.",
     "○ 입찰참가자격: 한국○○학회 등록 회원기관에 한함",

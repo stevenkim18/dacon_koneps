@@ -5,7 +5,8 @@
 줄 추출은 기준·후보 스크립트의 추출기와 무관한 넓은 정규식으로 하고, 설계에 쓰지 않은 공고(id 해시 홀수)만 쓴다.
   python runs/r16_20260927/probe_natural.py BASE.py VAR.py [n_lines=80] [nb=4]"""
 import sys, gzip, json, re, random, copy, hashlib, importlib.util, collections
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2])
 args = sys.argv[1:]; paths = [a for a in args if a.endswith(".py")]; opts = dict(a.split("=", 1) for a in args if "=" in a)
 NL = int(opts.get("n_lines", 80)); NB = int(opts.get("nb", 4))
 def load(p):

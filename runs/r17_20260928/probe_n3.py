@@ -4,7 +4,8 @@
  - v5: 입찰자 소재지 자격 줄(시·도 하나) 그대로 → meta 지역제한 N·고시금액 이상(지방 5억 이상) 공고.
   python runs/r17_20260928/probe_n3.py BASE.py [VAR.py] [n_lines=80] [nb=4] [show=40]"""
 import sys, gzip, json, re, random, copy, hashlib, importlib.util, collections
-ROOT = "/Users/seungwookim/Code/edu/SeSac/contest/DACON_KONEPS"
+from pathlib import Path
+ROOT = str(Path(__file__).resolve().parents[2])
 args = sys.argv[1:]; paths = [a for a in args if a.endswith(".py")]; opts = dict(a.split("=", 1) for a in args if "=" in a)
 NL = int(opts.get("n_lines", 80)); NB = int(opts.get("nb", 4))
 

@@ -16,4 +16,4 @@
 | `fake_runner_test.py` | MockRunner.chat을 JSON 가짜로 바꿔 run() 전 단계(보조 호출 포함)를 돌린다 |
 | `v20_scan*.py` · `v24_method*.py` · `v24_amount.py` · `v19_list_scan.py` · `v1x_scan.py` | 기각·판독용 스캔 |
 | `validate.sh` · `final_*.log` · `timing.py` | 검증(패키지 `validation.log`로 모음) |
-| `load20k.py` | 무라벨 20,000 pickle 캐시(작업 임시 폴더) |
+| `load20k.py` | 무라벨 20,000 pickle 캐시(`runs/replay_cache/u20k.pkl`, 없으면 만든다) |
